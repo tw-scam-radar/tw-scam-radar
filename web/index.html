@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>台灣詐騙雷達</title>
+<meta name="description" content="貼上可疑的訊息或網址，幫你看有沒有詐騙跡象。">
+<style>
+  :root {
+    --bg: #f7f5f0; --card: #ffffff; --fg: #1d1b18; --muted: #5f5a52; --line: #ddd6ca;
+    --accent: #1f5f8b; --high: #b3261e; --sus: #c25e00; --notice: #8a6d00; --ok: #3f6b3f;
+    --high-bg: #fdecea; --sus-bg: #fff1e3; --notice-bg: #fbf5d9; --ok-bg: #edf4ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161513; --card: #22201d; --fg: #f1ede6; --muted: #b7b0a5; --line: #3a3631;
+      --accent: #7fb6dd; --high: #ff8a80; --sus: #ffb366; --notice: #e6cf6a; --ok: #9fcf9f;
+      --high-bg: #3a1f1d; --sus-bg: #3a2a1a; --notice-bg: #34301a; --ok-bg: #1f2e1f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+    font: 18px/1.7 "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 28px; margin: 8px 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 18px; }
+  textarea { width: 100%; min-height: 160px; padding: 14px; font: inherit; color: var(--fg);
+    background: var(--card); border: 2px solid var(--line); border-radius: 10px; resize: vertical; }
+  textarea:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  button { font: inherit; font-weight: 700; padding: 12px 22px; border-radius: 10px; border: 0; cursor: pointer; }
+  .primary { background: var(--accent); color: #fff; }
+  .ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-top: 18px; }
+  .verdict { font-size: 24px; font-weight: 800; margin: 0 0 6px; }
+  .lv-high { background: var(--high-bg); border-color: var(--high); } .lv-high .verdict { color: var(--high); }
+  .lv-sus { background: var(--sus-bg); border-color: var(--sus); } .lv-sus .verdict { color: var(--sus); }
+  .lv-notice { background: var(--notice-bg); border-color: var(--notice); } .lv-notice .verdict { color: var(--notice); }
+  .lv-ok { background: var(--ok-bg); border-color: var(--ok); } .lv-ok .verdict { color: var(--ok); }
+  h3 { font-size: 18px; margin: 14px 0 4px; }
+  ul { margin: 4px 0; padding-left: 22px; }
+  .note { color: var(--muted); font-size: 16px; }
+  .hit { font-size: 15px; color: var(--muted); }
+  .call { display: inline-block; margin-top: 8px; font-weight: 800; color: var(--accent); text-decoration: none; }
+  footer { margin-top: 32px; color: var(--muted); font-size: 15px; }
+  #status { color: var(--muted); font-size: 15px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>台灣詐騙雷達</h1>
+  <p class="sub">把可疑的簡訊、LINE 訊息或網址貼上來，幫你看有沒有詐騙跡象。</p>
+
+  <label for="msg" class="note">訊息內容（可以先把姓名、電話、帳號刪掉，或改成○○）</label>
+  <textarea id="msg" placeholder="例如：您的帳戶因系統錯誤被設定成分期付款，請盡快到 ATM 解除設定……"></textarea>
+  <div class="row">
+    <button id="check" class="primary" disabled>檢查</button>
+    <button id="clear" class="ghost">清除</button>
+  </div>
+  <div id="status">載入資料中……</div>
+
+  <section id="result" hidden></section>
+  <section id="ai" hidden></section>
+
+  <footer>
+    <p>有疑問請直接撥打 <a class="call" href="tel:165">165 反詐騙諮詢專線</a></p>
+    <p id="meta"></p>
+    <p>判斷依據是公開的詐騙手法資料與 165 官方涉詐網址名單，程式也全部公開。沒有發現詐騙跡象，不代表一定安全；只要對方要你匯款、給驗證碼、下載 App 或交出提款卡，先停下來打 165 問。</p>
+  </footer>
+</main>
+<script src="config.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

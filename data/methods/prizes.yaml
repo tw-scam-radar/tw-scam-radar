@@ -1,0 +1,435 @@
+- id: fake-prize
+  name: 假中獎、假抽獎，要你先繳稅金或手續費才能領獎
+  aliases:
+  - 假中獎
+  - 中獎通知詐騙
+  - 假抽獎
+  category: 中獎優惠
+  summary: 你在社群參加抽獎，甚至根本沒參加，卻接到「中獎」通知；「專員」要你先繳稅金、手續費或核實金，或要你在網頁輸入信用卡資料才能領獎。
+  status: active
+  first_seen: '2024'
+  channels:
+  - IG
+  - 臉書
+  - LINE
+  - LINE 群組
+  - 電話
+  - 簡訊
+  pretend_to_be:
+  - 抽獎活動客服
+  - 領獎專員
+  - 財政部
+  stages:
+  - stage: 接觸
+    what_you_see: 在 IG、臉書看到抽獎或送書活動；或沒參加任何活動，卻接到電話、簡訊說你中獎。
+  - stage: 取信
+    what_you_see: 「專員」加你 LINE 核對身分，看起來像正式的領獎流程。
+  - stage: 要求行動
+    what_you_see: 說領獎前要先繳稅金、手續費或核實金；或簡訊附連結，要你選信用卡、金融卡領獎並輸入卡片資料。
+  - stage: 收網後
+    what_you_see: 匯款後拿不到獎品、對方失聯；有人被拉進 LINE 群組灌輸投資，損失更多；輸入卡片資料的人被盜刷。
+  opener_examples:
+  - 恭喜你抽中大獎，請加客服 LINE 核對身分後領獎。
+  - 發票中獎通知，請點連結選擇領獎方式。
+  red_flags:
+  - id: pay-before-prize
+    text: 領獎前要先匯款、繳稅金、手續費或核實金
+    cues:
+    - 繳稅金
+    - 提前繳納
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 核實金
+    - 領獎前先匯款
+    - 銀行直接協助
+    weight: 3
+  - id: card-details-for-prize
+    text: 領獎要輸入信用卡號、安全碼
+    cues:
+    - 信用卡資料
+    - 安全碼
+    - re:發票中獎.{0,20}(點|連結|網址|輸入|填寫|信用卡|卡號)
+    - 載具歸戶異常
+    weight: 3
+  - id: won-without-entering
+    text: 沒參加活動卻說你中獎
+    cues:
+    - 中獎通知
+    - 抽中
+    - 中獎
+    weight: 1
+  - id: prize-specialist-line
+    text: 「專員」「客服」要你加 LINE 才能領獎
+    cues:
+    - 專員
+    - re:(加|聯繫|聯絡|私訊).{0,6}(客服|專員|助理).{0,6}(line|賴|telegram|whatsapp)
+    - re:(line|賴).{0,4}(客服|專員)
+    - 加LINE
+    - LINE客服
+    weight: 2
+  final_ask:
+  - 先匯稅金、手續費或核實金才能領獎。
+  - 在網頁輸入信用卡號、安全碼等資料領獎。
+  verify:
+  - 自己開官方網站或官方 App 查詢是否中獎，不點簡訊或信件裡的連結；政府網站網址的結尾是「.gov.tw」。
+  - 撥打 165 反詐騙諮詢專線查證。
+  safe_lookalikes:
+  - 統一發票中獎可以自己到官方平台查；官方不會用電子郵件或簡訊要你輸入信用卡資料。
+  if_already_happened:
+  - 撥打 165 反詐騙專線諮詢或報案。
+  prevalence:
+    note: 公視 2024 年 10 月報導「中獎通知詐騙竄升」（報導未附整體數字）。
+    source_url: https://news.pts.org.tw/article/720140
+  sources:
+  - title: 中獎通知詐騙竄升　民眾誤信遭詐8萬元
+    publisher: 公視
+    date: '2024-10-18'
+    url: https://news.pts.org.tw/article/720140
+    level: L2
+    supports:
+    - aliases
+    - first_seen
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+  - title: 抽獎贈理財書詐受害者50萬　內政部預告檢舉獎金最高達千萬
+    publisher: 公視
+    date: '2024-12-07'
+    url: https://news.pts.org.tw/article/727773
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+  - title: 收到中獎通知別急著點！財政部揭詐團假簡訊2大破綻
+    publisher: 工商時報（中時新聞網）
+    date: '2026-08-01'
+    url: https://www.ctee.com.tw/news/20260801700515-430404
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - fake-freebie
+  - fake-celebrity-ad
+  updated: '2026-10-22'
+- id: fake-celebrity-ad
+  name: 假名人代言廣告（投資、保健品、課程）
+  aliases:
+  - 冒名名人投資廣告
+  - 涉詐廣告
+  - AI假醫師
+  - 深偽廣告
+  category: 中獎優惠
+  summary: 在臉書、YouTube 等平台看到名人或名醫推薦的投資群組、神奇保健品，其實是冒名，或用 AI 換臉、仿聲做的假影片（深偽）；點進去會被拉進投資群組，一步步要你匯款，或被推銷來路不明的藥品。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 臉書
+  - 臉書廣告
+  - YouTube
+  - LINE 群組
+  pretend_to_be:
+  - 財經名人
+  - 名醫
+  - 醫院院長
+  - 合法金融機構
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、YouTube 或社群看到名人、名醫推薦的廣告或影片，常打著「贈書」「知識分享」「免費領取」。
+  - stage: 取信
+    what_you_see: 假帳號的簡介和貼文還寫著「小心詐騙、不會要求粉絲匯款」，讓你以為是本人。
+  - stage: 要求行動
+    what_you_see: 點連結後被拉進 LINE 投資群組、要你填個資、下載投資 App；或被引導購買影片推銷的藥品、保健食品。
+  - stage: 收網後
+    what_you_see: 投入大筆錢後，對方以各種收費或延遲出金為由，再要你付更多錢。
+  opener_examples:
+  - 財經名人親自分享選股心法，加入群組就免費領取。
+  - 名醫推薦這款保健食品，眼睛問題一次改善。
+  red_flags:
+  - id: celebrity-invites-to-group
+    text: 名人廣告用贈書、免費領取等名義，引導你加入投資群組
+    cues:
+    - 免費領取
+    - 贈書
+    - 知識分享
+    - 加入群組
+    - 投資群組
+    weight: 2
+  - id: anti-scam-disclaimer-bait
+    text: 帳號特別強調「小心詐騙、不會要求匯款」來取信
+    cues:
+    - 小心詐騙
+    - 遏止受害
+    - 不會要求粉絲匯款
+    weight: 1
+  - id: doctor-endorses-product
+    text: 醫師、院長出面推銷藥品或保健食品
+    cues:
+    - 名醫推薦
+    - 醫師推薦
+    - 醫師代言
+    - 院長推薦
+    - 保健食品
+    weight: 2
+  final_ask:
+  - 加入 LINE 投資群組、下載投資 App，照指示匯款買賣。
+  - 購買影片推銷的藥品或保健食品。
+  verify:
+  - 名人的臉書帳號或粉專要認明藍勾勾認證；真正的名人不會主動邀好友、帶會員操作、自稱老師或要你出資金。
+  - 醫院醫師不會代言商業產品，可上醫院官網查詢。
+  - 看健康資訊先問三件事：來源是否專業、是否有臨床證據、是否過度誇大。
+  - 撥打 165 查證，或到數位發展部「網路詐騙通報查詢網」查詢、通報涉詐內容。
+  safe_lookalikes:
+  - 名人本人的帳號通常有藍勾勾認證，也不會私訊邀你加群組或要你出資。
+  if_already_happened:
+  - 被拉進 LINE 群組時，不要提供個資或匯款；看到這類網站就立刻離開。
+  - 撥打 165 反詐騙專線或上 165 全民防騙網查證。
+  - 身體不適請直接就醫，不要在網路上買來路不明的藥品。
+  prevalence:
+    note: 金管會統計，2023 年 4 月至 2026 年 3 月累計蒐報下架逾 10.7 萬件涉詐廣告，手法包括假借名人、合法金融機構名義投放廣告。
+    source_url: https://ec.ltn.com.tw/article/breakingnews/5398915
+  sources:
+  - title: 冒名○○○刊投資廣告還加警語　刑事局：詐騙新招
+    publisher: 中央社
+    date: '2024-03-24'
+    url: https://www.cna.com.tw/news/afe/202403240110.aspx
+    level: L2
+    supports:
+    - aliases
+    - first_seen
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 金管會：近三年主動下架　逾10.7萬件涉詐廣告
+    publisher: 自由時報
+    date: '2026-04-09'
+    url: https://ec.ltn.com.tw/article/breakingnews/5398915
+    level: L2
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - prevalence
+  - title: AI偽造慈濟醫師影像賣藥　衛生局籲勿網購不明藥品
+    publisher: 公視
+    date: '2026-06-17'
+    url: https://news.pts.org.tw/article/813410
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 「AI假醫師」亂亂講！YouTube深偽影片氾濫　3大原則防被騙
+    publisher: 聯合報（聯合新聞網）
+    date: '2026-03-24'
+    url: https://udn.com/news/story/7266/9398429
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  evidence: 🟢
+  related:
+  - fake-prize
+  - fake-freebie
+  updated: '2026-10-22'
+- id: fake-freebie
+  name: 假免費贈品、假問卷送禮、假集點兌換
+  aliases:
+  - 假問卷抽獎
+  - 會員點數到期簡訊
+  - 免費贈送陷阱
+  category: 中獎優惠
+  summary: 冒用知名品牌、電商或電信名義，用填問卷送好禮、點數即將到期可兌換、免費送手機家電等理由，騙你填個資、輸入信用卡和簡訊驗證碼，或付運費、做「實名認證」。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 簡訊
+  - 電子郵件
+  - LINE
+  - 臉書
+  - Threads
+  pretend_to_be:
+  - 知名品牌
+  - 航空公司
+  - 電商平台客服
+  - 電信公司
+  - 送贈品的賣家
+  stages:
+  - stage: 接觸
+    what_you_see: 收到親友轉傳的品牌週年問卷抽獎、電商或電信「會員點數即將到期」的簡訊，或在 Threads 看到免費送手機、家電的貼文。
+  - stage: 取信
+    what_you_see: 頁面仿冒品牌或官方網站，要你填姓名、電話、Email，還要轉傳給好友或群組才能「達到進度」。
+  - stage: 要求行動
+    what_you_see: 要你輸入身分證字號、信用卡資料和簡訊驗證碼，或付小額運費、刷一元兌換；免費贈品則要你私下加 LINE 聯絡。
+  - stage: 收網後
+    what_you_see: 信用卡被綁定、盜刷；或「客服」說賣家帳號被封鎖，要你做實名認證、金流確認，叫你轉帳或提供付款碼截圖。
+  opener_examples:
+  - 您的會員點數即將到期，請盡速點連結兌換好禮。
+  - 品牌週年慶送好禮，填問卷並分享到群組就能領。
+  - 店家倒閉出清，免費送吹風機，只要付運費。
+  red_flags:
+  - id: points-expiring-sms
+    text: 簡訊說會員點數即將到期，要你點連結兌換
+    cues:
+    - 點數即將到期
+    - 請速兌換
+    - 點數兌換
+    - 回饋資格
+    weight: 2
+  - id: share-to-unlock
+    text: 要你轉傳給好友、群組才能領獎
+    cues:
+    - 分享給
+    - 轉傳
+    - 達到進度
+    - 分享到群組
+    weight: 2
+  - id: card-otp-for-gift
+    text: 領贈品要輸入信用卡、簡訊驗證碼，或刷一元
+    cues:
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    - re:(輸入|填寫|提供|告訴|拍).{0,6}(信用卡|卡號|安全碼|有效期限|背面三碼)
+    - 刷一元
+    - 一塊錢
+    weight: 3
+  - id: free-gift-pay-shipping
+    text: 免費贈送，只要付運費
+    cues:
+    - 免費贈送
+    - 小額運費
+    - 付運費
+    - 倒閉
+    - re:(免費送|免費贈送|閒置).{0,20}(運費|郵資|保證金|手續費|物流費)
+    weight: 2
+  - id: real-name-cashflow-check
+    text: 客服說要實名認證、金流驗證才能出貨或領取
+    cues:
+    - 實名認證
+    - 金流確認
+    - 金流驗證
+    - 帳號已被封鎖
+    - 付款碼
+    weight: 3
+  final_ask:
+  - 在假網頁輸入個資、信用卡資料與簡訊驗證碼。
+  - 付運費，或照「客服」指示轉帳、提供付款碼截圖做認證。
+  verify:
+  - 改開官方 App 或自己輸入官方網址查詢點數；電商通常不會用簡訊通知點數到期，也不會要你透過 LINE 客服兌換。
+  - 有沒有這個活動，以品牌官網或官方管道公布的為準；不明連結不要轉傳。
+  - 撥打 165 反詐騙專線諮詢。
+  safe_lookalikes:
+  - 真正的會員點數資訊可以在官方 App 或官網會員頁查到，不需要點簡訊連結。
+  if_already_happened:
+  - 已輸入信用卡資料：立刻聯繫發卡銀行停卡或凍結交易，通知電商客服，並撥打 165。
+  - 已填個資：之後可能接到來路不明的電話或電子郵件，對方說得出你的資料也別相信。
+  prevalence:
+    note: 2023 年一起假冒電信點數兌換的盜刷案，警方初步清查 200 多名被害人、損失約 2 千萬元。
+    source_url: https://news.pts.org.tw/article/651806
+  sources:
+  - title: 填問卷抽大獎？LINE、臉書收親友傳「這連結」別亂點　小心下場GG
+    publisher: ETtoday
+    date: '2024-01-05'
+    url: https://www.ettoday.net/news/20240105/2657898.htm
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 收到「會員點數將到期」別急著點！詐團新手法曝光　這1步做錯就慘了
+    publisher: 自由時報
+    date: '2026-07-22'
+    url: https://ec.ltn.com.tw/article/breakingnews/5514250
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 寄簡訊竊信用卡個資　詐團盜刷全台估2百人受害
+    publisher: 公視
+    date: '2023-08-17'
+    url: https://news.pts.org.tw/article/651806
+    level: L2
+    supports:
+    - first_seen
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - prevalence
+  - title: Threads假網拍暴增…刑事局揭免費贈送陷阱　籲釣魚連結別點
+    publisher: 聯合新聞網
+    date: '2026-02-15'
+    url: https://udn.com/news/story/124490/9331735
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 滑Threads領免費手機！　台女1舉動「400萬存款全空」
+    publisher: ETtoday
+    date: '2026-07-15'
+    url: https://www.ettoday.net/news/20260715/3201692.htm
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  evidence: 🟢
+  related:
+  - fake-prize
+  updated: '2026-10-22'

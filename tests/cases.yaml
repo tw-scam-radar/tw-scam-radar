@@ -1,0 +1,1510 @@
+- id: cyber-001
+  text: ［監理服務網］您違反道路交通管理事件，即將過線上處理期限，請於10/O之前盡快處理[連結]
+  label: scam
+  method_id: fake-traffic-fine
+  origin: quoted
+  source:
+    title: 請注意詐騙簡訊所附的假監理服務網網址，請勿點選假連結！
+    url: https://www.motc.gov.tw/n/2310090006
+    date: '2023-10-09'
+  note: 原文附縮網址，已換成 [連結]。
+- id: cyber-002
+  text: 監理業務中心發現您未處理違反交通管理事件，請於10/O之前盡快處理[連結]
+  label: scam
+  method_id: fake-traffic-fine
+  origin: quoted
+  source:
+    title: 小心詐騙！郵件、簡訊提醒罰單繳費別急點連結 公路局教你辨真偽
+    url: https://health.tvbs.com.tw/life/349987
+    date: '2024-10-04'
+  note: 電子郵件版本。
+- id: cyber-003
+  text: 罰單到期提醒：車號○○○-○○○○有一筆違規罰鍰將於○月○日到期，請至各監理所站或監理服務App查詢繳納。
+  label: legit
+  method_id: fake-traffic-fine
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 交通部 2023-10-09：到期提醒需車主申請，只提醒、不附網址。沒有連結是分辨重點。
+- id: cyber-004
+  text: 台灣電力股份有限公司：貴戶本期電費已逾期，務請限期處理繳費，若逾期，將終止供電[連結]
+  label: scam
+  method_id: fake-utility-bill
+  origin: quoted
+  source:
+    title: 【詐騙】簡訊搭配網址稱「台灣電力股份有限公司：貴戶本期電費已逾期，務請限期處理繳費，若逾期，將終止供電」？
+    url: https://tfc-taiwan.org.tw/fact-check-reports/migration-10728
+    date: '2024-06-19'
+  note: ''
+- id: cyber-005
+  text: 中華電信：會員回饋提示，您的帳戶Point(5340)積分將於今日內到期，逾期將作廢，請及時兌換獎品[連結]
+  label: scam
+  method_id: fake-utility-bill
+  origin: quoted
+  source:
+    title: 設計師按下+66假簡訊 卡號輸完就當機「下秒傻眼」31萬飛了！
+    url: https://www.ettoday.net/news/20230610/2517199.htm
+    date: '2023-06-10'
+  note: 報導為節錄；原簡訊另附網址與「回復1激活領取」字樣。
+- id: cyber-006
+  text: 【遠通電收】提醒您，您有一筆50元臨時停車費用未繳清，逾期將處300元罰緩
+  label: scam
+  method_id: fake-utility-bill
+  origin: quoted
+  source:
+    title: 設計師按下+66假簡訊 卡號輸完就當機「下秒傻眼」31萬飛了！
+    url: https://www.ettoday.net/news/20230610/2517199.htm
+    date: '2023-06-10'
+  note: 「罰緩」為原文錯字，保留。
+- id: cyber-007
+  text: 您有一筆通行費58元即將到期，為避免產生罰單，請立即下載App線上繳費[連結]
+  label: scam
+  method_id: fake-utility-bill
+  origin: quoted
+  source:
+    title: 簡訊通知「通行費」未繳 點擊連結輸入個資信用卡秒遭盜刷
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg117&id=1893&serno=2c6333b4-f539-41bc-8267-a25902717ad5
+    date: '2022-06-15'
+  note: 刑事局轉述的簡訊內容，已刪去開頭的收件人稱呼；原網址含 ETC 字樣，已換成 [連結]。也符合 malicious-app。
+- id: cyber-008
+  text: 台電提醒：電號○○-○○-○○○○-○○-○（○○市○○路○號）○月份電費尚未繳納，如已繳費請忽略。
+  label: legit
+  method_id: fake-utility-bill
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 事實查核中心 2024-06-19 引台電：未繳提醒由 111 短碼發送，列電號與住址供核對，不附任何連結。
+- id: cyber-009
+  text: 遠通電收提醒：車號○○○-○○○○尚有國道通行費未繳，請於期限內至超商或以遠通電收ETC App查詢繳納。
+  label: legit
+  method_id: fake-utility-bill
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: Newtalk 2026-01-13 引高公局：正牌通知一定有車號、不附繳費連結。
+- id: cyber-010
+  text: 【台新銀行】您的銀行帳戶更新失敗，請立即輸入您的驗證碼以更新資料，超時請重新輸入
+  label: scam
+  method_id: phishing-bank
+  origin: quoted
+  source:
+    title: 釣魚簡訊改冒用台新銀名義行騙 財損達55萬！警方提醒民眾勿點連結
+    url: https://newtalk.tw/news/view/2021-02-06/534333
+    date: '2021-02-06'
+  note: 銀行名稱是被冒用的對象，非銀行所發。
+- id: cyber-011
+  text: 您的網路交易驗證碼為○○○○○○，交易金額TWD 1,280，商店：○○○，請勿將驗證碼告知他人。
+  label: legit
+  method_id: phishing-bank
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 中央社 2026-02-16 引金管會：輸入 OTP 前核對幣別、金額、用途；自己刷卡時收到是正常的。
+- id: cyber-012
+  text: 信用卡消費通知：您末四碼○○○○的卡片於○/○消費NT$450，如非本人交易，請撥卡片背面客服專線。
+  label: legit
+  method_id: phishing-bank
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 消費即時通知，不附連結、請你自己打卡片背面電話。
+- id: cyber-013
+  text: 無法定位地址，無法繼續配送，為完成配送，請驗證地址資訊，點擊下方按鈕，前往「帳戶門戶」進行驗證
+  label: scam
+  method_id: fake-parcel
+  origin: quoted
+  source:
+    title: 新型詐騙假冒中華郵政寄email 稱無法配送需點連結驗證
+    url: https://news.pts.org.tw/article/734398
+    date: '2025-01-19'
+  note: 電子郵件，附中華郵政 Logo。
+- id: cyber-014
+  text: 掛號郵件招領通知：收件人○○○，寄件人○○公司，掛號號碼○○○○，請攜帶本單及身分證件至○○郵局領取，洽詢電話（02）○○○○-○○○○。
+  label: legit
+  method_id: fake-parcel
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 公視 2025-01-19 引郵局：真單印招領郵局名稱與市話、6 碼員工編號，不留手機、不附連結。
+- id: cyber-015
+  text: 白沙屯媽祖遶境媽祖Q版免費貼圖下載[連結]
+  label: scam
+  method_id: fake-sticker
+  origin: quoted
+  source:
+    title: 白沙屯媽祖遶境免費貼圖「是假的」！點擊可能就被盜個資
+    url: https://www.ettoday.net/news/20240319/2703313.htm
+    date: '2024-03-19'
+  note: ''
+- id: cyber-016
+  text: 系統偵測涉及兒少性剝削
+  label: scam
+  method_id: fake-security-alert
+  origin: quoted
+  source:
+    title: 網頁突跳刑事局警告？涉兒少性剝削要刷卡繳罰款是詐騙
+    url: https://udn.com/news/story/124490/9535397
+    date: '2026-05-30'
+  note: 假冒刑事局的網頁跳窗標題；後續要你刷卡繳罰款解除封鎖。
+- id: cyber-017
+  text: LINE認證碼：○○○○○○。請勿將認證碼告訴任何人。
+  label: legit
+  method_id: account-takeover
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 自己登入或換機時收到是正常的；若有人要你轉給他，就是盜帳號（自由時報 2025-06-16 引 165）。
+- id: cyber-018
+  text: 可以幫我小孩的繪畫比賽投一票嗎？點連結登入LINE就能投[連結]
+  label: scam
+  method_id: account-takeover
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依自由時報 2025-06-16「幫親友小孩比賽投票」手法描述改寫，非原文。
+- id: cyber-019
+  text: 系統顯示您的訂單重複扣款，請加客服LINE並掃描QR Code完成金流驗證。
+  label: scam
+  method_id: qr-phishing
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依聯合新聞網 2026-08-31 引警政署描述改寫，非原文。
+- id: cyber-020
+  text: 路邊停車繳費通知：可持本單至超商繳費，或掃描QR Code於市府智慧支付平台繳納。
+  label: legit
+  method_id: qr-phishing
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 三立 2025-10-27：合法停車單 QR Code 導向市府平台或授權支付；掃完仍要確認網址。
+- id: cyber-021
+  text: 想要應援小物的留言+1，加我LINE截圖私訊，先付物流費就寄給你。
+  label: scam
+  method_id: fake-sticker
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依自由時報 2026-10-06 引刑事局描述改寫，非原文。
+- id: cyber-022
+  text: 您的Apple Pay付款資格已暫時停用，請於24小時內點擊連結完成認證，否則將永久停用。[連結]
+  label: scam
+  method_id: fake-security-alert
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依公視 2023-08-31 描述改寫，非原文。
+- id: cyber-023
+  text: 加入群組，每天分享飆股、強勢股，穩定獲利，不收取費用。
+  label: scam
+  method_id: deepfake-impersonation
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 用中央社 2024-07-13 引刑事局列出的廣告話術詞組成，非原文；AI 假名人廣告常見。
+- id: cyber-024
+  text: 為配合調查，請依指示下載這個App、綁定信用卡，並把手機設定來電轉接。
+  label: scam
+  method_id: malicious-app
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依中央社 2026-05-09 引刑事局描述改寫，非原文。
+- id: cyber-025
+  text: 恭喜您符合空投資格！請連結錢包並授權即可領取。
+  label: scam
+  method_id: crypto-wallet-drain
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依幣特財經 2025-01-14 描述改寫，非原文。
+- id: cyber-026
+  text: 加入○○品牌官方帳號好友，即可免費下載活動貼圖，詳情請見LINE貼圖小舖活動貼圖。
+  label: legit
+  method_id: fake-sticker
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 中央社 2018-06-26：正牌免費貼圖在 LINE 貼圖小舖「活動貼圖」查得到；不要求轉傳、不要求填個資。
+- id: imper-001
+  text: 不准掛電話！否則派檢察官拘提！
+  label: scam
+  method_id: fake-prosecutor
+  origin: quoted
+  source:
+    title: 「不准掛電話否則拘提！」假警視訊恐嚇6小時 彰化婦狂哭精神崩潰
+    url: https://news.ltn.com.tw/news/society/breakingnews/5567008
+    date: '2026-09-08'
+  note: 假警察在電話中的威脅句。
+- id: imper-002
+  text: 不得向他人透露、不得外出，否則將派檢察官拘提。
+  label: scam
+  method_id: fake-prosecutor
+  origin: quoted
+  source:
+    title: 「不准掛電話否則拘提！」假警視訊恐嚇6小時 彰化婦狂哭精神崩潰
+    url: https://news.ltn.com.tw/news/society/breakingnews/5567008
+    date: '2026-09-08'
+  note: 報導分三段引用（「不得向他人透露」「不得外出」「否則將派檢察官拘提」），這裡依原順序串成一句。
+- id: imper-003
+  text: 臺北地檢署通知：請於本月十五日上午攜帶本通知書及身分證到署說明，如有疑問請自行查詢本署總機。
+  label: legit
+  method_id: fake-prosecutor
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常的書面到案通知：請你親自到機關，不要求匯款、交卡或監管；仍建議自己查官網電話確認。
+- id: imper-004
+  text: 先生(小姐)，您的健保卡使用違規異常，請按9由專人為您說明……
+  label: scam
+  method_id: fake-nhi-hospital
+  origin: quoted
+  source:
+    title: 接到「健保卡被盜用停卡」電話，小心詐騙老梗！
+    url: https://www.mohw.gov.tw/cp-5264-65923-1.html
+    date: '2022-01-30'
+  note: 健保署公布的詐騙語音電話原句。
+- id: imper-005
+  text: 你的證件被盜用
+  label: scam
+  method_id: fake-nhi-hospital
+  origin: quoted
+  source:
+    title: 打詐指揮中心示警 當心假冒身份證件詐騙再現
+    url: https://www.ctee.com.tw/news/20250326701796-430104
+    date: '2025-03-26'
+  note: 假醫院藥劑師來電的說法；原文很短，單獨出現時也可能屬於 fake-agency-id-misuse。
+- id: imper-006
+  text: 健保署通知：您的健保費繳款單已寄出，可到超商繳納，或用健保快易通 App 繳費。
+  label: legit
+  method_id: fake-nhi-hospital
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 提到健保但沒有停卡、按鍵轉接、要你匯款或點連結。
+- id: imper-007
+  text: 媽，我換電話了！
+  label: scam
+  method_id: guess-who
+  origin: quoted
+  source:
+    title: 「媽，我換電話了」 台中婦欲匯假兒子15萬救急被攔下
+    url: https://www.ettoday.net/news/20260920/3240711.htm
+    date: '2026-09-20'
+  note: 假兒子來電開場，之後要求加 LINE、借 15 萬。
+- id: imper-008
+  text: 我手機摔壞了，先用同事的手機傳，晚上回家再用原本的號碼打給你。
+  label: legit
+  method_id: guess-who
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 換手機但沒有借錢，而且說會用原本的號碼聯絡。
+- id: imper-009
+  text: 敢掛電話就打斷手腳
+  label: scam
+  method_id: fake-kidnap
+  origin: quoted
+  source:
+    title: 兒女哭喊借錢別急匯！最新AI「複製聲音僅3秒」 77％父母分不出
+    url: https://www.setn.com/news/1901875
+    date: '2026-09-05'
+  note: 報導引述詐團阻止掛電話、報警的恐嚇句。
+- id: imper-010
+  text: 媽，我剛剛在路口跟機車擦撞，人沒事，警察在現場處理，處理完再打給你。
+  label: legit
+  method_id: fake-kidnap
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 有車禍字眼，但沒有要錢、沒有威脅、也不阻止你聯絡別人。
+- id: imper-011
+  text: 每人普發1萬元
+  label: scam
+  method_id: fake-gov-subsidy
+  origin: quoted
+  source:
+    title: 詐騙集團傳普發1萬元假簡訊 刑事局籲切記別點開
+    url: https://www.cna.com.tw/news/asoc/202507120178.aspx
+    date: '2025-07-12'
+  note: 假簡訊的關鍵句；報導未刊出全文與連結。單獨這句不足以判斷，實際簡訊會附連結。
+- id: imper-012
+  text: 替你申報，以免被當成非法款項
+  label: scam
+  method_id: fake-gov-subsidy
+  origin: quoted
+  source:
+    title: 2027普發一萬要來了！網址、防詐騙簡訊 刑事局：4不原則或撥165
+    url: https://www.nownews.com/news/6866674
+    date: '2026-08-17'
+  note: 普發現金冒領劇本轉接假檢警後，騙取現金的說法。
+- id: imper-013
+  text: 普發現金可到官方網站 10000.gov.tw 登記入帳，也可以帶身分證到郵局臨櫃領取。
+  label: legit
+  method_id: fake-gov-subsidy
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依 2025 年官方說明改寫的正確資訊：網址結尾是 .gov.tw，沒有要你填帳戶或去 ATM。
+- id: imper-014
+  text: 綜所稅退稅已於 7 月 31 日直撥入帳，請自行向往來金融機構查詢入帳情形。
+  label: legit
+  method_id: fake-gov-subsidy
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 提到退稅但沒有連結、沒有要你提供帳戶或操作 ATM。
+- id: imper-015
+  text: 我是董事長，請立刻建一個LINE群組，把群組QR Code回傳給我，先不要讓其他人加入。
+  label: scam
+  method_id: fake-boss
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 查不到官方或新聞引用的假老闆訊息原文，依刑事局、公視描述的流程改寫。
+- id: imper-016
+  text: 這張請款單我簽好了，照流程送財務處覆核，月底跟其他款項一起付。
+  label: legit
+  method_id: fake-boss
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 主管交辦付款，但走公司原本的覆核流程，沒有催促、沒有新群組或陌生帳戶。
+- id: imper-017
+  text: 如有疑問可按9由專人服務
+  label: scam
+  method_id: fake-telecom-call
+  origin: quoted
+  source:
+    title: 詐騙電話按9中計怎辦？ 中華電信教你這樣做...
+    url: https://news.ltn.com.tw/news/Nantou/breakingnews/2852269
+    date: '2019-07-14'
+  note: 假冒中華電信語音催繳，前文是電話費逾期未繳、即刻停話。
+- id: imper-018
+  text: 中華電信提醒您，您的市話本月帳單已出帳，請於繳費期限前繳納，謝謝。
+  label: legit
+  method_id: fake-telecom-call
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依中華電信說明：正版語音催繳只播錄音告知號碼與欠費，不要求按鍵操作。
+- id: imper-019
+  text: 千萬詐欺大案
+  label: scam
+  method_id: fake-agency-id-misuse
+  origin: quoted
+  source:
+    title: 「不准掛電話否則拘提！」假警視訊恐嚇6小時 彰化婦狂哭精神崩潰
+    url: https://news.ltn.com.tw/news/society/breakingnews/5567008
+    date: '2026-09-08'
+  note: 假郵局人員說婦人帳戶涉入的案子；原文很短，單獨出現時也可能屬於 fake-prosecutor。
+- id: imper-020
+  text: 這裡是戶政事務所，有人拿你的委託書來申請印鑑證明，我幫你轉接警察備案。
+  label: scam
+  method_id: fake-agency-id-misuse
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 依打詐指揮中心描述改寫（證件被拿去辦印鑑證明＋主動轉接警察）。
+- id: imper-021
+  text: 戶政事務所通知：您申請的戶籍謄本已可領取，請攜帶身分證到所臨櫃辦理。
+  label: legit
+  method_id: fake-agency-id-misuse
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 請你本人到所辦理，沒有說證件被冒用、沒有轉接。
+- id: invest-001
+  text: 有急事找你，麻煩加我一下LINE
+  label: scam
+  method_id: fake-investment-group
+  origin: quoted
+  source:
+    title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    date: '2022-08-16'
+  note: 記者收到的陌生訊息，加入後被轉介到股票群組。
+- id: invest-002
+  text: 籌碼到手，馬上購入
+  label: scam
+  method_id: fake-investment-group
+  origin: quoted
+  source:
+    title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    date: '2022-08-16'
+  note: 群組內成員（暗樁）訊息；本身不含強關鍵詞，屬難判案例。
+- id: invest-003
+  text: 謝謝大大，下週全力跟上
+  label: scam
+  method_id: fake-investment-group
+  origin: quoted
+  source:
+    title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    date: '2022-08-16'
+  note: 群組內成員訊息；單看文字幾乎無法判斷，需搭配群組情境。
+- id: invest-004
+  text: 高獲利免出門
+  label: scam
+  method_id: fake-investment-group
+  origin: quoted
+  source:
+    title: 刑事局解密假投資手法 民眾投資前要停看聽
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+    date: '2021-07-05'
+  note: 刑事局列出的社群貼文標題，之後導向 LINE 與假平台。
+- id: invest-005
+  text: 【○○證券】提醒您：本公司不會以LINE群組報明牌，也不會要求匯款至個人帳戶，請勿加入來路不明的投資群組。
+  label: legit
+  method_id: fake-investment-group
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 防詐提醒本身含「LINE群組」「明牌」「個人帳戶」等關鍵詞，用來測誤判。
+- id: invest-006
+  text: 您申購的股票抽籤結果已公布，請登入本公司官方App或網站查詢。
+  label: legit
+  method_id: fake-investment-group
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常券商通知：只叫你登入官方管道，沒有要你另外匯款。
+- id: invest-007
+  text: 須另行繳納訂金方可出金
+  label: scam
+  method_id: fake-investment-crypto
+  origin: quoted
+  source:
+    title: 誤信交友投資損失逾百萬元 泰達幣成詐騙金流工具
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=b4316ff9-f1f8-4d45-b094-5490896ee976
+    date: '2026-02-21'
+  note: 假虛擬貨幣平台「客服」在第二次出金時的要求。
+- id: invest-008
+  text: 穩定獲利、保證報酬
+  label: scam
+  method_id: fake-investment-crypto
+  origin: quoted
+  source:
+    title: 誤信交友投資損失逾百萬元 泰達幣成詐騙金流工具
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=b4316ff9-f1f8-4d45-b094-5490896ee976
+    date: '2026-02-21'
+  note: 刑事局列出網路上常見的標榜用語（兩個詞原為分開引用）。
+- id: invest-009
+  text: 提醒您：本平台已完成金管會虛擬資產洗錢防制登記，入金一律以本人帳戶轉帳，不收取現金。
+  label: legit
+  method_id: fake-investment-crypto
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 含「金管會」「現金」等詞的正常業者公告，用來測誤判。
+- id: invest-010
+  text: 需先扣稅或繳納保證金
+  label: scam
+  method_id: fake-investment-app
+  origin: quoted
+  source:
+    title: 刑事局解密假投資手法 民眾投資前要停看聽
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+    date: '2021-07-05'
+  note: 假投資平台客服在被害人要求出金時的說法。
+- id: invest-011
+  text: 須先繳納獲利30%個人所得稅，否則無法提領出金
+  label: scam
+  method_id: fake-investment-app
+  origin: quoted
+  source:
+    title: 詐團偽造金管會公文騙出金須繳稅 警扣千萬元逮24人
+    url: https://www.cna.com.tw/news/asoc/202603260139.aspx
+    date: '2026-03-26'
+  note: 新聞轉述偽造金管會公文的內容，非公文逐字全文。
+- id: invest-012
+  text: 不會主動聯繫處理帳戶、不會管制或凍結資金、不會要求繳交各類名目的保證金或驗證金
+  label: legit
+  method_id: fake-investment-app
+  origin: quoted
+  source:
+    title: 看到這些一定是詐騙！金管會揭3大新套路 一眼識破
+    url: https://udn.com/news/story/124490/9405558
+    date: '2026-03-26'
+  note: 金管會官方的「三不會」聲明；含凍結、保證金、驗證金等詞，用來測誤判。
+- id: invest-013
+  text: 您今日買進股票的交割款將於T+2自您的交割帳戶扣款，明細請至本公司官方App查詢。
+  label: legit
+  method_id: fake-investment-app
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常券商交割通知，含「扣款」但不要你另外匯款。
+- id: invest-014
+  text: 保證核貸、信用不良可辦
+  label: scam
+  method_id: fake-loan
+  origin: quoted
+  source:
+    title: 網路找貸款？我來幫你「美化帳戶」缺錢調頭寸反被當成洗錢人頭戶
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1812d90c-16f4-407c-acc2-047ef1514f2d
+    date: '2026-08-08'
+  note: IG、臉書上的假貸款廣告用語。
+- id: invest-015
+  text: 免擔保、快速放款
+  label: scam
+  method_id: fake-loan
+  origin: quoted
+  source:
+    title: 貸款要先繳保證金台東男險被騙 關山警保他辛苦錢
+    url: https://www.ettoday.net/news/20260530/3174874.htm
+    date: '2026-05-30'
+  note: 警方引用的假貸款標榜用語，搭配「要求先匯款」才是詐騙。
+- id: invest-016
+  text: 保證過件、不看信用
+  label: scam
+  method_id: fake-loan
+  origin: quoted
+  source:
+    title: 貸款詐欺之樣態、危害與防範
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1362145/post
+    date: '2026-01-13'
+  note: 地檢署列出的預收費用型貸款詐欺用語（兩個詞原為分開引用）。
+- id: invest-017
+  text: 您申請的信用貸款已核准，請攜帶身分證件至本行分行辦理對保手續。
+  label: legit
+  method_id: fake-loan
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常銀行貸款通知：臨櫃辦理，沒有先收費、沒有要帳密。
+- id: invest-018
+  text: 工作人員操作錯誤，導致誤設分期付款、重複扣款或升級成VIP會員
+  label: scam
+  method_id: installment-cancel
+  origin: quoted
+  source:
+    title: 解除分期詐騙新手法，提醒消費者慎防詐騙
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=19d0bb9c-908d-40fb-81fc-11a8e6522d57
+    date: '2021-09-12'
+  note: 假電商客服來電的說法（舊手法）。
+- id: invest-019
+  text: 因電商業者個資外洩，為避免您的信用卡遭盜刷
+  label: scam
+  method_id: installment-cancel
+  origin: quoted
+  source:
+    title: 解除分期詐騙新手法，提醒消費者慎防詐騙
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=19d0bb9c-908d-40fb-81fc-11a8e6522d57
+    date: '2021-09-12'
+  note: 新手法開場，之後要你寄出提款卡與存摺；不含「分期」字樣，屬難判案例。
+- id: invest-020
+  text: 誤設為重複扣款
+  label: scam
+  method_id: installment-cancel
+  origin: quoted
+  source:
+    title: 常見詐騙手法話術解析與因應之道－第三章 ATM解除分期付款詐騙
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=a61af506-a4ac-49eb-9c79-ef75ddc6f237
+    date: '2026-10-22'
+  note: 刑事局列出的來電關鍵字。
+- id: invest-021
+  text: 本公司不會以存簿、提款卡等名義收取
+  label: legit
+  method_id: installment-cancel
+  origin: quoted
+  source:
+    title: 解除分期詐騙新手法，提醒消費者慎防詐騙
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=19d0bb9c-908d-40fb-81fc-11a8e6522d57
+    date: '2021-09-12'
+  note: 刑事局請電商在官網加註的正確提醒；含「存簿」「提款卡」，用來測誤判。
+- id: invest-022
+  text: 您的訂單已出貨，如有問題請透過官方App客服中心查詢。本公司不會來電要求您操作ATM或網路銀行。
+  label: legit
+  method_id: installment-cancel
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 含「ATM」「網路銀行」的正常電商通知。
+- id: invest-023
+  text: 【國泰世華】您的銀行帳戶顯示異常，請立即登入綁定用戶資料，否則帳戶將凍結使用
+  label: scam
+  method_id: fake-bank-service
+  origin: quoted
+  source:
+    title: 網銀釣魚簡訊詐騙頻傳 警籲牢記2不2要
+    url: https://www.cna.com.tw/news/asoc/202102040054.aspx
+    date: '2021-02-04'
+  note: 假冒銀行的釣魚簡訊，原簡訊附有假網銀連結（此處不收網址）。
+- id: invest-024
+  text: 銀行帳戶更新失敗，請輸入驗證碼更新
+  label: scam
+  method_id: fake-bank-service
+  origin: quoted
+  source:
+    title: 假冒網路銀行詐騙簡訊再起 警方籲民眾注意
+    url: https://www.cna.com.tw/news/asoc/202102060124.aspx
+    date: '2021-02-06'
+  note: 假冒網路銀行簡訊，原簡訊附連結。
+- id: invest-025
+  text: 玉山銀行近期並沒有升級網銀系統，也沒有暫停客戶信用卡或金融卡權限。
+  label: legit
+  method_id: fake-bank-service
+  origin: quoted
+  source:
+    title: 最新詐騙手法！銀行簡訊不要亂點 填個資被盜刷
+    url: https://www.ettoday.net/news/20240510/2735944.htm
+    date: '2024-05-10'
+  note: 銀行客服的澄清說明；含「升級」「暫停」，用來測誤判。
+- id: invest-026
+  text: 您的交易驗證碼為123456，用於網路刷卡NT$1,280。銀行人員不會向您索取驗證碼，請勿告知他人。
+  label: legit
+  method_id: fake-bank-service
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常 OTP 簡訊；含「驗證碼」，用來測誤判。
+- id: invest-027
+  text: 幫我收一下款，我給你2千元手續費
+  label: scam
+  method_id: account-rental
+  origin: quoted
+  source:
+    title: 帳戶被騙出借或交付他人之民刑事責任問題
+    url: https://www.tph.moj.gov.tw/4421/4475/632364/1425669/post
+    date: '2026-08-04'
+  note: 以代收款名義借用帳戶。
+- id: invest-028
+  text: 為了愛我們需要共同帳戶
+  label: scam
+  method_id: account-rental
+  origin: quoted
+  source:
+    title: 帳戶被騙出借或交付他人之民刑事責任問題
+    url: https://www.tph.moj.gov.tw/4421/4475/632364/1425669/post
+    date: '2026-08-04'
+  note: 網戀情境要求開帳戶；不含帳戶出租字樣，屬難判案例。
+- id: invest-029
+  text: 新進人員請於報到日提供本人薪資轉帳帳號（僅需帳號號碼），公司將於每月5日匯入薪資。
+  label: legit
+  method_id: account-rental
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常公司發薪需要本人帳號，但不要提款卡、存摺或密碼。
+- id: invest-030
+  text: ○律師保證幫你拿回受騙款項
+  label: scam
+  method_id: recovery-scam
+  origin: quoted
+  source:
+    title: 注意可能被「二次詐騙」
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    date: '2024-04-23'
+  note: 假律師網站廣告用語。
+- id: invest-031
+  text: 律師事務所免費提供法律詐騙諮詢
+  label: scam
+  method_id: recovery-scam
+  origin: quoted
+  source:
+    title: 注意可能被「二次詐騙」
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    date: '2024-04-23'
+  note: 假律師網站廣告用語；字面接近正當法律服務，屬難判案例。
+- id: invest-032
+  text: 可利用操縱博弈APP後臺
+  label: scam
+  method_id: recovery-scam
+  origin: quoted
+  source:
+    title: 誤信國際律師與幣流師協追被詐款項 藥師再度遭詐百萬元
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=27a4218c-017e-4aca-93f3-097a0d05df1d
+    date: '2026-01-31'
+  note: 刑事局轉述假律師、假幣流分析師宣稱能「贏回」款項的說法片段。
+- id: invest-033
+  text: 您報案的詐欺案件已移送地檢署偵辦，後續請依檢察官通知到場，警方不會向您收取任何費用。
+  label: legit
+  method_id: recovery-scam
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常報案後續通知；含「詐欺」「費用」，用來測誤判。
+- id: invest-034
+  text: 法律扶助基金會提供免費法律諮詢，請先電話預約，再到各地分會與律師面談。
+  label: legit
+  method_id: recovery-scam
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正當的免費法律諮詢管道，用來對照 invest-031。
+- id: shop-001
+  text: 尚未完成身份驗證
+  label: scam
+  method_id: fake-buyer
+  origin: quoted
+  source:
+    title: 超商寄貨竟成詐騙溫床 假買家詐騙劇本全公開
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=ee5bec9e-7635-45d9-9573-359b98293796
+    date: '2026-03-17'
+  note: 假客服對賣家說的理由。
+- id: shop-002
+  text: 未簽署金流協議
+  label: scam
+  method_id: fake-buyer
+  origin: quoted
+  source:
+    title: 超商寄貨竟成詐騙溫床 假買家詐騙劇本全公開
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=ee5bec9e-7635-45d9-9573-359b98293796
+    date: '2026-03-17'
+  note: 假客服對賣家說的理由。
+- id: shop-003
+  text: 未完成金流簽署
+  label: scam
+  method_id: fake-buyer
+  origin: quoted
+  source:
+    title: 賣貨便需要實名認證？！千萬別信假客服
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1ff19028-1e0e-4b6e-908d-32a28051caa2
+    date: '2026-05-17'
+  note: 偽冒賣貨便網站跳出的提示。
+- id: shop-004
+  text: 需實名制認證
+  label: scam
+  method_id: fake-buyer
+  origin: quoted
+  source:
+    title: 賣貨便需要實名認證？！千萬別信假客服
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1ff19028-1e0e-4b6e-908d-32a28051caa2
+    date: '2026-05-17'
+  note: 偽冒賣貨便網站跳出的提示。
+- id: shop-005
+  text: 請問這件還在嗎？我直接在你的賣貨便賣場下單付款喔。
+  label: legit
+  method_id: fake-buyer
+  origin: synthetic
+  source: {}
+  note: 真買家自己在賣場下單，沒有要你找客服、簽協議或驗證。
+- id: shop-006
+  text: 實名認證失敗
+  label: scam
+  method_id: fake-seller
+  origin: quoted
+  source:
+    title: 小心「低價出清」公路車詐騙！假賣貨便網站恐讓帳戶遭盜領｜現場直擊
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/19760
+    date: '2026-05-25'
+  note: 假賣貨便頁面跳出的訊息。
+- id: shop-007
+  text: 訂單異常需重新下單
+  label: scam
+  method_id: fake-seller
+  origin: quoted
+  source:
+    title: 小心「低價出清」公路車詐騙！假賣貨便網站恐讓帳戶遭盜領｜現場直擊
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/19760
+    date: '2026-05-25'
+  note: 假賣貨便頁面跳出的訊息。
+- id: shop-008
+  text: 剩最後37輛
+  label: scam
+  method_id: fake-seller
+  origin: quoted
+  source:
+    title: 小心「低價出清」公路車詐騙！假賣貨便網站恐讓帳戶遭盜領｜現場直擊
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/19760
+    date: '2026-05-25'
+  note: 低價出清貼文的催促字句；單看這句不足以判定，要搭配超低價或假交易連結。
+- id: shop-009
+  text: 週年慶全館八折，結帳可選超商取貨付款，七天內可申請退貨，公司地址與客服電話請見官網。
+  label: legit
+  method_id: fake-seller
+  origin: synthetic
+  source: {}
+  note: 正規電商也有限時折扣和貨到付款；查得到公司資料和客服電話。
+- id: shop-010
+  text: 金流驗證沒辦法通過
+  label: scam
+  method_id: fake-ticket
+  origin: quoted
+  source:
+    title: 第三方詐騙橫行　無辜賣家成金流工具、帳戶遭凍結
+    url: https://news.tvbs.com.tw/life/3075354
+    date: '2026-02-16'
+  note: 刑事局說明購票詐騙時，轉述假客服的說法。
+- id: shop-011
+  text: 保留優先購票權
+  label: scam
+  method_id: fake-ticket
+  origin: quoted
+  source:
+    title: 周董阿妹接力開唱大巨蛋 歹徒「佛心」轉讓門票 假二手真詐騙
+    url: https://www.taiwannews.com.tw/zh/news/5943878
+    date: '2024-09-29'
+  note: 要求先匯款的理由。
+- id: shop-012
+  text: 我臨時不能去，原價轉讓，可以約開演前面交，確認票券再付款。
+  label: legit
+  method_id: fake-ticket
+  origin: synthetic
+  source: {}
+  note: 有「轉讓」字眼，但願意面交、當場確認再付款。
+- id: shop-013
+  text: 先付訂金才保留房子
+  label: scam
+  method_id: fake-rental
+  origin: quoted
+  source:
+    title: 獨家／大學生開學錢就被騙光！租屋夢幻低價房是詐術　專家教你破解5招
+    url: https://www.setn.com/news/1904675
+    date: '2026-09-10'
+  note: 看房前要求付訂金的說法。
+- id: shop-014
+  text: 未實名認證
+  label: scam
+  method_id: fake-rental
+  origin: quoted
+  source:
+    title: 獨家／大學生開學錢就被騙光！租屋夢幻低價房是詐術　專家教你破解5招
+    url: https://www.setn.com/news/1904675
+    date: '2026-09-10'
+  note: 假超商物流網頁跳出的訊息。
+- id: shop-015
+  text: 這週六下午可以看房，看過滿意再簽約，訂金會開收據，匯到屋主本人帳戶。
+  label: legit
+  method_id: fake-rental
+  origin: synthetic
+  source: {}
+  note: 有「訂金」字眼，但是看房後、簽約時才收。
+- id: shop-016
+  text: 貨物運送延遲
+  label: scam
+  method_id: fake-group-buy
+  origin: quoted
+  source:
+    title: 【科技詐騙頻傳】網路代購藏詐騙陷阱　露天拍賣、PTT網友中招
+    url: https://www.mirrormedia.mg/story/amp/20170416soc004
+    date: '2017-04-16'
+  note: 收款後拖延出貨的藉口；單看這句，正常賣家也可能說。
+- id: shop-017
+  text: 日本目前缺貨
+  label: scam
+  method_id: fake-group-buy
+  origin: quoted
+  source:
+    title: 【科技詐騙頻傳】網路代購藏詐騙陷阱　露天拍賣、PTT網友中招
+    url: https://www.mirrormedia.mg/story/amp/20170416soc004
+    date: '2017-04-16'
+  note: 收款後拖延出貨的藉口；單看這句，正常代購也可能說。
+- id: shop-018
+  text: 本團週五結單，請在購物平台下單付款，到貨後平台會通知取件。
+  label: legit
+  method_id: fake-group-buy
+  origin: synthetic
+  source: {}
+  note: 付款走有交易保障的平台，不是匯給個人。
+- id: shop-019
+  text: 系統異常，需實名驗證
+  label: scam
+  method_id: secondhand-platform
+  origin: quoted
+  source:
+    title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    date: '2026-02-15'
+  note: 假物流網頁跳出的警示。
+- id: shop-020
+  text: 未開通金流服務
+  label: scam
+  method_id: secondhand-platform
+  origin: quoted
+  source:
+    title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    date: '2026-02-15'
+  note: 假物流網頁跳出的警示。
+- id: shop-021
+  text: 僅為驗證程序，不會扣款
+  label: scam
+  method_id: secondhand-platform
+  origin: quoted
+  source:
+    title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    date: '2026-02-15'
+  note: 假客服掩飾轉帳的說法。
+- id: shop-022
+  text: 帳戶違規遭凍結
+  label: scam
+  method_id: secondhand-platform
+  origin: quoted
+  source:
+    title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    date: '2026-02-15'
+  note: 假客服製造恐慌的說法。
+- id: shop-023
+  text: 閒置嬰兒車免費送，限自取，週日下午社區門口拿。
+  label: legit
+  method_id: secondhand-platform
+  origin: synthetic
+  source: {}
+  note: 有「免費送」，但自取、不用付運費、沒有連結。
+- id: shop-024
+  text: 便宜出售高階帳號
+  label: scam
+  method_id: game-trade
+  origin: quoted
+  source:
+    title: 【遊戲點數先付款 詐騙風險馬上來】｜現場直擊
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/18886
+    date: '2026-02-11'
+  note: 社團貼文內容。
+- id: shop-025
+  text: 遊戲帳號已遭凍結
+  label: scam
+  method_id: game-trade
+  origin: quoted
+  source:
+    title: 【可疑網站別相信 勿落入遊戲交易陷阱】｜現場直擊
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/17344
+    date: '2025-09-07'
+  note: 假交易網站客服的說法。
+- id: shop-026
+  text: 4天官方買回
+  label: scam
+  method_id: game-trade
+  origin: quoted
+  source:
+    title: 假冒《傳說對決》官網遊戲角色交易平台　桃園2男5天騙845萬
+    url: https://www.ettoday.net/news/20200409/1687497.htm
+    date: '2020-04-09'
+  note: 假交易平台的招攬用語。
+- id: shop-027
+  text: 改版公告：交易所手續費調整，詳情請見遊戲內公告。
+  label: legit
+  method_id: game-trade
+  origin: synthetic
+  source: {}
+  note: 官方公告，沒有要你離開遊戲交易或付點數。
+- id: shop-028
+  text: 網路身分認證
+  label: scam
+  method_id: fake-charity
+  origin: quoted
+  source:
+    title: 花蓮賑災防詐騙 行政院：捐款認明官方管道，慎防假網站、假簡訊
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/c3d0e406-02a4-4d6c-b02e-1540e4039603
+    date: '2025-09-25'
+  note: 假募款要求捐款人先做的「認證」。
+- id: shop-029
+  text: 網路金流認證
+  label: scam
+  method_id: fake-charity
+  origin: quoted
+  source:
+    title: 花蓮賑災防詐騙 行政院：捐款認明官方管道，慎防假網站、假簡訊
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/c3d0e406-02a4-4d6c-b02e-1540e4039603
+    date: '2025-09-25'
+  note: 假募款要求捐款人先做的「認證」。
+- id: shop-030
+  text: 預設扣款設定錯誤
+  label: scam
+  method_id: fake-charity
+  origin: quoted
+  source:
+    title: 冒名45個公益團體詐捐款人 刑事局逮50嫌法辦
+    url: https://www.cna.com.tw/news/asoc/202207270238.aspx
+    date: '2022-07-27'
+  note: 冒名公益團體打給捐款人的說法。
+- id: shop-031
+  text: 賑災捐款請以衛福部官網公布的管道為準，募款團體可到公益勸募管理系統查詢許可。
+  label: legit
+  method_id: fake-charity
+  origin: synthetic
+  source: {}
+  note: 有「賑災」「捐款」，但是導向官方管道查證。
+- id: shop-032
+  text: 網購商品已送達超商
+  label: scam
+  method_id: ghost-parcel
+  origin: quoted
+  source:
+    title: 收貨可以，受騙不行 刑事局呼籲警覺「超商包裹詐騙」陷阱（新聞資料）
+    url: https://www.ey.gov.tw/File/D59ECD63187B0F44
+    date: 2025-10
+  note: 幽靈包裹的取貨簡訊；文字和正常通知幾乎一樣，要對照自己的訂單。
+- id: shop-033
+  text: 您訂購的商品已送達門市，請於期限內取件。
+  label: legit
+  method_id: ghost-parcel
+  origin: synthetic
+  source: {}
+  note: 正常取貨通知；單靠文字分不出來，查得到訂單就是真的。
+- id: shop-034
+  text: 我已經在平台上付款完成了，麻煩你出貨。
+  label: legit
+  method_id: triangle-scam
+  origin: synthetic
+  source: {}
+  note: 付款走平台金流，沒有要你的個人帳號。
+- id: social-001
+  text: 系統帳面資金須達100萬元才能出金
+  label: scam
+  method_id: romance-investment
+  origin: quoted
+  source:
+    title: 假交友投資詐騙橫行　刑事局籲慎防高富帥詐術
+    url: https://www.cna.com.tw/news/asoc/202107110120.aspx
+    date: '2021-07-11'
+  note: 投資群組內自稱金控公司會計人員的說法，新聞引號引用。
+- id: social-002
+  text: 需支付5%佣金
+  label: scam
+  method_id: romance-investment
+  origin: quoted
+  source:
+    title: 假交友投資詐騙橫行　刑事局籲慎防高富帥詐術
+    url: https://www.cna.com.tw/news/asoc/202107110120.aspx
+    date: '2021-07-11'
+  note: 接在帳面資金門檻之後的出金收費說法，片段。
+- id: social-003
+  text: 今天加班好累，週末要不要約出來吃飯？我們可以先視訊聊聊。
+  label: legit
+  method_id: romance-investment
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 一般交友訊息；願意視訊、不談錢。
+- id: social-004
+  text: 我最近在讀投資理財的書，你平常有在存股嗎？
+  label: legit
+  method_id: romance-investment
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 提到投資但沒有邀平台、沒有保證獲利或要求匯款，易誤判。
+- id: social-005
+  text: 快速約會
+  label: scam
+  method_id: romance-sex
+  origin: quoted
+  source:
+    title: 網路色情應召詐騙再現　刑事局提供常見4項特徵
+    url: https://www.cna.com.tw/news/asoc/202606200124.aspx
+    date: '2026-06-20'
+  note: 情色交友網站廣告用語，片段。
+- id: social-006
+  text: 週六下午兩點捷運站出口見，喝個咖啡就好，到了打給我。
+  label: legit
+  method_id: romance-sex
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 一般網友約見面，沒有保證金或點數要求。
+- id: social-007
+  text: 出國高薪打工
+  label: scam
+  method_id: job-overseas
+  origin: quoted
+  source:
+    title: 常見詐騙手法話術解析與因應之道－第七章　假求職
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=87a85079-c42f-48cb-9506-14e08c912a39
+    date: ''
+  note: 刑事局列出的不實廣告用語，片段；頁面未標示發布日期。
+- id: social-008
+  text: 本公司徵派駐越南工廠生產管理，需三年相關經驗，面試地點在台北總公司，簽約前提供勞動契約審閱。
+  label: legit
+  method_id: job-overseas
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常外派職缺；有經驗要求、實體面試、可審閱契約。
+- id: social-009
+  text: 在家按讚賺佣金
+  label: scam
+  method_id: job-task
+  origin: quoted
+  source:
+    title: 暑假打工注意！「在家按讚賺佣金」全是假　警政署揭詐騙3步驟
+    url: https://udn.com/news/story/124490/9637050
+    date: '2026-07-19'
+  note: 假招募廣告用語，片段。
+- id: social-010
+  text: 代購商品賺價差
+  label: scam
+  method_id: job-task
+  origin: quoted
+  source:
+    title: 暑假打工注意！「在家按讚賺佣金」全是假　警政署揭詐騙3步驟
+    url: https://udn.com/news/story/124490/9637050
+    date: '2026-07-19'
+  note: 假招募廣告用語，片段。
+- id: social-011
+  text: 高薪、免經驗、輕鬆遠端
+  label: scam
+  method_id: job-task
+  origin: quoted
+  source:
+    title: 暑假打工注意！「在家按讚賺佣金」全是假　警政署揭詐騙3步驟
+    url: https://udn.com/news/story/124490/9637050
+    date: '2026-07-19'
+  note: 假招募廣告用語，片段；也常見於 job-account。
+- id: social-012
+  text: 按讚可賺錢
+  label: scam
+  method_id: job-task
+  origin: quoted
+  source:
+    title: 假投資真詐騙！抖音點讚賺錢 app「友點讚」百餘人受害
+    url: https://www.inside.com.tw/article/20608-taiwan-internet-fraud-tiktok
+    date: '2020-08-07'
+  note: 刑事局提醒的常見說法，中央社稿經 INSIDE 授權轉載。
+- id: social-013
+  text: 徵社群小編兼職，時薪200元，需到公司面試，錄取後依勞基法投保，不收任何費用。
+  label: legit
+  method_id: job-task
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常兼職；含「兼職」「社群」等字但不要求墊錢。
+- id: social-014
+  text: 高薪日領、免經驗、在家工作
+  label: scam
+  method_id: job-account
+  origin: quoted
+  source:
+    title: 警惕假求職陷阱，小心誤入詐騙集團圈套
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=8a72e874-4e26-4954-a71a-c540e7e33899
+    date: '2025-07-24'
+  note: 警政署列出的假求職廣告用語，片段。
+- id: social-015
+  text: 作為薪資轉帳用途
+  label: scam
+  method_id: job-account
+  origin: quoted
+  source:
+    title: 警惕假求職陷阱，小心誤入詐騙集團圈套
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=8a72e874-4e26-4954-a71a-c540e7e33899
+    date: '2025-07-24'
+  note: 詐團要求交出存摺、提款卡時的理由，片段。
+- id: social-016
+  text: 恭喜錄取！報到當天請填寫薪轉帳戶資料表，只需提供銀行名稱與帳號，公司不會向您索取提款卡或密碼。
+  label: legit
+  method_id: job-account
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 正常人資通知；含「提款卡」「密碼」「薪轉」等字，易誤判。
+- id: social-017
+  text: 發票中2000元
+  label: scam
+  method_id: fake-prize
+  origin: quoted
+  source:
+    title: 收到中獎通知別急著點！財政部揭詐團假簡訊2大破綻
+    url: https://www.ctee.com.tw/news/20260801700515-430404
+    date: '2026-08-01'
+  note: 自稱財政部的假中獎簡訊內容，片段；點開後要求輸入信用卡資料。
+- id: social-018
+  text: 載具歸戶異常
+  label: scam
+  method_id: fake-prize
+  origin: quoted
+  source:
+    title: 收到中獎通知別急著點！財政部揭詐團假簡訊2大破綻
+    url: https://www.ctee.com.tw/news/20260801700515-430404
+    date: '2026-08-01'
+  note: 財政部曾提醒的詐騙通知類型，片段。
+- id: social-019
+  text: 本期統一發票中獎號碼已公布，請自行開啟官方兌獎 App 或財政部網站查詢，本通知不含任何連結。
+  label: legit
+  method_id: fake-prize
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 含「中獎」字樣，但不附連結、不要卡號。
+- id: social-020
+  text: 遏止受害、小心詐騙、不會要求粉絲匯款
+  label: scam
+  method_id: fake-celebrity-ad
+  origin: quoted
+  source:
+    title: 冒名○○○刊投資廣告還加警語　刑事局：詐騙新招
+    url: https://www.cna.com.tw/news/afe/202403240110.aspx
+    date: '2024-03-24'
+  note: 冒名財經名人的假帳號簡介與貼文字句；標題姓名已遮蔽。
+- id: social-021
+  text: 本行官方粉絲專頁提醒：我們不會私訊邀請您加入任何投資群組，也不會要求您匯款到個人帳戶。
+  label: legit
+  method_id: fake-celebrity-ad
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 真正的防詐提醒，與 social-020 字面相近，易誤判。
+- id: social-022
+  text: 會員點數即將到期請速兌換
+  label: scam
+  method_id: fake-freebie
+  origin: quoted
+  source:
+    title: 收到「會員點數將到期」別急著點！詐團新手法曝光　這1步做錯就慘了
+    url: https://ec.ltn.com.tw/article/breakingnews/5514250
+    date: '2026-07-22'
+  note: 假冒電商的釣魚簡訊用語。
+- id: social-023
+  text: 活動回饋資格已通過審核
+  label: scam
+  method_id: fake-freebie
+  origin: quoted
+  source:
+    title: 收到「會員點數將到期」別急著點！詐團新手法曝光　這1步做錯就慘了
+    url: https://ec.ltn.com.tw/article/breakingnews/5514250
+    date: '2026-07-22'
+  note: 假冒電商的釣魚簡訊用語。
+- id: social-024
+  text: 长荣航空30周年交通补贴
+  label: scam
+  method_id: fake-freebie
+  origin: quoted
+  source:
+    title: 填問卷抽大獎？LINE、臉書收親友傳「這連結」別亂點　小心下場GG
+    url: https://www.ettoday.net/news/20240105/2657898.htm
+    date: '2024-01-05'
+  note: 冒用航空公司的假問卷活動標題，原文為簡體字，照錄。
+- id: social-025
+  text: 僅需負擔小額運費即可領取
+  label: scam
+  method_id: fake-freebie
+  origin: quoted
+  source:
+    title: Threads假網拍暴增…刑事局揭免費贈送陷阱　籲釣魚連結別點
+    url: https://udn.com/news/story/124490/9331735
+    date: '2026-02-15'
+  note: Threads 免費贈送貼文的說法，片段。
+- id: social-026
+  text: 您的會員點數將於12月31日到期，可至官方App的「我的點數」查看與兌換。
+  label: legit
+  method_id: fake-freebie
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: App 內推播；含「點數」「到期」「兌換」，但不附連結、不要卡號或驗證碼。
+- id: social-027
+  text: 包裹卡海關
+  label: scam
+  method_id: romance-parcel-fee
+  origin: quoted
+  source:
+    title: 「新加坡將軍」求愛又要錢！屏東婦暈船險匯10萬　警及時喊卡
+    url: https://www.ettoday.net/news/20260708/3197195.htm
+    date: '2026-07-08'
+  note: 新聞引號內轉述的要錢理由，片段。
+- id: social-028
+  text: 我寄給你的生日禮物今天下午會送到，記得簽收喔！
+  label: legit
+  method_id: romance-parcel-fee
+  origin: synthetic
+  source:
+    title: ''
+    url: ''
+    date: ''
+  note: 認識的人寄包裹，沒有關稅或代墊要求。
+- id: gap-001
+  text: 媽，我跟女友決定明年結婚，下週末帶她回家吃飯，聘金和喜餅的事到時候當面討論。
+  label: legit
+  method_id: romance-marriage
+  origin: synthetic
+  source: {}
+  note: 真實婚事會見面、當面談，沒有要匯錢給沒見過的人。
+- id: gap-002
+  text: 我們下個月去戶政事務所登記結婚，婚戒我已經付清了，你不用轉錢給我。
+  label: legit
+  method_id: romance-marriage
+  origin: synthetic
+  source: {}
+  note: 提到結婚與付款，但沒有要求對方匯款或借錢。
+- id: gap-003
+  text: 參選人的廣告與競選經費，不會對外招募投資
+  label: legit
+  method_id: election-season
+  origin: quoted
+  source:
+    title: 詐團誆投資參選人廣告可分紅 高雄車廠老闆遭騙百萬
+    url: https://cna.com.tw/news/asoc/202610110119.aspx
+    date: '2026-10-11'
+  note: 刑事局的防詐提醒原文，含「參選人」「投資」等字，不應被判成詐騙。
+- id: gap-004
+  text: 感謝大家支持！本競選辦公室的政治獻金專戶已公告在官方粉專，捐款後請記得索取收據。
+  label: legit
+  method_id: election-season
+  origin: synthetic
+  source: {}
+  note: 公開的政治獻金專戶、開收據，沒有分紅、借錢或私人帳號。
+- id: gap-005
+  text: 里辦公處通知：候選人週六下午兩點在社區活動中心辦政見說明會，歡迎里民參加。
+  label: legit
+  method_id: election-season
+  origin: synthetic
+  source: {}
+  note: 一般選舉活動通知，沒有任何金錢要求。
+- id: gap-006
+  text: 這是保值商品，投資靈骨塔能賺價差、還能節稅
+  label: scam
+  method_id: columbarium-scam
+  origin: quoted
+  source:
+    title: 靈骨塔詐騙公式拆解
+    url: https://www.cypd.gov.tw/Cib/News/Article/18153
+    date: '2025-04-21'
+  note: 嘉義縣警察局整理的「投資假象」話術。
+- id: gap-007
+  text: 加購骨灰罐和禮儀契約，整套才划算！
+  label: scam
+  method_id: columbarium-scam
+  origin: quoted
+  source:
+    title: 靈骨塔詐騙公式拆解
+    url: https://www.cypd.gov.tw/Cib/News/Article/18153
+    date: '2025-04-21'
+  note: 嘉義縣警察局整理的「加購圈套」話術。
+- id: gap-008
+  text: 買家臨時追加需求，不補差額就無法交易！
+  label: scam
+  method_id: columbarium-scam
+  origin: quoted
+  source:
+    title: 靈骨塔詐騙公式拆解
+    url: https://www.cypd.gov.tw/Cib/News/Article/18153
+    date: '2025-04-21'
+  note: 嘉義縣警察局整理的「交易陷阱」話術。
+- id: gap-009
+  text: 您好，這裡是○○紀念園區，您購買的塔位已完成登記，使用權狀將以掛號寄到府上。
+  label: legit
+  method_id: columbarium-scam
+  origin: synthetic
+  source: {}
+  note: 正常的購買後通知，沒有收購、加購或先付費。
+- id: gap-010
+  text: 爸的塔位我上網查過了，業者有在內政部名單上，週末一起去園區看位置吧。
+  label: legit
+  method_id: columbarium-scam
+  origin: synthetic
+  source: {}
+  note: 家人討論為自用購買塔位並已查證業者。
+- id: gap-011
+  text: 今晚大樂透開獎號碼出來了，記得拿彩券去投注站對獎，中了請我喝飲料。
+  label: legit
+  method_id: fake-gambling
+  origin: synthetic
+  source: {}
+  note: 實體投注站對獎，沒有明牌、儲值或先付費。
+- id: gap-012
+  text: 我在彩券行買的今彩539中了三百元，明天順路去兌獎。
+  label: legit
+  method_id: fake-gambling
+  origin: synthetic
+  source: {}
+  note: 真的中獎，在彩券行兌領，沒有要繳手續費。
+- id: gap-013
+  text: 您好，這裡是○○醫院，提醒您明天上午九點的門診，請攜帶健保卡準時報到。
+  label: legit
+  method_id: fake-medicine
+  origin: synthetic
+  source: {}
+  note: 醫院的掛號提醒，沒有加 LINE 問診或賣藥。
+- id: gap-014
+  text: 藥局提醒：您的慢性病連續處方箋第二次領藥時間到了，請攜帶處方箋到店領藥。
+  label: legit
+  method_id: fake-medicine
+  origin: synthetic
+  source: {}
+  note: 憑處方箋到合法藥局領藥是正常流程。

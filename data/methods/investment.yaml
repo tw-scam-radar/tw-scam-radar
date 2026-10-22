@@ -1,0 +1,1065 @@
+- id: fake-investment-group
+  name: 假投資：投資群組、老師帶單
+  aliases:
+  - 投資群組詐騙
+  - 飆股群組
+  - 股票老師
+  - 報明牌
+  - 新股抽籤詐騙
+  - 港仙股
+  category: 投資理財
+  summary: 對方冒用名人、財經專家、機關首長或合法券商名義，把你拉進 LINE 投資群組報明牌，最後要你下載指定 App、把錢匯到指定帳戶或面交現金加碼。
+  status: active
+  first_seen: ''
+  channels:
+  - 臉書
+  - 臉書廣告
+  - IG
+  - YouTube
+  - LINE
+  - LINE 群組
+  - 簡訊
+  - 電話
+  - 交友軟體
+  pretend_to_be:
+  - 投資老師
+  - 助理
+  - 客服
+  - 財經名人
+  - 財經專家
+  - 合法證券商或金融機構
+  - 機關首長
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、IG、YouTube 看到名人或專家推薦的投資訊息，或收到簡訊、陌生訊息，請你加 LINE。
+  - stage: 取信
+    what_you_see: 被拉進 LINE 投資群組，「老師」每天早晚報明牌，其他成員不斷貼獲利截圖、匯款單，說「籌碼到手」。
+  - stage: 製造情境
+    what_you_see: 先讓你小額試做、看到獲利，再說資金越多賺越多；也可能通知你用「專用通道」抽中新股要馬上繳款，或叫你開複委託買極低價的港股。
+  - stage: 要求行動
+    what_you_see: 要你下載指定的投資 App 或網站儲值下單，把錢匯到對方給的帳戶，或約你面交現金。
+  - stage: 收網後
+    what_you_see: 想出金時被用洗碼量不足、要繳保證金、IP 異常等理由拒絕；最後帳號被凍結、網站或 App 關閉，對方失聯。
+  opener_examples:
+  - 有事想請教你，方便加個 LINE 嗎？
+  - 老師每天免費分享明牌，進群組就能跟上。
+  - 群組有專用通道，新股可以優先申購、不限張數。
+  - 恭喜抽中新股，請今天內匯款，否則算違約。
+  red_flags:
+  - id: guaranteed-return
+    text: 保證獲利、穩賺不賠、零風險
+    cues:
+    - 保證獲利
+    - 穩賺不賠
+    - 零風險
+    - 低風險高報酬
+    - 穩定獲利
+    weight: 3
+  - id: line-investment-group
+    text: 要你加入 LINE 投資群組，或加「老師」「助理」好友，才能拿明牌
+    cues:
+    - 投資群組
+    - 飆股
+    - 明牌
+    - 股票老師
+    - 助理
+    - 加LINE
+    weight: 2
+  - id: insider-tip
+    text: 號稱有內線消息
+    cues:
+    - 內線
+    - 內線消息
+    - 內線交易
+    weight: 2
+  - id: celebrity-endorsement
+    text: 用名人、財經專家或官員名義推薦投資
+    cues:
+    - 名人推薦
+    - 財經專家
+    - 首長推薦
+    weight: 1
+  - id: priority-ipo-channel
+    text: 說有專用通道可優先申購新股，抽中要立刻匯款否則違約
+    cues:
+    - 專用通道
+    - 優先申購
+    - 不限數量
+    - 抽中
+    - 違約
+    weight: 3
+  - id: pay-personal-account-or-cash
+    text: 要你把投資款匯到個人帳戶，或面交現金
+    cues:
+    - 個人帳戶
+    - 指定帳戶
+    - re:面交.{0,8}(現金|存摺|提款卡|金融卡|款項)
+    - re:(現金|存摺|提款卡|金融卡).{0,8}面交
+    - re:(派|請).{0,6}(專員|人員|同事).{0,6}(收|拿|取)
+    - 收取現金
+    weight: 3
+  - id: withdrawal-fee
+    text: 要把錢領出來（出金）前，得先繳保證金、稅金等費用
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 解凍金
+    - 洗碼量
+    weight: 3
+  - id: hk-penny-stock
+    text: 叫你開複委託帳戶（透過國內券商買國外股票），去買極低價、冷門的港股
+    cues:
+    - 複委託
+    - 港股
+    - 仙股
+    weight: 2
+  - id: stock-group-jargon
+    weight: 2
+    text: 群組裡講「飆股、主力佈局、外資帳戶、開戶經理」這類帶單行話
+    cues:
+    - 飆股
+    - 主力機構
+    - 外資帳戶
+    - 開戶經理
+    - 帶大家進場
+    - 做莊
+    - re:(老師|主力).{0,10}(佈局|進場|帶單|當沖)
+  final_ask:
+  - 下載對方指定的投資 App 或網站，儲值、持續加碼。
+  - 把錢匯到對方給的帳戶（常是個人帳戶），或約面交現金。
+  - 想把錢領出來時，又要你先繳保證金、稅金等費用。
+  verify:
+  - 到金管會「防範非法證券期貨業宣導專區」查合法業者名單，或查各證券期貨公會的「非金管會核准之證券期貨業者及商品警示專區」。
+  - 到投信投顧公會網站查合法投資管道與「投信投顧合格登錄人員」。
+  - 撥 165 反詐騙諮詢專線，或金管會反詐欺諮詢專線 02-2737-3434 查證。
+  - 用 165 打詐儀錶板的涉詐網址查詢，檢查對方給的投資網站。
+  safe_lookalikes:
+  - 合法業者的名字可能被冒用；就算名字查得到，只要對方叫你把錢匯到個人帳戶，或要跟你面交現金，金管會提醒，這極可能是詐騙。
+  - 金管會官方不會主動聯繫你處理帳戶、不會凍結資金、不會要你繳保證金或驗證金；收到「金管會違約通知」要你補繳款就是假的。
+  if_already_happened:
+  - 立刻停止匯款加碼，不要因為已經投入就繼續繳「出金費用」。
+  - 保留對話、轉帳紀錄，撥 165 或到派出所報案。
+  - 款項還沒被領走時，盡快打 165，由專員通報銀行圈存（先把那筆錢凍結住）。
+  prevalence:
+    note: 警政署統計，114 年「投資詐欺」5 萬 8,675 件，占全部詐欺案件 29.69%，件數第一；24 歲以上各年齡層被害人都以投資詐欺最多（此統計未再細分群組、App、虛擬貨幣）。
+    source_url: https://www.npa.gov.tw/ch/app/data/doc?module=wg057&detailNo=1488707994689474560&type=s
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第二章 假投資
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=a4f8d5ab-3d53-4d22-9411-031fddde7a4e
+    level: L1
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 刑事局解密假投資手法 民眾投資前要停看聽
+    publisher: 刑事警察局
+    date: '2021-07-05'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+    level: L1
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - if_already_happened
+  - title: 網路投資群組詐騙多，投資前先停看聽
+    publisher: 金融監督管理委員會
+    date: '2026-02-13'
+    url: https://www.fsc.gov.tw/ch/home.jsp?dataserno=202602130008&dtable=News&id=96&mcustomize=news_view.jsp&parentpath=0%2C2&toolsflag=Y
+    level: L1
+    supports:
+    - pretend_to_be
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 詐騙類型
+    publisher: 金融監督管理委員會證券期貨局
+    date: '2026-10-01'
+    url: https://www.sfb.gov.tw/ch/home.jsp?id=1047&parentpath=0%2C5%2C775
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+  - title: 網路投資群組詐騙多，投資理財應洽合法業者
+    publisher: 金融監督管理委員會
+    date: '2024-08-15'
+    url: https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0%2C2&mcustomize=news_view.jsp&dataserno=202408150002&dtable=News
+    level: L1
+    supports:
+    - pretend_to_be
+    - verify
+  - title: 警政統計通報（115年第14週）
+    publisher: 內政部警政署統計室
+    date: '2026-04-01'
+    url: https://www.npa.gov.tw/ch/app/data/doc?module=wg057&detailNo=1488707994689474560&type=s
+    level: L1
+    supports:
+    - prevalence
+  - title: 誤信交友投資損失逾百萬元 泰達幣成詐騙金流工具
+    publisher: 刑事警察局
+    date: '2026-02-21'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=b4316ff9-f1f8-4d45-b094-5490896ee976
+    level: L1
+    supports:
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 注意可能被「二次詐騙」
+    publisher: 臺灣臺北地方檢察署
+    date: '2024-04-23'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    level: L1
+    supports:
+    - if_already_happened
+  - title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    publisher: ETtoday新聞雲
+    date: '2022-08-16'
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 假投資連3年居詐騙件數金額第1 常冒用名人身分傳飆股訊息
+    publisher: 中央社
+    date: '2024-01-30'
+    url: https://www.cna.com.tw/news/asoc/202401300023.aspx
+    level: L2
+    supports:
+    - pretend_to_be
+    - red_flags
+  - title: 看到這些一定是詐騙！金管會揭3大新套路 一眼識破
+    publisher: 經濟日報（聯合新聞網）
+    date: '2026-03-26'
+    url: https://udn.com/news/story/124490/9405558
+    level: L2
+    supports:
+    - pretend_to_be
+    - channels
+    - red_flags
+    - safe_lookalikes
+  - title: 金管會：小心新股抽籤詐騙 投資前停看聽
+    publisher: 中央社
+    date: '2025-02-01'
+    url: https://www.cna.com.tw/news/afe/202502010058.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 新股抽籤詐團假造違約申報通知 金管會示警勿受騙
+    publisher: 中央社
+    date: '2024-11-07'
+    url: https://www.cna.com.tw/news/afe/202411070390.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-investment-app
+  - fake-investment-crypto
+  - recovery-scam
+  updated: '2026-10-22'
+- id: fake-investment-crypto
+  name: 假投資：虛擬貨幣、假交易所
+  aliases:
+  - 虛擬貨幣投資詐騙
+  - 假交易所
+  - 假投資平台
+  - 泰達幣
+  - USDT
+  - 假幣商
+  category: 投資理財
+  summary: 對方用虛擬貨幣高收益當誘餌，教你買泰達幣（USDT）轉進他給的錢包或平台，或安排「幣商」面交現金換幣，最後平台不讓你把錢領出來（出金）。
+  status: active
+  first_seen: ''
+  channels:
+  - 交友軟體
+  - LINE
+  - LINE 群組
+  - 實體
+  pretend_to_be:
+  - 網友
+  - 投資老師
+  - 平台客服
+  - 虛擬貨幣幣商
+  stages:
+  - stage: 接觸
+    what_you_see: 在交友軟體認識的網友，或投資群組裡推薦飆股的人，開始跟你聊虛擬貨幣賺匯差、高收益。
+  - stage: 取信
+    what_you_see: 教你買泰達幣（USDT），給你一個投資平台網址；第一次出金可能真的成功，讓你更相信。
+  - stage: 製造情境
+    what_you_see: 帳面一直賺，鼓勵你加碼，甚至去銀行申請信貸投入。
+  - stage: 要求行動
+    what_you_see: 要你把幣轉進指定錢包或平台，或安排「幣商」跟你面交現金換幣。
+  - stage: 收網後
+    what_you_see: 再次申請出金時，「客服」說要另繳訂金、手續費、稅金或保證金才能出金，繳了還是拿不到。
+  opener_examples:
+  - 我最近在做虛擬貨幣匯差，每天都有收益，帶你一起。
+  - 先買一點泰達幣試試，轉到這個平台就能操作。
+  - 幣商可以直接跟你面交現金換幣，不用跑交易所。
+  red_flags:
+  - id: buy-crypto-to-wallet
+    text: 要你先買虛擬貨幣，再轉入他指定的錢包或平台
+    cues:
+    - 泰達幣
+    - USDT
+    - 指定錢包
+    - 錢包地址
+    - 轉入平台
+    weight: 3
+  - id: cash-for-crypto-meetup
+    text: 安排「幣商」面交現金換虛擬貨幣
+    cues:
+    - 幣商
+    - re:面交.{0,8}(現金|存摺|提款卡|金融卡|款項)
+    - re:(現金|存摺|提款卡|金融卡).{0,8}面交
+    - re:(派|請).{0,6}(專員|人員|同事).{0,6}(收|拿|取)
+    - 現金換幣
+    weight: 3
+  - id: withdrawal-fee
+    text: 要把錢領出來（出金）前，得先繳訂金、手續費、稅金或保證金
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 解凍金
+    weight: 3
+  - id: high-return-claim
+    text: 標榜穩定獲利、保證報酬、賺匯差
+    cues:
+    - 穩定獲利
+    - 保證報酬
+    - 高收益
+    - 賺匯差
+    weight: 2
+  final_ask:
+  - 買泰達幣（USDT）轉到對方給的錢包或平台。
+  - 跟「幣商」面交現金換幣。
+  - 出金前先繳訂金、手續費或稅金。
+  verify:
+  - 到金管會證期局官網「提供虛擬資產服務之事業或人員」專區，查平台或業者有沒有完成洗錢防制登記；沒登記的不得提供服務。
+  - 用 165 打詐儀錶板查涉詐網址、問 AI 防詐客服（可以輸入對方的話術或網址），或撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 合法的虛擬資產服務商不得用現金向客戶收款，必須用能留下金流紀錄的轉帳；要你面交現金的「幣商」不是正規管道。
+  - 你自己在已完成登記的業者買賣是正常的；要小心的是，有人叫你把買到的幣轉進他指定的錢包或平台。
+  if_already_happened:
+  - 立刻停止操作，不要為了拿回本金再繳出金費用。
+  - 保留錢包地址、轉帳紀錄與對話，撥 165 或報案；錢還沒被領走前，可以請銀行圈存（先把那筆錢凍結住）。
+  prevalence:
+    note: 刑事局 110 年上半年統計：網路投資詐騙為最大宗，標的多為虛擬通貨、外匯期貨或博奕遊戲（舊資料，查無近年單獨統計）。
+    source_url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+  sources:
+  - title: 誤信交友投資損失逾百萬元 泰達幣成詐騙金流工具
+    publisher: 刑事警察局
+    date: '2026-02-21'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=b4316ff9-f1f8-4d45-b094-5490896ee976
+    level: L1
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 網路投資群組詐騙多，投資前先停看聽
+    publisher: 金融監督管理委員會
+    date: '2026-02-13'
+    url: https://www.fsc.gov.tw/ch/home.jsp?dataserno=202602130008&dtable=News&id=96&mcustomize=news_view.jsp&parentpath=0%2C2&toolsflag=Y
+    level: L1
+    supports:
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 詐騙類型
+    publisher: 金融監督管理委員會證券期貨局
+    date: '2026-10-01'
+    url: https://www.sfb.gov.tw/ch/home.jsp?id=1047&parentpath=0%2C5%2C775
+    level: L1
+    supports:
+    - channels
+    - stages
+    - red_flags
+  - title: 刑事局解密假投資手法 民眾投資前要停看聽
+    publisher: 刑事警察局
+    date: '2021-07-05'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+    level: L1
+    supports:
+    - prevalence
+  - title: 注意可能被「二次詐騙」
+    publisher: 臺灣臺北地方檢察署
+    date: '2024-04-23'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    level: L1
+    supports:
+    - if_already_happened
+  - title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    publisher: ETtoday新聞雲
+    date: '2022-08-16'
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    level: L2
+    supports:
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-investment-group
+  - fake-investment-app
+  - recovery-scam
+  updated: '2026-10-22'
+- id: fake-investment-app
+  name: 假投資：假券商 App、假投資平台
+  aliases:
+  - 假投資 App
+  - 假投資平台
+  - 假券商
+  - 出金詐騙
+  - 偽造金管會公文
+  category: 投資理財
+  summary: 對方要你下載非官方的投資 App 或網站下單，帳面一路賺；等你要把錢領出來（出金），才說要先繳稅金、保證金或解凍金，甚至拿偽造的金管會公文要你繳錢，繳了還是領不到。
+  status: active
+  first_seen: ''
+  channels:
+  - 臉書廣告
+  - LINE
+  - LINE 群組
+  - 簡訊
+  pretend_to_be:
+  - 合法證券商
+  - 投資平台客服
+  - 金管會
+  stages:
+  - stage: 接觸
+    what_you_see: 從投資群組、臉書廣告或簡訊被引導，用對方給的連結下載投資 App 或進入投資網站。
+  - stage: 取信
+    what_you_see: 先小額試做，帳面顯示獲利；有的 App 用「儲值」下單，看起來跟一般看盤軟體不一樣。
+  - stage: 製造情境
+    what_you_see: 說能搶漲停股、保證獲利，鼓勵你持續加碼匯款。
+  - stage: 要求行動
+    what_you_see: 申請出金時，客服或一份蓋著「金管會」印信的文件說，要先繳稅金、所得稅、保證金、解凍金或驗證金。
+  - stage: 收網後
+    what_you_see: 繳了錢還是出不了金，帳號被凍結，App 或網站關閉、客服失聯。
+  opener_examples:
+  - 這個 App 可以搶漲停股，先小額試試看。
+  - 您的獲利需先繳納所得稅，才能提領出金。
+  - 出金前請先繳保證金完成驗證，款項才會解凍。
+  red_flags:
+  - id: withdrawal-fee
+    text: 要把錢領出來（出金）前，得先繳稅金、保證金、解凍金或驗證金
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 所得稅
+    - 解凍金
+    - 驗證金
+    weight: 3
+  - id: withdrawal-excuse
+    text: 用「洗碼量不足」「IP 異常」「帳號凍結」等理由，不讓你把錢領出來
+    cues:
+    - 洗碼量
+    - IP異常
+    - 帳號凍結
+    - 無法出金
+    weight: 3
+  - id: unofficial-app
+    text: 要你用對方給的連結下載 App，或用「儲值」方式下單
+    cues:
+    - 下載連結
+    - 機構席位
+    - re:(儲值|入金).{0,10}(平台|app|帳戶|客服|老師)
+    weight: 2
+  - id: fake-regulator-doc
+    text: 拿出「金管會」公文、執照或違約通知要你繳錢
+    cues:
+    - re:金管會.{0,10}(核准|認證|許可|保證|擔保|批准)
+    - re:(line|賴|簡訊|email).{0,10}(公文|拘票|傳票|通緝)
+    - 違約申報
+    - 營業執照
+    weight: 2
+  - id: guaranteed-return
+    text: 保證獲利、搶漲停、穩賺不賠
+    cues:
+    - 保證獲利
+    - 搶漲停
+    - 穩賺不賠
+    weight: 3
+  final_ask:
+  - 在對方給的 App 或網站持續儲值、加碼。
+  - 出金前先繳稅金、保證金、解凍金或驗證金。
+  verify:
+  - 到金管會「防範非法證券期貨業宣導專區」查合法業者名單，或查證券期貨公會的警示專區。
+  - 撥 165 反詐騙諮詢專線，或金管會反詐欺諮詢專線 02-2737-3434 查證。
+  - 用 165 打詐儀錶板的涉詐網址查詢檢查投資網站。
+  safe_lookalikes:
+  - 金管會官方不會主動聯繫你處理帳戶、不會管制或凍結資金、不會要你繳保證金或驗證金；收到蓋金管會印信、要你繳稅才能出金的文件就是偽造的。
+  - 合法業者名稱可能被冒用；要查證時，用金管會合法業者名單上的聯絡方式自己聯繫，不要用對方給的電話或 LINE。
+  if_already_happened:
+  - 不要再繳任何出金費用，立即停止操作並查證。
+  - 撥 165 或到派出所報案；款項還沒被領走時，請專員通報銀行圈存（先把那筆錢凍結住）。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 詐騙類型
+    publisher: 金融監督管理委員會證券期貨局
+    date: '2026-10-01'
+    url: https://www.sfb.gov.tw/ch/home.jsp?id=1047&parentpath=0%2C5%2C775
+    level: L1
+    supports:
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 網路投資群組詐騙多，投資前先停看聽
+    publisher: 金融監督管理委員會
+    date: '2026-02-13'
+    url: https://www.fsc.gov.tw/ch/home.jsp?dataserno=202602130008&dtable=News&id=96&mcustomize=news_view.jsp&parentpath=0%2C2&toolsflag=Y
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 刑事局解密假投資手法 民眾投資前要停看聽
+    publisher: 刑事警察局
+    date: '2021-07-05'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=7fa6b61e-4a9a-42d7-a72e-2685f578367d
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 常見詐騙手法話術解析與因應之道－第二章 假投資
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=a4f8d5ab-3d53-4d22-9411-031fddde7a4e
+    level: L1
+    supports:
+    - stages
+    - red_flags
+  - title: 誤信交友投資損失逾百萬元 泰達幣成詐騙金流工具
+    publisher: 刑事警察局
+    date: '2026-02-21'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=b4316ff9-f1f8-4d45-b094-5490896ee976
+    level: L1
+    supports:
+    - verify
+    - if_already_happened
+  - title: 注意可能被「二次詐騙」
+    publisher: 臺灣臺北地方檢察署
+    date: '2024-04-23'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    level: L1
+    supports:
+    - if_already_happened
+  - title: 詐團偽造金管會公文騙出金須繳稅 警扣千萬元逮24人
+    publisher: 中央社
+    date: '2026-03-26'
+    url: https://www.cna.com.tw/news/asoc/202603260139.aspx
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+  - title: 看到這些一定是詐騙！金管會揭3大新套路 一眼識破
+    publisher: 經濟日報（聯合新聞網）
+    date: '2026-03-26'
+    url: https://udn.com/news/story/124490/9405558
+    level: L2
+    supports:
+    - safe_lookalikes
+  - title: 新股抽籤詐團假造違約申報通知 金管會示警勿受騙
+    publisher: 中央社
+    date: '2024-11-07'
+    url: https://www.cna.com.tw/news/afe/202411070390.aspx
+    level: L2
+    supports:
+    - red_flags
+  - title: 「你把我的賴刪了？」記者潛入飆股群組 揭榨錢話術
+    publisher: ETtoday新聞雲
+    date: '2022-08-16'
+    url: https://www.ettoday.net/news/20220816/2317385.htm
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-investment-group
+  - fake-investment-crypto
+  - recovery-scam
+  updated: '2026-10-22'
+- id: recovery-scam
+  name: 二次詐騙：假律師、假協會說能幫你追回
+  aliases:
+  - 二次詐騙
+  - 假律師
+  - 追款詐騙
+  - 駭客追款
+  - 幣流分析師
+  category: 投資理財
+  summary: 你被騙後上網找追款方法，遇到自稱律師、駭客、幣流分析師或檢警的人說能追回，要你先付律師費、手續費、保證金，甚至叫你到博弈平台把錢「贏回來」。
+  status: active
+  first_seen: ''
+  channels:
+  - 搜尋引擎廣告
+  - LINE
+  - LINE 群組
+  - 電話
+  pretend_to_be:
+  - 律師
+  - 國際律師
+  - 幣流分析師
+  - 駭客
+  - 網路追款專員
+  - 檢警
+  - 銀行人員
+  stages:
+  - stage: 接觸
+    what_you_see: 被騙後上網搜尋「追回詐騙款項」，看到「律師保證幫你拿回」「律師事務所免費諮詢」的廣告或網站，或看到駭客追款貼文要你加 LINE。
+  - stage: 取信
+    what_you_see: 對方自稱律師、國際律師或「幣流分析師」，要你提供被騙細節與文件，說已查出錢流去哪裡。
+  - stage: 製造情境
+    what_you_see: 也有人假冒檢警說抓到提領車手，或假冒銀行說款項已追回，要你配合處理。
+  - stage: 要求行動
+    what_you_see: 要你先付律師費、手續費、保證金，或提供帳戶；有的叫你開虛擬貨幣錢包、面交現金換泰達幣，到博弈平台「贏回」損失。
+  - stage: 收網後
+    what_you_see: 付了錢對方就消失；或帳面顯示「贏錢」，再慫恿你借錢、抵押房子加碼。
+  opener_examples:
+  - 律師事務所免費提供詐騙法律諮詢，保證幫你追回。
+  - 我們的幣流分析師已查到你的錢流向，可以協助拿回。
+  - 已經抓到提領車手，繳了手續費就能把款項還你。
+  red_flags:
+  - id: guaranteed-recovery
+    text: 保證能幫你追回、拿回被騙的錢
+    cues:
+    - 追回
+    - 保證拿回
+    - 追款
+    - 協助追回
+    - 討回
+    weight: 3
+  - id: fee-before-recovery
+    text: 追款前要你先付律師費、手續費或保證金
+    cues:
+    - 律師費
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    weight: 3
+  - id: hacker-or-flow-analyst
+    text: 自稱駭客、幣流分析師或國際律師，有特殊管道追款
+    cues:
+    - 駭客
+    - 幣流分析
+    - 國際律師
+    - 特殊管道
+    weight: 3
+  - id: win-back-by-gambling
+    text: 叫你到博弈平台或娛樂城把損失「贏回來」
+    cues:
+    - 娛樂城
+    - 博弈
+    - 贏回
+    weight: 3
+  final_ask:
+  - 先付律師費、手續費或保證金。
+  - 提供自己的帳戶給對方（可能被拿去當人頭帳戶）。
+  - 面交現金換虛擬貨幣，到對方指定的博弈平台下注。
+  verify:
+  - 用法務部律師查詢系統查對方是不是登錄的執業律師，並親自到事務所面談。
+  - 找法律扶助基金會，或各地方法院的訴訟輔導科、律師免費諮詢。
+  - 對追回方式有疑慮，撥 165 反詐騙諮詢專線詢問。
+  safe_lookalikes:
+  - 正規追款要走這條路：報案、檢察官起訴、法院審理，判決有罪後，再透過「刑事附帶民事訴訟」要求賠償。律師只能幫你打官司（訴訟代理人），沒有公權力，不能私下把錢追回來。
+  - 款項還沒被領走時，正規做法是打 165，請專員通報銀行圈存（先把那筆錢凍結住），再向警方報案。
+  if_already_happened:
+  - 立刻報警，不要再找駭客或來路不明的單位。
+  - 錢還沒被領走：撥 165 請銀行圈存；已被轉走：只能提出詐欺告訴或向法院請求民事賠償。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 注意可能被「二次詐騙」
+    publisher: 臺灣臺北地方檢察署
+    date: '2024-04-23'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1169727/post
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 誤信國際律師與幣流師協追被詐款項 藥師再度遭詐百萬元
+    publisher: 刑事警察局
+    date: '2026-01-31'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=27a4218c-017e-4aca-93f3-097a0d05df1d
+    level: L1
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - safe_lookalikes
+    - if_already_happened
+  - title: 誤信假律師追討詐款 女藥師遭二次詐騙百萬元險抵房
+    publisher: 聯合新聞網（桃園電子報）
+    date: '2026-01-31'
+    url: https://udn.com/news/story/124490/9300769
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-investment-group
+  - fake-investment-app
+  - fake-investment-crypto
+  - account-rental
+  updated: '2026-10-22'
+- id: columbarium-scam
+  name: 靈骨塔、塔位、生前契約詐騙：說有人高價收購，要你先加購或繳費
+  aliases:
+  - 靈骨塔詐騙
+  - 靈骨塔收購詐騙
+  - 靈骨塔位買空賣空
+  - 塔位仲介詐騙
+  category: 投資理財
+  summary: 業者說塔位、生前契約是保值商品，能賺價差；或說已有買家要高價收購你手上的塔位，但要你先加購更多塔位、骨灰罐、禮儀契約，或先付手續費、保管費、節稅等費用。錢付了，買賣卻一直談不成。這種手法主要鎖定長輩。
+  status: active
+  first_seen: ''
+  channels:
+  - 實體
+  - 其他
+  pretend_to_be:
+  - 塔位仲介
+  - 殯葬業務員
+  - 買家
+  stages:
+  - stage: 接觸
+    what_you_see: 業者推銷塔位、骨灰罐或生前契約，說是保值商品、幾年後能賺好幾倍；或自稱塔位仲介、掛著「高價收購靈骨塔位」的招牌，說能幫你把手上的塔位賣掉。
+  - stage: 取信
+    what_you_see: 一直強調靈骨塔是投資標的，低價買進、高價賣出，還能節稅。
+  - stage: 製造情境
+    what_you_see: 說已經有買家要高價收購，但要「整套」才賣得掉，或買家臨時追加需求。
+  - stage: 要求行動
+    what_you_see: 要你先加購更多塔位、骨灰罐、禮儀契約、生前契約或永久使用憑證，或先付手續費、保管費、節稅、代書費、廣告費。
+  - stage: 收網後
+    what_you_see: 交易一直不成交，要退款被百般刁難；有人花了數百萬到上千萬元，手上囤了一堆賣不掉的塔位，之後還被用新名目再要一次錢。
+  opener_examples:
+  - 有買家要高價收你的塔位，但要整套加購骨灰罐才收。
+  - 塔位是保值商品，低價買進、過幾年轉手就能賺價差。
+  - 買家臨時多要幾個，不補足數量這筆交易就做不成。
+  red_flags:
+  - id: columbarium-as-investment
+    text: 把塔位、生前契約當投資商品賣，說能賺價差、節稅、獲利好幾倍
+    cues:
+    - re:(塔位|靈骨塔|納骨塔|生前契約).{0,15}(投資|賺價差|保值|增值|獲利)
+    - re:(投資|買).{0,6}(塔位|靈骨塔|納骨塔).{0,15}(節稅|賺)
+    weight: 3
+  - id: buyer-waiting
+    text: 說已有買家要高價收購你的塔位或生前契約
+    cues:
+    - re:(高價|高額).{0,4}(收購|收).{0,6}(塔位|靈骨塔|納骨塔|生前契約)
+    - re:(有|找到).{0,4}買家.{0,15}(塔位|靈骨塔|骨灰罐|生前契約)
+    weight: 2
+  - id: buy-more-to-sell
+    text: 要賣先買：叫你加購塔位、骨灰罐、禮儀契約，或補足數量才能成交
+    cues:
+    - re:(加購|補足|追加).{0,10}(塔位|骨灰罐|禮儀契約|生前契約|數量)
+    - re:(不補|沒補).{0,6}(差額|數量).{0,10}(無法|不能)(交易|成交|退款)
+    - re:整套.{0,6}(才|比較).{0,4}(划算|賣得掉|好賣)
+    weight: 3
+  - id: fee-before-deal
+    text: 成交前先收手續費、保管費、稅金、代書費或廣告費
+    cues:
+    - re:(先|要|需|須).{0,4}(繳|付|交).{0,8}(保管費|代書費|廣告費|手續費|稅金)
+    - re:(節稅|稅金|保管費|代書費).{0,15}(才能|才可).{0,4}(成交|過戶|交易|賣)
+    weight: 3
+  final_ask:
+  - 先加購更多塔位、骨灰罐、禮儀契約或生前契約，才能把手上的塔位賣掉。
+  - 先付手續費、保管費、節稅費用、代書費或廣告費。
+  verify:
+  - 納骨塔位和生前契約不是投資商品；自稱能幫你把塔位賣掉的業者不要輕信，撥 165 或 110 查證。
+  - 到內政部「全國殯葬資訊入口網」查合法的生前契約與殯葬設施經營業者，或洽地方政府殯葬主管機關。
+  - 任何買賣或契約，先確認對方身分和資金用途再付錢。
+  safe_lookalikes:
+  - 依自己實際需要向合法殯葬業者買塔位或生前契約、簽書面契約是正常交易；不正常的是「說能幫你賺錢或轉賣，卻要你先多買或先付費」。
+  if_already_happened:
+  - 撥 165 或 110 報案。
+  - 已經付過錢的人，要小心對方再用保管費、節稅、代書費等名目回頭要第二次錢，一律先停下來查證。
+  prevalence:
+    note: 刑事局 2026-03 破獲靈骨塔買空賣空集團，約 12 名高齡被害人，其中一人買了 80 多個塔位、花了 2000 多萬元；2026-07 高雄破獲收購詐團，至少 4 人受害、財損逾 300 萬元。查無 165 分類統計。
+    source_url: https://news.pts.org.tw/article/798599
+  sources:
+  - title: 靈骨塔詐騙公式拆解
+    publisher: 嘉義縣警察局
+    date: '2025-04-21'
+    url: https://www.cypd.gov.tw/Cib/News/Article/18153
+    level: L1
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 靈骨塔位仲介買賣 小心有詐 內政部提醒民眾勿抱投資心態、慎選合法業者
+    publisher: 內政部
+    date: '2024-07-20'
+    url: https://www.moi.gov.tw/News_Content.aspx?n=4&s=318150
+    level: L1
+    supports:
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 靈骨塔位買空賣空詐財 得手後再巧立名目加收款項
+    publisher: 公視新聞網
+    date: '2026-03-12'
+    url: https://news.pts.org.tw/article/798599
+    level: L2
+    supports:
+    - aliases
+    - stages
+    - red_flags
+    - final_ask
+    - if_already_happened
+    - prevalence
+  - title: 靈骨塔收購詐騙連環套 高雄警破獲詐團5男女
+    publisher: 聯合報
+    date: '2026-07-30'
+    url: https://udn.com/news/story/124490/9659963
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - prevalence
+  evidence: 🟢
+  related:
+  - fake-investment-group
+  - recovery-scam
+  updated: '2026-10-22'
+- id: fake-gambling
+  name: 假博弈：彩券明牌群組、假娛樂城、假線上投注，說你贏了卻要先繳錢才能領
+  aliases:
+  - 假投資（博弈）網站
+  - 假博弈機房
+  - 彩券明牌詐騙
+  - 報明牌詐騙
+  - 假六合彩／報明牌
+  category: 投資理財
+  summary: 在臉書、LINE 群組看到「免費報明牌、保證中獎」，或標榜「入出金快速、高賠率」的博弈平台。加入後，對方要你繳入會費、保密費、包中費，或在假網站儲值下注。等說你中獎、贏錢了，要領錢卻得先付手續費、稅金、擔保金；付了還是領不到，贏多了直接被封鎖。
+  status: active
+  first_seen: '2012'
+  channels:
+  - 臉書
+  - LINE 群組
+  - LINE
+  - 其他
+  pretend_to_be:
+  - 報牌老師、專業操盤團隊
+  - 博弈網站客服
+  - 線上投注站
+  - 說能暗中幫你贏錢的網友
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書貼文或社團看到「免費入群」「獎號分享」「連中多期」的報明牌訊息，或標榜「入出金快速、高賠率高報酬」的博弈平台；也有網友說親戚在操盤，能暗中讓你贏。
+  - stage: 取信
+    what_you_see: 被拉進 LINE 群組，群組說是專業團隊操盤、內部號碼穩賺、保證中獎。
+  - stage: 要求行動
+    what_you_see: 要你繳入會費、保密費、包中費或系統維護費才能繼續收號；或要你在網站加入會員、儲值下注，甚至先付開戶費。
+  - stage: 製造情境
+    what_you_see: 告訴你中了大獎，或帳面上贏了很多錢。
+  - stage: 收網後
+    what_you_see: 要領錢卻得先付手續費、稅金、擔保金；不付就打電話恐嚇要告你；贏太多要出金時直接被封鎖，群組和帳號跟著消失。
+  opener_examples:
+  - 免費入群拿獎號，我們已經連中好幾期了。
+  - 專業團隊操盤，內部號碼穩賺，名額有限要快。
+  - 恭喜你中大獎，先到超商繳手續費才能領。
+  - 入出金快速、高賠率，註冊儲值就能下注。
+  red_flags:
+  - id: lottery-insider-numbers
+    text: 宣稱有內幕明牌、保證中獎、包中
+    cues:
+    - re:(內幕|內線|內部|精準).{0,4}(明牌|號碼|報牌)
+    - re:(保證中獎|中獎包中|包中牌|包中費)
+    - re:(免費|帶你|幫你).{0,4}報明牌
+    - re:連中.{0,4}(多期|好幾期|[0-9一二三四五六七八九十]+期)
+    weight: 3
+  - id: pay-to-join-group
+    text: 要繳入會費、保密費、包中費、系統維護費才給號碼
+    cues:
+    - re:(繳|付|匯|交).{0,6}(入會費|保密費|包中費|系統維護費)
+    - re:(入會費|保密費|包中費).{0,10}(才|就|可以)
+    weight: 3
+  - id: online-lottery-betting
+    text: 說能在網路上買公益彩券，或加入會員、儲值就能下注
+    cues:
+    - re:(網路|線上).{0,4}(投注|下注|購買).{0,6}(彩券|今彩|大樂透|威力彩|六合彩)
+    - re:(加入會員|註冊).{0,10}儲值.{0,10}(下注|投注|購買|買)
+    weight: 3
+  - id: pay-before-payout
+    text: 中獎或贏錢要領之前，先叫你付手續費、稅金、擔保金
+    cues:
+    - re:(中獎|中了|贏了|彩金|獎金).{0,20}(先|需|要|須).{0,4}(繳|付|匯).{0,8}(手續費|稅金|擔保金|保證金)
+    - re:(擔保金|稅金|手續費).{0,10}(才能|才可).{0,4}(領|出金|提領)
+    - re:到超商.{0,6}(繳|匯).{0,6}手續費
+    weight: 3
+  - id: fast-payout-high-odds
+    text: 標榜入出金快速、高賠率、高報酬，或說能暗中讓你贏
+    cues:
+    - re:入.{0,1}出金.{0,2}快速
+    - re:高賠率.{0,4}高(報酬|回報)
+    - re:(暗中|偷偷).{0,4}(幫|讓).{0,4}(你|我們|你們)贏
+    weight: 2
+  - id: threaten-if-not-pay
+    text: 不付錢就恐嚇要報案、提告
+    cues:
+    - re:(不|沒有)(繳|付|匯).{0,10}(報案|提告|告你|法律責任)
+    - re:(將|就)報案提告
+    weight: 2
+  final_ask:
+  - 繳入會費、保密費、包中費或系統維護費，換取「明牌」。
+  - 在假投注網站或博弈平台加入會員、儲值下注。
+  - 說你中獎或贏錢後，先付手續費、稅金、擔保金才能領。
+  verify:
+  - 公益彩券目前沒有開放線上投注或儲值購買；網路上要你加會員、儲值買彩券的就是詐騙，可打台灣彩券客服查證。
+  - 公益彩券開獎完全隨機、有公正人士見證，事前不可能知道號碼，沒有「明牌」。
+  - 撥 165，或到數位發展部「網路詐騙通報查詢網」查詢、通報。
+  safe_lookalikes:
+  - 在彩券行（投注站）買公益彩券、照官方方式對獎是正常的；網路上自稱能代買、代下注、報明牌的都不是官方。
+  if_already_happened:
+  - 不要再到超商繳款或照指示到 ATM 操作，封鎖對方帳號，撥 110 或 165。
+  prevalence:
+    note: 165「假投資（博弈）網站」開放資料（統計期間 2021-12-27 至 2025-12-31）中，網站名稱含「娛樂城」或「博弈」的有 457 筆、通報 961 件；名稱沒寫明的博弈網站不在這個數字內。
+    source_url: https://data.gov.tw/dataset/160055
+  sources:
+  - title: 慎防假公益真詐財！財政部籲勿信彩券報牌、勿加不明群組或線上購買公益彩券
+    publisher: 財政部國庫署
+    date: '2025-08-07'
+    url: https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=b0b1e1ec93dc4869aa5a89f4b42a41c9
+    level: L1
+    supports:
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 網路博弈下注遇詐騙，資金有去無回！
+    publisher: 新北市政府警察局刑事警察大隊
+    date: '2012-04-23'
+    url: https://www.cic.police.ntpc.gov.tw/cp-769-5187-28.html
+    level: L1
+    supports:
+    - first_seen
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 165反詐騙諮詢專線_假投資(博弈)網站
+    publisher: 內政部警政署（刑事警察局），政府資料開放平臺
+    date: '2025-12-31'
+    url: https://data.gov.tw/dataset/160055
+    level: L1
+    supports:
+    - aliases
+    - prevalence
+  - title: 免費入群變荷包失血　彩券明牌詐騙套路全揭露
+    publisher: 三立新聞網
+    date: '2025-08-09'
+    url: https://inews.setn.com/news/1701495
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 「今彩539報名牌」詐騙！不匯手續費 就來電恐嚇
+    publisher: 自由時報
+    date: '2026-08-12'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5537666
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 假博弈機房坑殺賭客還封鎖贏家詐5億 刑事局南打破6機房逮17嫌
+    publisher: 自由時報
+    date: '2022-05-02'
+    url: https://news.ltn.com.tw/news/society/breakingnews/3912610
+    level: L2
+    supports:
+    - aliases
+    - stages
+    - opener_examples
+    - red_flags
+  - title: 「明牌」詐騙再進化！今彩539「必中四星」 台中多位民眾遇詐（搜尋摘要，未開全文）
+    publisher: 自由時報
+    date: 2022-10
+    url: https://news.ltn.com.tw/news/society/breakingnews/4106155
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  - title: 台彩獎金高網路詐騙增 刑事局籲勿信報明牌謊言（搜尋摘要，未開全文）
+    publisher: 中央社
+    date: '2021-09-05'
+    url: https://www.cna.com.tw/news/asoc/202109050119.aspx
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - romance-investment
+  - recovery-scam
+  - fake-prize
+  - fake-investment-group
+  updated: '2026-10-22'

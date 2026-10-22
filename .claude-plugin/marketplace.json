@@ -1,0 +1,12 @@
+{
+  "name": "tw-scam-radar",
+  "owner": { "name": "tw-scam-radar" },
+  "description": "台灣詐騙雷達：開源的台灣詐騙手法庫與判讀 skill",
+  "plugins": [
+    {
+      "name": "tw-scam-radar",
+      "source": "./",
+      "description": "貼上可疑訊息，依 52 類台灣詐騙手法與 165 官方涉詐網址名單判讀。"
+    }
+  ]
+}

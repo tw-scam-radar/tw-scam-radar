@@ -1,0 +1,361 @@
+- id: election-season
+  name: 選舉期間詐騙：投資候選人廣告、冒用政治人物帳號借錢、假政治獻金訂貨
+  aliases:
+  - 選舉詐騙
+  - 投資參選人看板廣告
+  - 冒用參選人帳號
+  - 假借政治獻金騙商家
+  category: 其他
+  summary: 選舉期間，詐團利用支持者的熱情，常見三種騙法。一是說投資候選人看板廣告，當選後能分紅。二是冒用候選人、官員或村里長的「私人帳號」，說選舉缺錢，要你匯款、借錢。三是假扮競選團隊，向商家大量訂貨「代替政治獻金」，用遠期支票付款後跳票。
+  status: active
+  first_seen: '2018'
+  channels:
+  - 臉書
+  - LINE
+  - 其他
+  pretend_to_be:
+  - 競選總部人員
+  - 候選人或現任官員本人（自稱私人帳號）
+  - 區長、村里長
+  - 候選人團隊採購人員
+  stages:
+  - stage: 接觸
+    what_you_see: （路線一：投資候選人廣告）自稱競選總部人員的人來找你，說可以「投資」候選人的看板廣告。
+  - stage: 製造情境
+    what_you_see: （路線一）說個人捐政治獻金有上限，多出來的可以用投資入股，當選後分紅，或帶你加入政治人物操盤的股票，保證獲利。
+  - stage: 要求行動
+    what_you_see: （路線一）要你轉帳或交付本票，甚至介紹你去當鋪抵押借錢來投資；你追問時就被封鎖、刪除。
+  - stage: 接觸
+    what_you_see: （路線二：冒用私人帳號借錢）你支持的候選人或官員的「私人帳號」突然私訊你，名稱、照片和本人幾乎一樣；或說區長、村里長換了新 LINE，邀你加好友、進群組。
+  - stage: 要求行動
+    what_you_see: （路線二）說選舉缺錢、經費不足、不方便公開募款，要你匯款參加「不公開」募款，或直接開口借錢。
+  - stage: 接觸
+    what_you_see: （路線三：假政治獻金訂貨，對象是商家）有人自稱候選人團隊，向你的店大量訂貨，說是用採購「代替政治獻金」或選舉送禮。
+  - stage: 收網後
+    what_you_see: （路線三）用遠期支票付款，貨運走後支票跳票，人也聯絡不上。
+  opener_examples:
+  - 個人捐款有上限，改投資候選人看板廣告，當選後就分紅。
+  - 我是候選人的私人帳號，選舉經費吃緊，能先借我一筆嗎？
+  - 區長換新 LINE 了，請加這個帳號，再拉你進群組。
+  - 我們競選團隊要大量訂貨代替政治獻金，貨款開期票給你。
+  red_flags:
+  - id: invest-in-candidate
+    text: 用「投資政治廣告、入股參選人」名義找你出錢，還說保證獲利、當選分紅
+    cues:
+    - re:投資.{0,8}(候選人|參選人|政治廣告|看板廣告)
+    - re:(入股|投資).{0,6}(參選人|候選人)
+    - re:當選.{0,8}(分紅|配息|回饋|獲利)
+    - re:(政治人物|候選人|參選人).{0,6}操盤
+    weight: 3
+  - id: donation-cap-workaround
+    text: 說政治獻金有上限，多出來的錢可以改用投資名義
+    cues:
+    - re:(政治獻金|捐款).{0,10}(上限|額度).{0,15}(投資|入股)
+    - re:超過.{0,6}(上限|額度).{0,10}(投資|入股)
+    weight: 2
+  - id: private-account-asks-money
+    text: 候選人、官員或村里長的「私人帳號」私訊你借錢，或要你參加不公開募款
+    cues:
+    - re:(私人|私下|另一個|新的).{0,4}(帳號|LINE).{0,20}(借|匯|轉|募款)
+    - re:(選舉|競選).{0,6}(缺錢|經費不足|經費吃緊|經費短缺).{0,15}(借|匯|轉|支持)
+    - re:不公開.{0,4}募款
+    - re:(區長|里長|村長|議員|立委|市長).{0,8}(換|新).{0,4}(LINE|帳號)
+    weight: 3
+  - id: donation-order-postdated-cheque
+    text: 自稱競選團隊大量訂貨「代替政治獻金」，用遠期支票付款
+    cues:
+    - re:(代替|取代|當作|充當).{0,4}政治獻金
+    - re:(競選|候選人|選舉).{0,20}(期票|遠期支票)
+    - re:(大量|大批).{0,4}(訂貨|採購|訂購).{0,20}(政治獻金|競選|選舉)
+    weight: 3
+  - id: promissory-note-or-pawn
+    text: 要你交付本票，或叫你去當鋪抵押借錢來「投資」
+    cues:
+    - re:(交付|開|簽).{0,4}本票
+    - re:(當鋪|典當).{0,10}(借|抵押|週轉|周轉)
+    weight: 2
+  final_ask:
+  - 把錢轉帳或交付本票，「投資」候選人廣告或入股。
+  - 匯款或借錢給冒用候選人、官員、村里長身分的帳號。
+  - （商家）先出貨，收遠期支票當貨款。
+  verify:
+  - 參選人的廣告和競選經費不會對外招募投資；支持候選人請走合法捐款管道，並要求開收據。
+  - 自稱競選總部人員要你匯款或交本票，先撥 165 查證，或在 165 打詐儀錶板問 AI 防詐客服。
+  - 候選人、官員或親友說換了帳號、要借錢，改用電話或當面等其他管道向本人確認。
+  - 商家還沒跟政治人物或競選團隊當面確認交易細節前，不要先交貨或交付財物。
+  safe_lookalikes:
+  - 合法政治獻金是捐款，有法定上限（個人對同一參選人每年最多 10 萬元），會開收據，不會給你分紅或獲利。
+  - 競選辦公室公布的政治獻金專戶是正常捐款管道；165 曾澄清，民眾捐到競選辦公室提供的帳戶並不是被騙。
+  if_already_happened:
+  - 撥 165 查證或 110 報案。
+  - 自己的照片、姓名被冒用開了假帳號，可以直接向 LINE 檢舉，並通知親友與支持者。
+  prevalence:
+    note: 刑事局 2026-10-18 依 165 報案資料整理選舉四大詐術，表示目前多為零星個案；第四種「假送競選小物」件數最多，屬 fake-sticker 一類的免費贈品手法，不在本筆。
+    source_url: https://www.cna.com.tw/news/asoc/202610180107.aspx
+  sources:
+  - title: 刑事局新聞稿：選戰升溫詐騙趁虛而入 刑事局籲慎防四大選舉詐騙手法（搜尋摘要，未開全文）
+    publisher: 內政部警政署刑事警察局（行政院網站附件）
+    date: 2026-10
+    url: https://www.ey.gov.tw/File/F28F489267FF34CA
+    level: L1
+    supports:
+    - stages
+    - red_flags
+  - title: 165反詐騙諮詢專線－詐騙闢謠專區：捐款政治獻金遭詐？官方已澄清!
+    publisher: 內政部警政署（刑事警察局），政府資料開放平臺
+    date: '2019-10-01'
+    url: https://data.gov.tw/dataset/38262
+    level: L1
+    supports:
+    - safe_lookalikes
+  - title: 九合一選戰升溫 刑事局籲提防4選舉詐術
+    publisher: 中央社
+    date: '2026-10-18'
+    url: https://www.cna.com.tw/news/asoc/202610180107.aspx
+    level: L2
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+  - title: 參選人鐵粉注意！索競選小物40分鐘遭盜34萬　刑事局揭4大詐術
+    publisher: ETtoday 新聞雲
+    date: '2026-10-18'
+    url: https://www.ettoday.net/news/20261018/3256775.htm
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 送小物、粉專募款、投資廣告都是假？揭開選舉詐騙4大手法
+    publisher: 聯合報
+    date: '2026-10-18'
+    url: https://udn.com/news/story/124490/9822353
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - stages
+    - red_flags
+  - title: 詐團誆投資參選人廣告可分紅 高雄車廠老闆遭騙百萬
+    publisher: 中央社
+    date: '2026-10-11'
+    url: https://cna.com.tw/news/asoc/202610110119.aspx
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 詐團假冒多名區長設Line假帳號 南市刑大介入調查
+    publisher: 自由時報
+    date: '2022-09-16'
+    url: https://news.ltn.com.tw/news/society/breakingnews/4059992
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 【選舉詐欺團】藉贊助選舉　芭樂票拐千萬物資
+    publisher: 鏡週刊
+    date: '2018-11-11'
+    url: https://www.mirrormedia.mg/story/20181111soc001
+    level: L2
+    supports:
+    - first_seen
+    - stages
+    - red_flags
+    - final_ask
+  evidence: 🟢
+  related:
+  - fake-sticker
+  - guess-who
+  - account-takeover
+  - fake-investment-group
+  updated: '2026-10-22'
+- id: fake-medicine
+  name: 假醫師、假中醫 LINE 看診賣藥：線上問診推「特效藥」、保健品
+  aliases:
+  - 假醫師賣藥詐騙
+  - 假名醫一頁式廣告
+  - 線上問診詐騙
+  category: 其他
+  summary: 在臉書看到名醫、中醫或減重藥廣告，加 LINE 後由「醫師」「醫師助理」「中醫師顧問」線上問診，推銷來路不明的特效藥、保健品，要你匯款或貨到付款。之後一直叫你加購，越買越貴，甚至要你繳說明會入場費。藥吃了還可能延誤病情。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 臉書
+  - 臉書廣告
+  - LINE
+  pretend_to_be:
+  - 名醫或名醫的助理
+  - 中醫師顧問
+  - 國外大學中醫學院醫師
+  - 中醫養生帳號
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書或社群看到名醫、中醫推薦特效藥、減重藥的廣告，有的是用 AI 偽造醫師的臉和聲音。
+  - stage: 取信
+    what_you_see: 點進去加入 LINE（例如「中醫養生」帳號），對方自稱醫師、醫師助理或「中醫師顧問」，說醫師病人太多、由助理關心你的病情，替你線上問診。
+  - stage: 要求行動
+    what_you_see: 推薦「特效藥」「快速療程」，說名額有限、已經幫你登記，要你匯款到指定帳戶，或寄高價藥品貨到付款。
+  - stage: 收網後
+    what_you_see: 用療程不足、效果加強當理由一直要你加購，越買越貴；有人被要求繳數十萬元說明會入場費，還說之後會全額退還藥款。
+  - stage: 收網後
+    what_you_see: 藥品標示不清、來源不明，有慢性病患者吃了病情惡化住院。
+  opener_examples:
+  - 醫師病人太多，我是他的助理，先幫你線上問診。
+  - 這款特效藥名額有限，已經幫你登記，今天匯款保留。
+  - 療程還不夠，要再加購一期效果才會出來。
+  - 醫院要來台設分院辦說明會，先繳入場費之後全退。
+  red_flags:
+  - id: line-consultation
+    text: 要你加 LINE 才能線上問診、買藥
+    cues:
+    - re:(加|私訊).{0,6}(LINE|賴|好友).{0,10}(問診|看診|買藥)
+    - re:開放加好友.{0,4}(問診|看診)
+    - re:(LINE|賴).{0,4}(線上)?(問診|看診)
+    weight: 2
+  - id: miracle-cure
+    text: 推銷「特效藥」「快速療程」，誇大療效、保證快速見效
+    cues:
+    - re:特效(藥|中藥|藥方)
+    - re:(保證|快速|馬上|一週|七天).{0,4}(見效|根治|痊癒|斷根)
+    - 快速療程
+    weight: 2
+  - id: doctor-assistant-sells
+    text: 自稱醫師助理或「中醫師顧問」在私訊幫你看病、賣藥
+    cues:
+    - re:我是.{0,6}(醫師|醫生).{0,2}(的)?助理
+    - 中醫師顧問
+    - re:(醫師|醫生).{0,6}(病人|患者).{0,4}(太多|很多)
+    weight: 2
+  - id: upsell-course
+    text: 用療程不足、效果加強當理由，不斷要你加購、越買越貴
+    cues:
+    - re:療程.{0,4}(不足|不夠|還沒完成)
+    - re:(再|加)購.{0,8}(療程|一期|一盒|效果)
+    - re:效果(加強|更好).{0,10}(加購|再買)
+    weight: 2
+  - id: entrance-fee-refund
+    text: 要你先繳說明會入場費，還說之後全額退還
+    cues:
+    - re:(入場費|說明會).{0,15}(全額退|退還|全退|退費)
+    - re:(繳|付|匯).{0,4}入場費
+    weight: 3
+  - id: limited-slots-rush
+    text: 說名額有限、已經幫你登記，催你快匯款
+    cues:
+    - re:(已|已經)(幫|替)你登記
+    - re:名額有限.{0,10}(匯款|付款|轉帳)
+    weight: 1
+  final_ask:
+  - 匯款到對方指定帳戶買藥或保健品（收款帳戶常掛著一般店家、行號的名字，其實是人頭帳戶）。
+  - 收下貨到付款的高價藥品包裹。
+  - 繳交說明會入場費。
+  verify:
+  - 看病到合格醫療院所，藥品憑處方箋到合法藥局領。
+  - 上衛福部「醫事查詢系統」查醫師與院所資格。
+  - 醫師或醫院是不是真的有線上看診、賣藥，打醫院或學校官方電話、看官網公告確認。
+  - 有疑慮撥 165 反詐騙專線諮詢。
+  safe_lookalikes:
+  - 透過醫院官網、正式掛號系統看診是正常管道；名醫本人不會用私人社群帳號看診、賣藥。
+  if_already_happened:
+  - 身體不舒服請到合格醫療院所就醫，不要再照 LINE 上的指示用藥。
+  - 貨到付款的包裹還沒簽收可以拒收、請物流退回；已經匯款就撥 165 或 110 報案。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 小心假醫師賣藥詐騙　看到這類醫療廣告務必提高警覺
+    publisher: 宜蘭縣政府警察局
+    date: '2026-01-13'
+    url: https://www.ilcpb.gov.tw/News_Content.aspx?n=16369&s=390879
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 男子誤信假醫師陷阱 湖警攔阻92萬元貨到付款詐騙案
+    publisher: 金門縣政府
+    date: '2025-08-28'
+    url: https://www.kinmen.gov.tw/News_Content2.aspx?n=98E3CA7358C89100&sms=BF7D6D478B935644&s=BDB483858BE3ED64
+    level: L1
+    supports:
+    - first_seen
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 詐團假冒名醫大量投放一頁式廣告 民眾遭誘騙購買不明藥物
+    publisher: 公視新聞網
+    date: '2026-01-11'
+    url: https://news.pts.org.tw/article/790086
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+  - title: AI假醫師又在騙！7旬翁花20萬買藥吃到住院　長庚急報警
+    publisher: TVBS
+    date: '2026-01-12'
+    url: https://news.tvbs.com.tw/local/3098042
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - verify
+    - safe_lookalikes
+  - title: 臉書假冒中醫師講神效 老翁心動到銀行要匯2萬元買藥被勸阻
+    publisher: 聯合報
+    date: '2025-12-24'
+    url: https://udn.com/news/story/124490/9222889
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 影》骨科名醫遭冒名賣藥、LINE上問診瘋傳 怒喊：親友都差點被騙
+    publisher: 工商時報（中時新聞網）
+    date: '2025-10-22'
+    url: https://www.ctee.com.tw/news/20251022701132-431401
+    level: L2
+    supports:
+    - pretend_to_be
+    - red_flags
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - fake-celebrity-ad
+  - fake-seller
+  updated: '2026-10-22'

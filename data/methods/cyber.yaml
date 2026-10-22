@@ -1,0 +1,1489 @@
+- id: phishing-bank
+  name: 假銀行釣魚簡訊：假網銀、假信用卡、假證券登入頁
+  aliases:
+  - 銀行釣魚簡訊
+  - 假網銀
+  - 假證券商網站
+  - 信用卡盜刷簡訊
+  category: 帳號資安
+  summary: 假冒銀行、信用卡或證券商發簡訊，說帳戶更新失敗或交易異常，叫你點連結輸入帳號密碼、卡號或驗證碼。
+  status: active
+  first_seen: '2021'
+  channels:
+  - 簡訊
+  - 電子郵件
+  pretend_to_be:
+  - 銀行
+  - 信用卡發卡機構
+  - 證券商
+  - 金流服務業者
+  stages:
+  - stage: 接觸
+    what_you_see: 收到開頭掛著銀行名稱的簡訊，刑事局觀察常選在週五下午或下班後大量發送，讓你週末找不到銀行查證。
+  - stage: 製造情境
+    what_you_see: 說你的帳戶資料更新失敗、付款失敗或交易異常，要你馬上處理，逾時要重來。
+  - stage: 要求行動
+    what_you_see: 點連結進入仿冒的網路銀行或證券商頁面，被要求輸入帳號、密碼、簡訊驗證碼，或信用卡卡號、有效期限與 OTP。
+  - stage: 收網後
+    what_you_see: 網銀帳密被盜用、存款被轉進人頭帳戶，或信用卡被盜刷、被綁到別人的手機。
+  opener_examples:
+  - 【某銀行】您的帳戶資料更新失敗，請點連結輸入驗證碼重新驗證。
+  - 您的帳戶出現付款失敗，請盡快點連結完成帳戶驗證。
+  red_flags:
+  - id: bank-update-enter-code
+    text: 銀行名義的簡訊附連結，要你「更新資料」並輸入驗證碼
+    cues:
+    - 帳戶更新失敗
+    - 更新資料
+    - 輸入您的驗證碼
+    - 請立即輸入
+    weight: 3
+  - id: payment-failed-verify
+    text: 說付款失敗、交易異常，要你做「帳戶驗證」
+    cues:
+    - 付款失敗
+    - 交易異常
+    - 帳戶驗證
+    - 帳戶異常
+    weight: 2
+  - id: ask-card-otp
+    text: 要你在網頁上輸入卡號、有效期限、安全碼或 OTP 一次性密碼
+    cues:
+    - 有效期限
+    - 安全碼
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    weight: 2
+  - id: odd-domain-link
+    weight: 2
+    text: 網址的結尾或拼法很怪（例如 .top、.cc、.vip，或在官方名稱後面加奇怪字串）
+    cues:
+    - re:[a-z0-9-]+\.(top|xyz|cc|vip|cn|icu|click|buzz|work|live|online|club|shop|site|fun|bond|sbs|cfd|pro|games)(/|$|[^a-z0-9.-])
+    - re:(7-?eleven|shopee|line|apple|gov|post)[-.][a-z0-9-]*\.(cc|top|xyz|vip|shop|site)
+  final_ask:
+  - 在假網銀或假證券商頁面輸入帳號、密碼與簡訊驗證碼。
+  - 在不明網頁輸入信用卡卡號、有效期限與 OTP，或把信用卡綁定到對方的手機。
+  verify:
+  - 不點簡訊裡的連結；自己打開銀行或證券商的官方 App，或手動輸入官網網址。
+  - 撥證券商官網上的客服電話，或發卡機構的客服電話查證。
+  - 撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 真的 OTP 簡訊會寫交易幣別、金額與用途；跟你正在做的交易對不上就不要輸入，並聯絡發卡機構。
+  - 發卡機構的消費即時通知是正常服務，可以用來發現不是本人的刷卡。
+  if_already_happened:
+  - 發現不是本人的消費或可疑交易，立刻聯絡發卡機構處理（停卡、換卡）。
+  - 撥 165 反詐騙專線諮詢，並到派出所報案。
+  prevalence:
+    note: 刑事局統計 2026 年 8 月釣魚連結詐騙受理 505 件、財損約 5,451 萬元，件數年增 99.6%、財損年增 317.7%（含各種假冒對象，不只銀行）；假冒銀行與金流服務是六類常見話術之一。
+    source_url: https://udn.com/news/story/124490/9755214
+  sources:
+  - title: 釣魚簡訊改冒用台新銀名義行騙 財損達55萬！警方提醒民眾勿點連結
+    publisher: Newtalk 新聞
+    date: '2021-02-06'
+    url: https://newtalk.tw/news/view/2021-02-06/534333
+    level: L2
+    supports:
+    - first_seen
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 詐騙猖獗 金管會提醒春節假期慎防信用卡盜刷
+    publisher: 中央社（聯合新聞網轉載）
+    date: '2026-02-16'
+    url: https://udn.com/news/story/7239/9332247
+    level: L2
+    supports:
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 詐騙集團假冒券商頁面盜帳號 金管會籲小心釣魚
+    publisher: 中央社
+    date: '2021-05-04'
+    url: https://www.cna.com.tw/news/afe/202105040290.aspx
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - verify
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - pretend_to_be
+    - red_flags
+    - opener_examples
+    - prevalence
+  - title: 簡訊通知「通行費」未繳 點擊連結輸入個資信用卡秒遭盜刷
+    publisher: 刑事警察局
+    date: '2022-06-15'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg117&id=1893&serno=2c6333b4-f539-41bc-8267-a25902717ad5
+    level: L1
+    supports:
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - fake-traffic-fine
+  - fake-parcel
+  - fake-utility-bill
+  - account-takeover
+  updated: '2026-10-22'
+- id: fake-traffic-fine
+  name: 假監理站、假交通罰單簡訊
+  aliases:
+  - 假監理服務網
+  - 罰單簡訊詐騙
+  - 罰單催繳郵件
+  - 假 111 簡訊
+  category: 帳號資安
+  summary: 假冒監理服務網或監理站，用簡訊或電子郵件說你的交通違規快逾期，叫你點連結刷卡繳罰款。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 簡訊
+  - 電子郵件
+  pretend_to_be:
+  - 監理服務網
+  - 監理站
+  - 公路局
+  stages:
+  - stage: 接觸
+    what_you_see: 收到開頭寫「監理服務網」的簡訊，或「監理業務中心」名義的電子郵件，說你違反道路交通管理事件。
+  - stage: 製造情境
+    what_you_see: 說即將超過線上處理期限、罰款逾期未繳，要你在某月某日前盡快處理。
+  - stage: 要求行動
+    what_you_see: 點連結進入仿冒的監理服務網和信用卡繳費畫面，被要求輸入信用卡號與認證碼。
+  - stage: 收網後
+    what_you_see: 信用卡被盜刷，個資也外洩。
+  opener_examples:
+  - ［監理服務網］您有交通違規即將逾期，請於期限前上網處理。
+  - 監理單位通知：您有違規罰款尚未繳納，請點連結線上繳費。
+  red_flags:
+  - id: fine-message-with-link
+    text: 罰單或違規通知附了連結（官方到期提醒不附網址）
+    cues:
+    - re:(違反道路交通|交通違規|罰單|罰款|罰鍰).{0,40}(http|www\.|\[連結\])
+    - re:(http|www\.|\[連結\]).{0,40}(罰單|罰款|罰鍰)
+    - bit.ly
+    weight: 3
+  - id: fine-deadline-pressure
+    text: 說即將過線上處理期限、逾期未繳，要你盡快處理
+    cues:
+    - 即將過線上處理期限
+    - 線上處理期限
+    - 盡快處理
+    - 逾期未繳
+    weight: 2
+  - id: fine-by-email
+    text: 用電子郵件催繳交通罰單
+    cues:
+    - 監理業務中心
+    - 未處理違反交通管理事件
+    - 繳納交通違規罰鍰
+    weight: 2
+  - id: foreign-sender-number
+    text: 發送號碼是「+」開頭的境外號碼
+    cues:
+    - '+63'
+    - '+66'
+    weight: 2
+  final_ask:
+  - 點連結到假監理服務網，輸入信用卡號與認證碼繳「罰款」。
+  verify:
+  - 自己輸入監理服務網正確網址 www.mvdis.gov.tw，或用監理服務 App 查有沒有違規。
+  - 打公路局用路人服務中心 0800-231-035，或直接問各地監理所、站；如果罰單是六都開的，要問該市的裁決中心（處）。
+  - 撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 監理單位的罰單到期簡訊要車主自己申請，只是提醒，不會附網址讓你點。
+  - 政府機關網址以 gov.tw 結尾；縮網址或其他網域都不是監理服務網。
+  - 法務部宣導：交通罰單催繳電子郵件是詐騙。
+  - 曾有詐團假冒「111」政府專屬短碼發釣魚簡訊；看到 111 也不要點附帶的連結，回官網查。
+  if_already_happened:
+  - 已輸入信用卡資料，立刻聯絡發卡機構停卡、換卡。
+  - 撥 165 反詐騙專線諮詢或報案。
+  prevalence:
+    note: 刑事局 2026 年 9 月把「假冒政府機關及公共服務（含交通部，以罰單未繳為由）」列為六類常見釣魚話術之一。
+    source_url: https://udn.com/news/story/124490/9755214
+  sources:
+  - title: 請注意詐騙簡訊所附的假監理服務網網址，請勿點選假連結！
+    publisher: 交通部（公路局）
+    date: '2023-10-09'
+    url: https://www.motc.gov.tw/n/2310090006
+    level: L1
+    supports:
+    - first_seen
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 小心詐騙！郵件、簡訊提醒罰單繳費別急點連結 公路局教你辨真偽
+    publisher: TVBS 健康2.0
+    date: '2024-10-04'
+    url: https://health.tvbs.com.tw/life/349987
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - verify
+  - title: 偽台水、監理站連結千萬別點！刑事局揭釣魚簡訊特徵
+    publisher: ETtoday 新聞雲
+    date: '2023-11-26'
+    url: https://www.ettoday.net/news/20231126/2631030.htm
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 設計師按下+66假簡訊 卡號輸完就當機「下秒傻眼」31萬飛了！
+    publisher: ETtoday 新聞雲
+    date: '2023-06-10'
+    url: https://www.ettoday.net/news/20230610/2517199.htm
+    level: L2
+    supports:
+    - red_flags
+  - title: 刑事局破首宗假冒「111」政府簡訊騙個資 逮2嫌
+    publisher: 中央社
+    date: '2024-11-22'
+    url: https://www.cna.com.tw/news/asoc/202411220166.aspx
+    level: L2
+    supports:
+    - stages
+    - safe_lookalikes
+  - title: 注意！交通罰單催繳電子郵件是詐騙（反詐騙宣導）
+    publisher: 法務部
+    date: ''
+    url: https://www.moj.gov.tw/2204/2473/2492/254461/post
+    level: L1
+    supports:
+    - red_flags
+    - safe_lookalikes
+  - title: 詐騙猖獗 金管會提醒春節假期慎防信用卡盜刷
+    publisher: 中央社（聯合新聞網轉載）
+    date: '2026-02-16'
+    url: https://udn.com/news/story/7239/9332247
+    level: L2
+    supports:
+    - if_already_happened
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - prevalence
+  evidence: 🟢
+  related:
+  - fake-utility-bill
+  - phishing-bank
+  updated: '2026-10-22'
+- id: fake-parcel
+  name: 假郵局、假物流：包裹無法投遞、補繳運費關稅
+  aliases:
+  - 包裹無法投遞簡訊
+  - 假郵局關稅通知
+  - 補繳運費簡訊
+  - 假宅配簡訊
+  - 假黑貓
+  category: 帳號資安
+  summary: 假冒中華郵政或物流業者，說包裹地址有誤、無法配送或要補繳關稅運費，叫你點連結填資料、刷卡付小錢。
+  status: active
+  first_seen: '2021'
+  channels:
+  - 簡訊
+  - 電子郵件
+  pretend_to_be:
+  - 中華郵政
+  - 黑貓宅急便
+  - 新竹物流
+  - 宅配通
+  - 賣貨便
+  stages:
+  - stage: 接觸
+    what_you_see: 收到印著郵局 Logo 的電子郵件或簡訊，說有包裹等著投遞。
+  - stage: 製造情境
+    what_you_see: 說無法定位地址、配送失敗，或國際包裹有未繳的關稅、運費、重新遞送費。
+  - stage: 要求行動
+    what_you_see: 點連結「驗證地址資訊」或線上繳費，被要求輸入信用卡卡號、效期與驗證碼。
+  - stage: 收網後
+    what_you_see: 信用卡被盜刷，或卡片被綁進別人的行動支付。
+  opener_examples:
+  - 郵局通知：您的包裹地址無法定位，請點連結驗證地址資訊。
+  - 您的國際包裹有關稅未繳，請點連結線上補繳後再投遞。
+  red_flags:
+  - id: parcel-pay-or-readdress
+    text: 包裹通知要你補繳關稅、運費，或因無法投遞要你處理
+    cues:
+    - 補繳
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 無法投遞
+    - 無法配送
+    - 重新遞送
+    weight: 2
+  - id: parcel-verify-address
+    text: 要你點按鈕「驗證地址資訊」或前往「帳戶門戶」
+    cues:
+    - 無法定位地址
+    - 驗證地址
+    - 帳戶門戶
+    - 為完成配送
+    weight: 3
+  - id: simplified-chinese-text
+    text: 文字夾雜簡體字或中國用語
+    cues:
+    - re:[这们认]
+    - re:[邮账览运费单]
+    weight: 1
+  final_ask:
+  - 點連結到假頁面填地址，輸入信用卡卡號、效期、驗證碼，付小額運費或關稅。
+  verify:
+  - 打中華郵政客服 0800-700-365（手機撥 04-2354-2030）查證。
+  - 拿到掛號招領通知單，核對上面印的招領郵局名稱與市話，自己打過去確認。
+  - 撥 165 反詐騙專線，或上 165 打詐儀錶板查證。
+  safe_lookalikes:
+  - 郵局真的無法配送時，會打電話給收件人另約時間，不會用電子郵件通知。
+  - 真的掛號招領通知單上會印：收件人姓名地址、寄件人、一段式條碼、招領郵局名稱和市話、6 碼員工編號。郵差（郵務士）不會留手機號碼，通知單也不會裝進信封寄來。
+  - 中華郵政不會寄電子郵件，要你上網轉帳來辦寄件或存款、匯款的事。
+  if_already_happened:
+  - 已輸入卡號，立刻聯絡發卡機構停卡、換卡。
+  - 撥 165 反詐騙專線或到 165 打詐儀錶板報案。
+  prevalence:
+    note: 刑事局 2026 年 9 月把「假冒物流服務（賣貨便、新竹物流、黑貓宅急便、宅配通）」列為六類常見釣魚話術之一；2025 年 8 月也有搭關稅議題、稱包裹未付關稅的新一波假郵局通知。
+    source_url: https://udn.com/news/story/124490/9755214
+  sources:
+  - title: 常見手法及因應之道（防制詐騙專區）
+    publisher: 中華郵政
+    date: ''
+    url: https://www.post.gov.tw/post/internet/Anti-Fraud/common_practices.jsp
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 新型詐騙假冒中華郵政寄email 稱無法配送需點連結驗證
+    publisher: 公視新聞網
+    date: '2025-01-19'
+    url: https://news.pts.org.tw/article/734398
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 假冒中華郵政簡訊電郵 警：詐騙集團手法
+    publisher: 中央社
+    date: '2021-07-16'
+    url: https://www.cna.com.tw/news/asoc/202107160178.aspx
+    level: L2
+    supports:
+    - first_seen
+    - stages
+  - title: 詐騙新招「包裹卡關要付關稅」 中華郵政急喊：別點連結
+    publisher: ETtoday 新聞雲
+    date: '2025-08-09'
+    url: https://www.ettoday.net/news/20250809/3011853.htm
+    level: L2
+    supports:
+    - status
+    - prevalence
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - pretend_to_be
+    - prevalence
+  - title: 詐騙猖獗 金管會提醒春節假期慎防信用卡盜刷
+    publisher: 中央社（聯合新聞網轉載）
+    date: '2026-02-16'
+    url: https://udn.com/news/story/7239/9332247
+    level: L2
+    supports:
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - phishing-bank
+  - fake-utility-bill
+  updated: '2026-10-22'
+- id: fake-utility-bill
+  name: 假電費、水費、電信費、ETC 通行費欠費簡訊
+  aliases:
+  - 假台電簡訊
+  - 電費逾期簡訊
+  - 假台水簡訊
+  - ETC 欠費簡訊
+  - 通行費簡訊
+  - 停車費簡訊
+  - 電信點數到期簡訊
+  category: 帳號資安
+  summary: 假冒台電、台水、電信業者或遠通電收，說你欠費要停電停水、小額通行費、停車費要罰款，或點數今天到期，叫你點連結刷卡或下載 App。
+  status: active
+  first_seen: '2022'
+  channels:
+  - 簡訊
+  - 電子郵件
+  pretend_to_be:
+  - 台電
+  - 台水
+  - 中華電信
+  - 遠通電收（ETC）
+  - eTag
+  stages:
+  - stage: 接觸
+    what_you_see: 收到開頭寫【台灣電力公司】、【遠通電收】或電信公司名稱的簡訊或郵件，常從境外號碼發出。
+  - stage: 製造情境
+    what_you_see: 說電費、水費逾期將終止供電供水；或說有一筆幾十元的通行費、停車費未繳，逾期要罰款、加收滯納金；或說會員積分今天到期作廢。
+  - stage: 要求行動
+    what_you_see: 點連結到假繳費頁，被要求輸入車號、身分證字號、信用卡號、有效期限與安全碼，或被叫去下載 App 繳費。
+  - stage: 收網後
+    what_you_see: 信用卡被盜刷，有人一次損失數十萬元。
+  opener_examples:
+  - 【某電力公司】貴戶本期電費已逾期，請限期繳費以免停止供電。
+  - 提醒您有一筆小額停車費未繳清，逾期將處以罰款。
+  - 您的會員積分將於今日到期，逾期作廢，請盡快兌換。
+  red_flags:
+  - id: utility-cutoff-threat
+    text: 威脅逾期就終止供電、供水
+    cues:
+    - 終止供電
+    - 停止供電
+    - 終止供水
+    - 將終止
+    weight: 2
+  - id: small-fee-late-penalty
+    text: 幾十元的小額通行費、停車費，說逾期要罰款或加收滯納金
+    cues:
+    - 滯納金
+    - 臨時停車費
+    - 逾期將處
+    - 罰緩
+    - 今日午夜
+    weight: 2
+  - id: no-plate-number
+    text: 通行費通知沒寫車號，改寫「案件編號」「公告字號」之類
+    cues:
+    - 案件編號
+    - 公告字號
+    - 郵件代碼
+    weight: 1
+  - id: points-expiring-today
+    text: 說會員點數、積分今天到期，叫你點連結兌換
+    cues:
+    - 積分
+    - 今日內到期
+    - 逾期將作廢
+    - 兌換獎品
+    - 點數即將到期
+    weight: 2
+  - id: bill-message-with-link
+    text: 帳單或欠費通知附了連結，或叫你下載 App 繳費
+    cues:
+    - re:(電費|水費|通行費|停車費|電信費).{0,40}(http|www\.|\[連結\])
+    - 下載App線上繳費
+    - 詳情繳費
+    weight: 3
+  - id: foreign-sender-number
+    text: 發送號碼是「+」開頭的境外號碼
+    cues:
+    - '+63'
+    - '+66'
+    weight: 2
+  final_ask:
+  - 點連結輸入信用卡號、有效期限、安全碼，以及身分證字號或車號。
+  - 依簡訊指示下載 App 繳費。
+  verify:
+  - 打台電 24 小時客服 1911 查證。
+  - 通行費先用遠通電收的 ETC App 查，或打它官網上公布的客服電話。
+  - 自己上網搜尋官方網站，用官網上的繳費入口和客服電話查證，不要用簡訊裡的連結和電話。
+  - 撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 台電電費未繳提醒從 2024 年 1 月起由「111」政府專屬短碼發送，只列電號與住址讓你核對，不附任何連結。
+  - 正牌 ETC 欠費通知一定寫車號，不附繳費連結，也不會要你線上刷卡。
+  if_already_happened:
+  - 誤點連結就立刻關掉網頁，不再點任何東西。
+  - 已輸入卡號，立刻聯絡發卡銀行確認交易，並停卡、換卡。
+  - 撥 110 或 165，到派出所報案。
+  prevalence:
+    note: 刑事局 2026 年 9 月指出，假冒電信及交通收費通知（中華電信、遠通電收、ETC、eTag）是近期六類釣魚話術中最多的一類。
+    source_url: https://udn.com/news/story/124490/9755214
+  sources:
+  - title: 【詐騙】簡訊搭配網址稱「台灣電力股份有限公司：貴戶本期電費已逾期，務請限期處理繳費，若逾期，將終止供電」？
+    publisher: 台灣事實查核中心
+    date: '2024-06-19'
+    url: https://tfc-taiwan.org.tw/fact-check-reports/migration-10728
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 國道通行費簡訊不會提供繳費連結 小心詐騙
+    publisher: 中央社
+    date: '2022-05-02'
+    url: https://www.cna.com.tw/news/ahel/202205020024.aspx
+    level: L2
+    supports:
+    - first_seen
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: ETC詐騙陷阱！高公局示警「3類簡訊郵件」帳戶恐遭盜取
+    publisher: Newtalk 新聞
+    date: '2026-01-13'
+    url: https://newtalk.tw/news/view/2026-01-13/1014687
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - safe_lookalikes
+  - title: 簡訊通知「通行費」未繳 點擊連結輸入個資信用卡秒遭盜刷
+    publisher: 刑事警察局
+    date: '2022-06-15'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg117&id=1893&serno=2c6333b4-f539-41bc-8267-a25902717ad5
+    level: L1
+    supports:
+    - first_seen
+    - stages
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 設計師按下+66假簡訊 卡號輸完就當機「下秒傻眼」31萬飛了！
+    publisher: ETtoday 新聞雲
+    date: '2023-06-10'
+    url: https://www.ettoday.net/news/20230610/2517199.htm
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 偽台水、監理站連結千萬別點！刑事局揭釣魚簡訊特徵
+    publisher: ETtoday 新聞雲
+    date: '2023-11-26'
+    url: https://www.ettoday.net/news/20231126/2631030.htm
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - red_flags
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - pretend_to_be
+    - red_flags
+    - prevalence
+  evidence: 🟢
+  related:
+  - fake-traffic-fine
+  - phishing-bank
+  - malicious-app
+  updated: '2026-10-22'
+- id: account-takeover
+  name: LINE、IG 帳號被盜：假投票、假登入頁、騙驗證碼
+  aliases:
+  - LINE 被盜
+  - 盜帳號
+  - 幫忙投票詐騙
+  - LINE 輔助認證
+  - IG 被盜
+  - 冒名借錢
+  category: 帳號資安
+  summary: 用投票、抽獎、好康連結騙你輸入社群帳號、密碼和簡訊驗證碼，盜走帳號後冒用你的身分向親友借錢或繼續散布連結。
+  status: active
+  first_seen: ''
+  channels:
+  - LINE
+  - IG
+  pretend_to_be:
+  - 親友
+  - 投票或抽獎活動
+  - LINE 官方（假輔助認證）
+  stages:
+  - stage: 接觸
+    what_you_see: 收到「幫親友小孩比賽投票」或抽獎活動的連結，有時是熟人帳號傳來的。
+  - stage: 要求行動
+    what_you_see: 點開後是做得很像的登入頁，要你輸入 LINE 綁定的手機號碼、密碼和簡訊驗證碼；也有頁面寫「LINE 輔助認證」。
+  - stage: 收網後
+    what_you_see: 帳號突然被登出、重裝也登不回去；盜用者用你的帳號向好友群發借錢訊息、打電話催促，或再傳連結盜更多帳號。
+  opener_examples:
+  - 可以幫我小孩的比賽投一票嗎？點連結登入就能投。
+  - 歡迎使用 LINE 輔助認證，請輸入手機號碼與認證碼。
+  red_flags:
+  - id: vote-link-asks-login
+    text: 投票、抽獎的連結卻要你登入帳號
+    cues:
+    - 投票
+    - 投一票
+    - 比賽投票
+    - 抽獎
+    weight: 2
+  - id: asks-for-your-code
+    text: 有人要你把簡訊驗證碼或認證碼傳給他
+    cues:
+    - 驗證碼傳給我
+    - 認證碼給我
+    - re:(驗證碼|認證碼).{0,10}(傳|給|告訴)我
+    weight: 3
+  - id: fake-line-assist-auth
+    text: 出現「LINE 輔助認證」（LINE 官方沒有這種機制）
+    cues:
+    - 輔助認證
+    - line輔助認證
+    - LINE輔助認證
+    weight: 3
+  - id: friend-suddenly-borrows
+    text: 熟人帳號突然傳訊借錢
+    cues:
+    - 借我
+    - 急用
+    - 先借
+    - 周轉
+    weight: 2
+  final_ask:
+  - 在假登入頁輸入 LINE 綁定的手機號碼、密碼與簡訊驗證碼。
+  verify:
+  - 熟人傳連結或開口借錢，另外打電話給本人確認，不要在同一個聊天室問。
+  - 撥 165 反詐騙專線或 110 諮詢。
+  safe_lookalikes:
+  - 你自己登入或換手機時收到的驗證碼簡訊是正常的；問題在於有人要你交出來，或叫你填進他給的網頁。
+  - 郵局等企業的 LINE 官方帳號不會透過 LINE 幫你做驗證或帳戶設定。
+  if_already_happened:
+  - 向 LINE 客服申訴，把帳號要回來。如果你的 LINE 事先綁了 Apple 或 Google 帳號，比較有機會找回原帳號。
+  - 馬上通知親友不要理會盜用者傳的訊息。
+  - 撥 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 2026-03-31 晚間起大量 LINE 用戶反映帳號被盜、遭強制登出，LINE 表示已啟動調查；部分受害者說自己沒點連結也沒給認證碼，官方未公布原因（與上面「騙驗證碼」的手法不同，原因未明）。
+    source_url: https://udn.com/news/story/7266/9416879
+  sources:
+  - title: 台灣人這1週被騙24億！幫親友投票也要小心 首惡詐騙手法曝
+    publisher: 自由時報
+    date: '2025-06-16'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5076049
+    level: L2
+    supports:
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: LINE大規模災情…用戶深夜遭強制登出 官方：啟動調查監控平台安全
+    publisher: 中央社（聯合新聞網轉載）
+    date: '2026-04-01'
+    url: https://udn.com/news/story/7266/9416879
+    level: L2
+    supports:
+    - stages
+    - if_already_happened
+    - prevalence
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - verify
+  - title: 常見手法及因應之道（防制詐騙專區）
+    publisher: 中華郵政
+    date: ''
+    url: https://www.post.gov.tw/post/internet/Anti-Fraud/common_practices.jsp
+    level: L1
+    supports:
+    - opener_examples
+    - red_flags
+    - final_ask
+    - safe_lookalikes
+  - title: 防範掃碼詐欺3-2》一掃個資錢財盡失 慎防「碼」上陷阱
+    publisher: 自由時報
+    date: '2026-07-02'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5491584
+    level: L2
+    supports:
+    - stages
+  evidence: 🟢
+  related:
+  - qr-phishing
+  - fake-sticker
+  - deepfake-impersonation
+  updated: '2026-10-22'
+- id: malicious-app
+  name: 惡意 App：叫你從連結下載安裝、開權限、綁卡
+  aliases:
+  - 假 App
+  - APK
+  - 下載 App 繳費
+  - 惡意程式
+  - 假官方 App
+  category: 帳號資安
+  summary: 假冒收費單位、客服或檢警，叫你從不明連結下載 App、開啟權限、綁定信用卡或設定來電轉接，之後卡被盜刷、存款被轉走。
+  status: active
+  first_seen: '2022'
+  channels:
+  - 簡訊
+  - 電話
+  - 交友軟體
+  - 實體
+  pretend_to_be:
+  - 遠通電收
+  - 醫院
+  - 警察
+  - 書記官
+  stages:
+  - stage: 接觸
+    what_you_see: 收到欠費簡訊叫你「下載App線上繳費」；或接到自稱醫院、警察的電話，說你的證件被冒用。
+  - stage: 製造情境
+    what_you_see: 說你涉案要配合調查、做視訊筆錄，或說欠費再不繳要開罰單。
+  - stage: 要求行動
+    what_you_see: 被要求從不明網址下載 App、開啟「無障礙」權限、綁定信用卡，或照指示在手機設定來電轉接，並交出信用卡、網銀與證券帳密。
+  - stage: 收網後
+    what_you_see: 信用卡在幾天內被多筆盜刷、證券持股被賣掉，或存款在深夜被轉走。
+  opener_examples:
+  - 您有一筆通行費即將到期，請立即下載 App 線上繳費。
+  - 為了配合調查，請依指示下載這個 App 並綁定信用卡。
+  red_flags:
+  - id: download-app-from-link
+    text: 叫你從簡訊或對方給的連結下載 App
+    cues:
+    - re:下載.{0,6}(app|apk).{0,10}(加入|投資|入金|驗證|認證|客服|註冊)
+    - re:(下載|安裝).{0,8}(apk|不明|指定|專用|遠端)
+    - 請立即下載
+    - 下載不明
+    weight: 2
+  - id: enable-accessibility
+    text: 要你開啟「無障礙」權限或螢幕共享
+    cues:
+    - 無障礙
+    - 螢幕共享
+    - 開啟權限
+    weight: 3
+  - id: set-call-forwarding
+    text: 要你在手機設定來電轉接
+    cues:
+    - 來電轉接
+    - 轉接設定
+    weight: 3
+  - id: bind-credit-card
+    text: 要你在 App 裡綁定信用卡
+    cues:
+    - 綁定信用卡
+    - 綁卡
+    weight: 2
+  final_ask:
+  - 安裝對方指定的 App、開啟權限、綁定信用卡或設定來電轉接。
+  - 提供信用卡、網路銀行或證券帳號密碼。
+  verify:
+  - 掛掉電話或關掉簡訊，直接打官方機構的電話確認，或撥 110、165。
+  - 上 165 打詐儀錶板查詢最新手法。
+  safe_lookalikes:
+  - 遠通電收建議繳費前先用它的官方 ETC App 查詢；差別在於你自己去找官方 App，而不是點簡訊裡的下載連結。
+  if_already_happened:
+  - 懷疑手機被遠端控制，立刻斷網（關 Wi-Fi 和行動網路）；沒辦法操作就把 SIM 卡拔掉。
+  - 已輸入卡號，立刻聯絡發卡銀行停卡、換卡。
+  - 撥 165 專線或 110 報案。
+  prevalence:
+    note: 刑事局 2026 年 5 月表示，詐騙已升級為要求下載不明 App、綁定信用卡或設定來電轉接的複合型犯罪；所舉案例總財損約 366 萬元。
+    source_url: https://www.cna.com.tw/news/asoc/202605090120.aspx
+  sources:
+  - title: 刑事局：假檢警詐騙新手法 攔截來電再盜刷
+    publisher: 中央社
+    date: '2026-05-09'
+    url: https://www.cna.com.tw/news/asoc/202605090120.aspx
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - prevalence
+  - title: 簡訊通知「通行費」未繳 點擊連結輸入個資信用卡秒遭盜刷
+    publisher: 刑事警察局
+    date: '2022-06-15'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg117&id=1893&serno=2c6333b4-f539-41bc-8267-a25902717ad5
+    level: L1
+    supports:
+    - first_seen
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 90多萬不翼而飛！男子誤開手機權限 詐團趁熟睡遠端搬走存款
+    publisher: ETtoday 新聞雲
+    date: '2026-06-09'
+    url: https://www.ettoday.net/news/20260609/3180246.htm
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - if_already_happened
+  - title: 防範掃碼詐欺3-2》一掃個資錢財盡失 慎防「碼」上陷阱
+    publisher: 自由時報
+    date: '2026-07-02'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5491584
+    level: L2
+    supports:
+    - channels
+  - title: 國道通行費簡訊不會提供繳費連結 小心詐騙
+    publisher: 中央社
+    date: '2022-05-02'
+    url: https://www.cna.com.tw/news/ahel/202205020024.aspx
+    level: L2
+    supports:
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - remote-control
+  - fake-utility-bill
+  - qr-phishing
+  updated: '2026-10-22'
+- id: remote-control
+  name: 遠端控制：要你開權限、螢幕共享「幫你處理」
+  aliases:
+  - 遠端操控
+  - 遠端連線詐騙
+  - 螢幕共享詐騙
+  category: 帳號資安
+  summary: 對方要你安裝 App 並開啟無障礙權限或螢幕共享，之後遠端操作你的手機，把存款轉走。
+  status: active
+  first_seen: ''
+  channels:
+  - 交友軟體
+  pretend_to_be: []
+  stages:
+  - stage: 要求行動
+    what_you_see: 下載對方給的 App，過程中被要求開啟「無障礙權限」；這類 App 可以遠端操控、共享螢幕。
+  - stage: 收網後
+    what_you_see: 趁你睡覺的時候，對方用你的手機把存款轉走；有的 App 刪不掉，圖示還會被藏起來。
+  opener_examples: []
+  red_flags:
+  - id: remote-accessibility-screen
+    text: 要你開啟「無障礙」權限、螢幕共享或遠端連線
+    cues:
+    - 無障礙
+    - 螢幕共享
+    - 遠端
+    weight: 3
+  final_ask:
+  - 下載對方指定的 App，並開啟無障礙權限。
+  verify:
+  - 關掉原本的畫面，自己開官方 App 或上網搜尋官網，再打給客服查證。
+  safe_lookalikes: []
+  if_already_happened:
+  - 立刻斷網：先關 Wi-Fi 和行動網路；沒辦法操作就盡快拔掉 SIM 卡。
+  - 撥 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 查無台灣官方統計；目前讀到的完整案例在北京（2026 年 6 月 ETtoday 報導）。
+    source_url: https://www.ettoday.net/news/20260609/3180246.htm
+  sources:
+  - title: 90多萬不翼而飛！男子誤開手機權限 詐團趁熟睡遠端搬走存款
+    publisher: ETtoday 新聞雲
+    date: '2026-06-09'
+    url: https://www.ettoday.net/news/20260609/3180246.htm
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - final_ask
+    - if_already_happened
+    - prevalence
+  - title: 防範掃碼詐欺3-2》一掃個資錢財盡失 慎防「碼」上陷阱
+    publisher: 自由時報
+    date: '2026-07-02'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5491584
+    level: L2
+    supports:
+    - stages
+    - if_already_happened
+  - title: 釣魚連結詐騙財損暴增300%！刑事局教你破解6常見話術
+    publisher: 聯合新聞網（轉載桃園電子報）
+    date: '2026-09-15'
+    url: https://udn.com/news/story/124490/9755214
+    level: L2
+    supports:
+    - verify
+  evidence: 🟡
+  related:
+  - malicious-app
+  - fake-security-alert
+  updated: '2026-10-22'
+- id: qr-phishing
+  name: QR Code 釣魚：假繳費單、假海報、假客服叫你掃碼
+  aliases:
+  - 掃碼詐騙
+  - 假 QR Code
+  - 野 code
+  - 掃碼詐欺
+  category: 帳號資安
+  summary: 在停車繳費單、優惠海報、店家付款立牌或假客服對話裡放假 QR Code，掃了被導去釣魚網站輸卡號、登入帳號，或直接把錢轉走。
+  status: active
+  first_seen: ''
+  channels:
+  - 實體
+  - LINE
+  pretend_to_be:
+  - 停車繳費單
+  - 優惠抽獎活動
+  - 店家付款碼
+  - 電商客服
+  - 金流人員
+  stages:
+  - stage: 接觸
+    what_you_see: 路邊停車繳費單上的 QR Code 被蓋上另一張；公共場所貼著「限時優惠」「免費抽獎」海報；店家付款立牌被調包。
+  - stage: 製造情境
+    what_you_see: 假客服說你的訂單重複扣款、要辦理取消設定，再帶你加入假客服 LINE 做「金流驗證」。
+  - stage: 要求行動
+    what_you_see: 掃碼後要你輸入信用卡資料、登入社群帳號、下載程式；或要你掃對方給的 QR Code 匯款、提供無卡提款 QR Code。
+  - stage: 收網後
+    what_you_see: 信用卡被盜刷；社群帳號被盜後親友收到詐騙訊息；付款進了詐騙帳戶，交易卻沒完成。
+  opener_examples:
+  - 系統顯示您的訂單重複扣款，請掃描這個 QR Code 完成金流驗證。
+  - 掃碼參加免費抽獎，登入帳號就能領獎。
+  red_flags:
+  - id: scan-qr-to-verify
+    text: 客服要你掃 QR Code 做驗證、解除扣款
+    cues:
+    - re:掃描?\s*QR\s*[Cc]ode.{0,10}(驗證|匯款|轉帳)
+    - 金流驗證
+    - 解除扣款
+    - 取消設定
+    weight: 3
+  - id: give-cardless-qr
+    text: 要你提供無卡提款 QR Code 或付款碼
+    cues:
+    - 無卡提款
+    - 付款碼
+    - 提款QR
+    weight: 3
+  - id: promo-poster-login
+    text: 掃碼抽獎、領優惠，卻要你登入社群帳號或填個資
+    cues:
+    - 限時優惠
+    - 免費抽獎
+    weight: 1
+  final_ask:
+  - 掃碼後在頁面輸入信用卡資料或帳號密碼。
+  - 掃對方給的 QR Code 匯款，或提供自己的無卡提款 QR Code、付款碼。
+  verify:
+  - 掃完先看網址，是政府網站或你熟悉的支付平台才繼續；導到陌生頁面就停，不輸入任何資料。
+  - 對訂單有疑問，直接用官方網站或官方 App 查；可疑電話掛掉後撥 165。
+  safe_lookalikes:
+  - 台北、台中、高雄的正牌停車單 QR Code 是官方系統產生的，掃了會連到市政府的繳費平台，或經過授權的行動支付。
+  - 正規企業與銀行的客服不會要你掃 QR Code 匯款或做驗證。
+  if_already_happened:
+  - 已輸入卡號，立刻聯絡發卡機構處理。
+  - 撥 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 自由時報 2026-07-02 引刑事局統計，2026 上半年假繳費、假優惠等掃碼詐騙件數比去年同期多四成以上、財損破億元。衝突：三立 2025-10-27 報導，刑事局與 165 當時表示沒接過因掃停車單 QR Code 被盜刷的報案（台北、台中、高雄停管處也沒有），網傳「盜刷 30 萬」被判定為錯誤訊息。兩者並列，不做調和。
+    source_url: https://news.ltn.com.tw/news/society/breakingnews/5491584
+  sources:
+  - title: 防範掃碼詐欺3-2》一掃個資錢財盡失 慎防「碼」上陷阱
+    publisher: 自由時報
+    date: '2026-07-02'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5491584
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+    - prevalence
+  - title: 停車單上藏陷阱？網傳「掃QR Code被盜刷30萬」 真相曝光
+    publisher: 三立新聞網
+    date: '2025-10-27'
+    url: https://www.setn.com/news/1741489
+    level: L2
+    supports:
+    - verify
+    - safe_lookalikes
+    - prevalence
+  - title: 訂單重複取消扣款？假客服詐騙手法升級 警政署提醒：掃QR Code全是騙
+    publisher: 聯合新聞網
+    date: '2026-08-31'
+    url: https://udn.com/news/story/124490/9724838
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 「洋流」應援小物免費送？小心假粉真詐財 刑事局： 加LINE前停看聽
+    publisher: 自由時報
+    date: '2026-10-06'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5597041
+    level: L2
+    supports:
+    - red_flags
+    - final_ask
+  - title: 詐騙猖獗 金管會提醒春節假期慎防信用卡盜刷
+    publisher: 中央社（聯合新聞網轉載）
+    date: '2026-02-16'
+    url: https://udn.com/news/story/7239/9332247
+    level: L2
+    supports:
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - malicious-app
+  - account-takeover
+  - fake-sticker
+  updated: '2026-10-22'
+- id: deepfake-impersonation
+  name: AI 換臉視訊、AI 仿聲冒充親友或名人
+  aliases:
+  - AI 換臉
+  - 深偽
+  - Deepfake
+  - AI 仿聲
+  - 假名人投資廣告
+  category: 帳號資安
+  summary: 用 AI 做出親友或名人的臉和聲音，透過視訊、電話或社群廣告取信，最後要你匯款、借錢或加入投資群組。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 電話
+  - 臉書
+  - 臉書廣告
+  - 其他
+  pretend_to_be:
+  - 親友
+  - 投資名人
+  stages:
+  - stage: 接觸
+    what_you_see: 在社群看到投資名人的影片或廣告，或接到名人的「通話」；也可能是親友打來視訊電話。
+  - stage: 取信
+    what_you_see: 臉和聲音都很像本人；詐團只要擷取網路上一小段影音就能模擬。
+  - stage: 要求行動
+    what_you_see: 名人邀你加入投資群組；「親友」說急需用錢，要你幫忙。
+  - stage: 收網後
+    what_you_see: 投入較多錢之後，被用各種理由拒絕出金。
+  opener_examples:
+  - （視訊中）是我啦，臨時急需一筆錢，可以先轉給我嗎？
+  - 加入我的群組，每天分享強勢飆股，完全不收費。
+  red_flags:
+  - id: video-call-asks-money
+    text: 視訊或電話裡的親友開口要錢
+    cues:
+    - 急需
+    - 借錢
+    - 匯款
+    - 先轉給我
+    weight: 2
+  - id: celebrity-stock-group-ad
+    text: 名人影片或廣告喊飆股、加入群組、穩定獲利、不收費
+    cues:
+    - 飆股
+    - 強勢股
+    - 加入群組
+    - 穩定獲利
+    - 不收取費用
+    weight: 2
+  final_ask:
+  - 匯款給視訊或電話裡的「親友」。
+  - 加入名人的投資群組並投入資金。
+  verify:
+  - 請對方揮手或左右轉頭，看畫面有沒有異常；AI 換臉在遮擋動作時比較容易露餡。
+  - 跟家人事先約定只有彼此知道的暗號或私密問題。
+  - 只要提到錢就掛斷，改用通訊錄裡的號碼回撥。
+  - 名人投資訊息要透過官方管道查證，不要只看社群或非官方網站。
+  safe_lookalikes: []
+  if_already_happened:
+  - 撥 165 反詐騙專線或 110 報案，並提供證據。
+  - 檢舉可疑的廣告或網站，協助下架。
+  prevalence:
+    note: 刑事局 2024 年 7 月公布 AI 深偽假冒投資名人的三種手法（假影片、假通話、假廣告）；查無依手法分類的件數統計。
+    source_url: https://www.cna.com.tw/news/asoc/202407130157.aspx
+  sources:
+  - title: AI深偽技術假扮名人 刑事局公布3手法防投資詐騙
+    publisher: 中央社
+    date: '2024-07-13'
+    url: https://www.cna.com.tw/news/asoc/202407130157.aspx
+    level: L2
+    supports:
+    - first_seen
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+  - title: 東港警分局長登警廣揭AI深偽詐騙 3招識破守護財產安全
+    publisher: ETtoday 新聞雲
+    date: '2026-04-10'
+    url: https://www.ettoday.net/news/20260410/3146980.htm
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - account-takeover
+  updated: '2026-10-22'
+- id: fake-security-alert
+  name: 假安全警告：假警方封鎖彈窗、假 Apple 帳號停用、假客服
+  aliases:
+  - 假中毒彈窗
+  - 假刑事局警告網頁
+  - Apple Pay 停用通知
+  - 假蘋果客服
+  - 假技術支援
+  category: 帳號資安
+  summary: 網頁突然跳出「裝置已被封鎖」警告，或冒充 Apple 寄信、打電話說帳號或付款被停用，要你刷卡繳「罰款」、點連結驗證或交出驗證碼。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 網站彈窗
+  - 電子郵件
+  - 簡訊
+  - 電話
+  pretend_to_be:
+  - 刑事局
+  - 執法機關
+  - Apple
+  stages:
+  - stage: 接觸
+    what_you_see: 逛色情、免費影音或來路不明的網站時跳出警告畫面；或收到 Apple 名義的郵件、簡訊、電話。
+  - stage: 製造情境
+    what_you_see: 警告寫「系統偵測涉及兒少性剝削」，說裝置已被封鎖、將永久鎖定並追訴；或說 Apple Pay 付款資格被暫停、iCloud 遭入侵，要 24 小時內處理。
+  - stage: 要求行動
+    what_you_see: 要你限時線上刷卡繳罰款「解除封鎖」；或點連結驗證、說出密碼與雙重認證代碼，甚至要你關閉雙重認證。
+  - stage: 收網後
+    what_you_see: 信用卡被盜刷；Apple 帳號被盜，綁定的其他裝置也可能被入侵。
+  opener_examples:
+  - 系統偵測您的裝置涉及違法內容，已被封鎖，請繳罰款解除。
+  - 您的付款資格已暫時停用，請於 24 小時內點連結完成認證。
+  red_flags:
+  - id: popup-pay-fine-unlock
+    text: 網頁跳窗說裝置被封鎖，要你刷卡繳罰款解除
+    cues:
+    - 解除封鎖
+    - 已被封鎖
+    - 兒少性剝削
+    - 永久鎖定
+    - 繳交罰款
+    weight: 3
+  - id: account-suspended-deadline
+    text: 說帳號或付款資格被暫停，要限時驗證
+    cues:
+    - 暫時停用
+    - 永久停用
+    - 24小時內
+    - 完成認證
+    weight: 2
+  - id: asks-2fa-or-disable-security
+    text: 要你提供雙重認證代碼，或關閉雙重認證、遭竊裝置防護
+    cues:
+    - 雙重認證
+    - 遭竊裝置防護
+    - 關閉雙重認證
+    weight: 3
+  - id: simplified-chinese-text
+    text: 信件夾雜簡體字
+    cues:
+    - re:[这们认]
+    - re:[邮账览]
+    weight: 1
+  final_ask:
+  - 輸入信用卡卡號、有效期限與安全碼繳「罰款」。
+  - 點連結登入，說出密碼或雙重認證代碼。
+  verify:
+  - 直接關掉瀏覽器分頁、清除瀏覽紀錄，必要時重新開機；不點頁面上的任何東西。
+  - 看寄件人的電子郵件地址，結尾是不是 apple.com。
+  - 接到自稱 Apple 的電話就掛斷，自己查正確號碼再回撥。
+  - 截圖後到 165 全民防騙網或 165 打詐儀錶板通報。
+  safe_lookalikes:
+  - 真正的執法機關不會用網頁跳窗要你線上繳罰款，也不會要你輸入信用卡號、簡訊驗證碼或安全碼。
+  - Apple 表示官方不會要求用戶登入任何網站、提供密碼或雙重認證代碼，也不會要求停用安全防護。
+  if_already_happened:
+  - 已輸入信用卡資料，立刻聯絡發卡銀行停卡、換卡或限制交易。
+  - 已匯款或有疑慮，撥 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 刑事局 2026 年 5 月提醒假冒刑事局的「兒少性剝削」封鎖網頁；查無件數統計。Google、微軟名義的假警告目前查無台灣官方或主要媒體來源。
+    source_url: https://udn.com/news/story/124490/9535397
+  sources:
+  - title: 網頁突跳刑事局警告？涉兒少性剝削要刷卡繳罰款是詐騙
+    publisher: 聯合報（聯合新聞網）
+    date: '2026-05-30'
+    url: https://udn.com/news/story/124490/9535397
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+    - prevalence
+  - title: ApplePay被通知停用 小心為詐騙釣魚訊息
+    publisher: 公視新聞網
+    date: '2023-08-31'
+    url: https://news.pts.org.tw/article/654062
+    level: L2
+    supports:
+    - first_seen
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+  - title: 小心最新 iPhone 釣魚簡訊一點開秒被盜！蘋果親揭 6 大常見騙術
+    publisher: 自由時報 3C 科技
+    date: '2024-07-09'
+    url: https://3c.ltn.com.tw/news/58819
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - verify
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - phishing-bank
+  - remote-control
+  updated: '2026-10-22'
+- id: crypto-wallet-drain
+  name: 加密貨幣錢包詐騙：假空投、錢包授權、騙助記詞
+  aliases:
+  - 假空投
+  - 錢包授權詐騙
+  - 助記詞詐騙
+  - 假交易所客服
+  category: 帳號資安
+  summary: 假冒知名加密貨幣專案發「空投」（說要免費送你幣），或假冒交易所客服、寄釣魚郵件，要你把錢包連上假網站按授權，或交出助記詞（用來還原錢包的一組單字），錢包裡的資產就被轉走。
+  status: active
+  first_seen: ''
+  channels:
+  - 電子郵件
+  - 其他
+  pretend_to_be:
+  - 知名加密貨幣項目
+  - 交易所客服
+  - 律師事務所
+  stages:
+  - stage: 接觸
+    what_you_see: 看到知名項目的「空投」活動，或收到冒充交易所、律師事務所的郵件。
+  - stage: 要求行動
+    what_you_see: 要你把錢包連到對方網站並授權，還鼓勵你用資產最多的錢包；或要你在網站輸入助記詞「驗證資產」，或讓「客服」幫你恢復錢包。
+  - stage: 收網後
+    what_you_see: 錢包裡的資產瞬間被轉走。
+  opener_examples:
+  - 恭喜你符合空投資格，連結錢包並授權即可領取。
+  - 我是交易所客服，可以幫你恢復錢包，請提供助記詞。
+  red_flags:
+  - id: airdrop-connect-approve
+    text: 空投活動要你連結錢包、按授權
+    cues:
+    - 空投
+    - 領取空投
+    - 空投資格
+    weight: 2
+  - id: asks-seed-phrase
+    text: 要你提供或輸入助記詞
+    cues:
+    - 助記詞
+    - 恢復錢包
+    - 驗證資產
+    weight: 3
+  - id: connect-wallet-approve
+    text: 要你連結錢包並「授權」才能領取
+    cues:
+    - re:(連結|連接|綁定)錢包.{0,10}(授權|簽名|確認)
+    - 授權即可領取
+    weight: 3
+  final_ask:
+  - 把錢包連上對方網站並按下授權。
+  - 輸入或交出助記詞。
+  verify:
+  - 助記詞絕不交給任何人、不填進任何網站。
+  - 要買賣加密貨幣，只選已完成金管會「洗錢防制登記」的業者；名單在金管會證期局官網「提供虛擬資產服務之事業或人員」專區。
+  safe_lookalikes: []
+  if_already_happened:
+  - 馬上保存區塊鏈上的交易紀錄（例如錢包地址、轉帳紀錄）。
+  - 聯絡交易所，請他們幫忙攔下這筆錢。
+  prevalence:
+    note: 查無台灣官方針對假空投、錢包授權的統計。
+    source_url: ''
+  sources:
+  - title: 新手小白最容易中招！律師蔡昆洲揭露：五大詐騙手法變體，正在深入加密貨幣世界！
+    publisher: 幣特財經（LINE TODAY 轉載）
+    date: '2025-01-14'
+    url: https://today.line.me/tw/v3/article/yzNOXNz
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 提供虛擬資產服務之事業或人員
+    publisher: 金融監督管理委員會證券期貨局
+    date: '2026-09-29'
+    url: https://www.sfb.gov.tw/ch/home.jsp?id=1053&parentpath=0,8
+    level: L1
+    supports:
+    - verify
+  evidence: 🟡
+  related:
+  - malicious-app
+  - deepfake-impersonation
+  updated: '2026-10-22'
+- id: fake-sticker
+  name: 假免費 LINE 貼圖、假官方帳號送好禮
+  aliases:
+  - 免費貼圖詐騙
+  - 分享送貼圖
+  - 假官方帳號送禮
+  - 免費送小物
+  category: 帳號資安
+  summary: 用「免費貼圖」「免費送好禮」吸引你點連結、轉傳給好友、加假官方帳號，最後騙個資，或騙你付運費、做網銀「認證」。
+  status: active
+  first_seen: '2018'
+  channels:
+  - LINE
+  - LINE 群組
+  - 臉書
+  - 其他
+  pretend_to_be:
+  - LINE 官方
+  - 知名品牌官方帳號
+  - 活動主辦單位
+  - 同為支持者的網友
+  stages:
+  - stage: 接觸
+    what_you_see: 群組裡有人貼「免費貼圖下載」連結；或社群貼文留言區有陌生帳號說要分享小物、叫你「加我LINE」。
+  - stage: 要求行動
+    what_you_see: 要你轉傳給更多好友或群組、加入「活動客服」帳號，再填姓名、電話、地址、電子郵件，或下載不明 App。
+  - stage: 收網後
+    what_you_see: 照做了也拿不到貼圖；加 LINE 後被要求先付物流費、做實名認證、金流綁定，甚至操作網銀、ATM 或交出簡訊驗證碼。
+  opener_examples:
+  - 免費貼圖限時下載，轉傳給好友就能領取。
+  - 想要應援小物嗎？加我 LINE 截圖私訊就送你。
+  red_flags:
+  - id: share-to-unlock
+    text: 要轉傳給更多好友或群組才能領
+    cues:
+    - 分享給
+    - 轉傳
+    - 才能領取
+    - 才能享有
+    weight: 2
+  - id: free-sticker-link
+    text: 主打「免費貼圖」下載、免費抽貼圖
+    cues:
+    - 免費貼圖
+    - 貼圖下載
+    - 免費抽
+    weight: 1
+  - id: free-sticker-outside-link
+    text: 免費貼圖訊息附的是外部網址，不是 LINE 貼圖小舖
+    cues:
+    - re:免費貼圖.{0,20}(http|www\.|\[連結\])
+    - re:貼圖下載.{0,10}(http|www\.|\[連結\])
+    weight: 2
+  - id: add-line-for-gift
+    text: 送東西卻要你加 LINE 或私訊
+    cues:
+    - 加我LINE
+    - 截圖私訊
+    - 加入好友
+    weight: 2
+  - id: free-gift-then-fee
+    text: 說是免費，卻要先付物流費、做實名認證或金流綁定
+    cues:
+    - 物流費
+    - 實名制認證
+    - 金流綁定
+    - 帳戶驗證失敗
+    weight: 3
+  final_ask:
+  - 填姓名、電話、地址、電子郵件，或下載不明 App。
+  - 先付物流費，或依指示操作網銀、ATM，交出無卡提款 QR Code、付款碼或簡訊驗證碼。
+  verify:
+  - 到 LINE 貼圖小舖的「活動貼圖」區，確認有沒有這組免費貼圖。
+  - 掛著知名品牌名字，卻是灰色盾牌（一般帳號）的，就不是 LINE 認證過的帳號，先別相信。
+  - 有疑慮撥 165 反詐騙諮詢專線，或查 165 打詐儀錶板。
+  safe_lookalikes:
+  - LINE 貼圖小舖的活動貼圖區確實有正牌免費貼圖，在那裡查得到的才是真的。
+  if_already_happened:
+  - 誤加了不明帳號但沒輸入手機號碼等資料，先檢舉再封鎖。
+  - 已付款或交出資料，撥 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 刑事局 2026-10-06 提醒選舉應援小物「免費送」要你加 LINE 的手法；警方表示當時尚未接獲實際受騙報案。
+    source_url: https://news.ltn.com.tw/news/society/breakingnews/5597041
+  sources:
+  - title: LINE 詐騙帳號送貼圖，官方 4 招教你辨真假
+    publisher: 中央社（科技新報轉載）
+    date: '2018-06-26'
+    url: https://technews.tw/2018/06/26/line-account-fraud/
+    level: L2
+    supports:
+    - first_seen
+    - stages
+    - red_flags
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 白沙屯媽祖遶境免費貼圖「是假的」！點擊可能就被盜個資
+    publisher: ETtoday 新聞雲
+    date: '2024-03-19'
+    url: https://www.ettoday.net/news/20240319/2703313.htm
+    level: L2
+    supports:
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 「洋流」應援小物免費送？小心假粉真詐財 刑事局： 加LINE前停看聽
+    publisher: 自由時報
+    date: '2026-10-06'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5597041
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+  evidence: 🟢
+  related:
+  - account-takeover
+  - qr-phishing
+  updated: '2026-10-22'

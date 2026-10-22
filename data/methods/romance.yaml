@@ -1,0 +1,588 @@
+- id: romance-investment
+  name: 假交友：網戀後帶你投資或玩博弈平台
+  aliases:
+  - 假交友投資詐財
+  - 假交友（投資）詐騙
+  category: 感情交友
+  summary: 陌生的帥哥美女在社群或交友軟體主動搭訕、很快網戀，再邀你到他推薦的投資平台一起投資，先讓你看到小賺，想提領時卻要你補資金、付佣金，最後拖延或封鎖你。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 交友軟體
+  - 臉書
+  - IG
+  - LINE
+  pretend_to_be:
+  - 高顏值網友
+  - 軍人
+  - 醫生
+  - 金融專業人士
+  - 投資專家
+  - 金控公司會計人員
+  stages:
+  - stage: 接觸
+    what_you_see: 突然有高顏值、自稱醫生、軍官或投資專家的陌生人加你好友，對你特別熱情。
+  - stage: 取信
+    what_you_see: 每天噓寒問暖，很快發展成網戀；你要求視訊或見面時，對方總說出差中、家人生病或網路不好。
+  - stage: 製造情境
+    what_you_see: 聊一陣子後開始談虛擬貨幣、外幣或股票，說是穩賺不賠的機會，邀你加入投資平台或群組。
+  - stage: 要求行動
+    what_you_see: 先讓你小額投入，帳戶畫面顯示穩定獲利，接著鼓勵你加碼。
+  - stage: 收網後
+    what_you_see: 想提領時被告知帳面資金要達到某個門檻才能出金，或要先付佣金；之後對方推託、消失，甚至封鎖你。
+  opener_examples:
+  - 你好，我是在國外工作的醫生，很想認識你這個朋友。
+  - 我最近在做虛擬貨幣，很穩定，可以帶你一起賺。
+  red_flags:
+  - id: stranger-elite-befriend
+    text: 陌生的帥哥美女，或自稱菁英身分的網友主動加你，對你特別熱情
+    cues:
+    - 交個朋友
+    - 在國外工作
+    - 軍官
+    - 投資專家
+    weight: 1
+  - id: avoids-video-call
+    text: 一直不肯視訊、不願見面，總有理由推託
+    cues:
+    - 出差中
+    - 網路不好
+    - 家人生病
+    - 不方便視訊
+    weight: 2
+  - id: romance-turns-to-investment
+    text: 網友聊著聊著就談投資，邀你加入投資平台或群組
+    cues:
+    - 一起投資
+    - 投資平台
+    - 虛擬貨幣
+    - 投資群組
+    - 帶你賺
+    weight: 2
+  - id: guaranteed-profit
+    text: 強調穩賺不賠、無風險、報酬率很高
+    cues:
+    - 穩賺不賠
+    - 無風險
+    - 零風險
+    - re:高報酬.{0,6}(低風險|零風險|無風險|保證|穩)
+    - 投資越多賺越多
+    weight: 3
+  - id: pay-to-withdraw
+    text: 要提領獲利前，先要你再匯錢補足帳戶裡的金額，或付佣金
+    cues:
+    - 才能出金
+    - 帳面資金
+    - 支付佣金
+    - 無法提款
+    weight: 3
+  final_ask:
+  - 把錢投入對方推薦的投資平台，想提領時再補足帳面資金、支付佣金。
+  verify:
+  - 要求對方開視訊通話，確認是不是本人。
+  - 來路不明的投資平台，先查是不是真的、合不合法，不要因為感情就把錢投進去。
+  - 撥打 165 反詐騙諮詢專線查證。
+  safe_lookalikes:
+  - 真實的網友可以視訊、見面確認身分；只要「沒見過面的網友談到錢或投資」，就要先停下來查證。
+  if_already_happened:
+  - 撥打 165 反詐騙諮詢專線或 110，或到附近派出所報案。
+  prevalence:
+    note: 2025 年 10 月 165 打詐儀錶板統計，假交友投資詐財財損約 11.4 億元，財損排第二（僅次於假投資）。
+    source_url: https://www.ctee.com.tw/news/20251102700518-431401
+  sources:
+  - title: 愛情陷阱！假交友詐騙橫行　甜言蜜語背後藏危機
+    publisher: 警政署
+    date: '2025-05-07'
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=0e226547-a730-4fb2-95b0-613e77746b82
+    level: L1
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 常見詐騙手法話術解析與因應之道－第四章　假愛情交友
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=064fe6c9-ae2c-40d2-a7df-2e5a4223091f
+    level: L1
+    supports:
+    - stages
+    - verify
+    - safe_lookalikes
+  - title: 假交友投資詐騙橫行　刑事局籲慎防高富帥詐術
+    publisher: 中央社
+    date: '2021-07-11'
+    url: https://www.cna.com.tw/news/asoc/202107110120.aspx
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+  - title: ○○○遭網路假交友投資詐騙　刑事局逮15嫌
+    publisher: 中央社
+    date: '2022-07-19'
+    url: https://www.cna.com.tw/news/asoc/202207190148.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+  - title: 普發1萬成話術　台人10月被詐騙逾60億　一通電話300萬沒了！
+    publisher: 工商時報（中時新聞網）
+    date: '2025-11-02'
+    url: https://www.ctee.com.tw/news/20251102700518-431401
+    level: L2
+    supports:
+    - aliases
+    - prevalence
+  - title: 正妹網友騙投資虛擬貨幣　工程師遭詐45萬
+    publisher: 中央社
+    date: '2019-08-10'
+    url: https://www.cna.com.tw/news/asoc/201908100131.aspx
+    level: L2
+    supports:
+    - first_seen
+  evidence: 🟢
+  related:
+  - romance-parcel-fee
+  - fake-celebrity-ad
+  updated: '2026-10-22'
+- id: romance-sex
+  name: 假交友：援交、包養，要你先付保證金或點數
+  aliases:
+  - 色情應召詐騙
+  - 假援交詐騙
+  - 色情援交詐騙
+  category: 感情交友
+  summary: 用情色廣告或美女照片吸引你私下聯絡，再以會員認證、保證金、怕警察查緝等名目要你匯款或買遊戲點數，付了又說要補款、解凍，人始終不會出現。
+  status: active
+  first_seen: ''
+  channels:
+  - 交友軟體
+  - LINE
+  - Telegram
+  - 其他
+  pretend_to_be:
+  - 年輕女子
+  - 應召服務客服
+  stages:
+  - stage: 接觸
+    what_you_see: 在情色廣告、交友網站或社群平台看到「快速約會」之類的廣告，或美女大頭照的網友。
+  - stage: 取信
+    what_you_see: 對方要你加 LINE 或 Telegram 私下聯絡，由「客服」接手說明。
+  - stage: 要求行動
+    what_you_see: 要你先儲值會員費，或說怕被警察查緝、要保障安全，見面前得先付保證金，常要你買遊戲點數付款。
+  - stage: 收網後
+    what_you_see: 付款後又說匯款出錯要補匯、約會卡要啟用、帳戶要持續補款才能提領，人從頭到尾沒出現。
+  opener_examples:
+  - 快速約會，加客服 LINE 幫你安排。
+  - 怕被警察釣魚，見面前要先付保證金。
+  red_flags:
+  - id: deposit-before-meeting
+    text: 見面前要先付保證金、做會員認證或信用驗證
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 會員認證
+    - 信用驗證
+    - 防警察
+    - 查緝
+    weight: 3
+  - id: pay-with-game-points
+    text: 要你買遊戲點數或點數卡付款
+    cues:
+    - 遊戲點數
+    - 點數卡
+    - 序號
+    - 儲值
+    weight: 3
+  - id: endless-top-up
+    text: 付了又說匯款出錯、要補款或付解凍金才能提領
+    cues:
+    - 解凍金
+    - 補款
+    - 匯款出錯
+    - 約會卡
+    - 才能提領
+    weight: 3
+  - id: move-to-private-chat
+    text: 從廣告被引導到 LINE、Telegram 私下聯絡「客服」
+    cues:
+    - 加LINE
+    - Telegram
+    - re:(加|聯繫|聯絡|私訊).{0,6}(客服|專員|助理).{0,6}(line|賴|telegram|whatsapp)
+    - re:(line|賴).{0,4}(客服|專員)
+    weight: 1
+  final_ask:
+  - 先匯會員費、保證金，或買遊戲點數把序號交給對方。
+  - 以補款、解凍金、約會卡啟用等名目持續付款。
+  verify:
+  - 不要相信對方提供的網站內容、截圖或金流紀錄。
+  - 撥打 165 反詐騙諮詢專線，或到 165 打詐儀錶板查詢防詐資訊。
+  safe_lookalikes: []
+  if_already_happened:
+  - 撥打 165 反詐騙專線或 110 報案。
+  prevalence:
+    note: 依 165 打詐儀錶板統計，色情應召詐騙穩居近期受理詐騙案財損前 5 名（2026 年 6 月報導）。
+    source_url: https://www.cna.com.tw/news/asoc/202606200124.aspx
+  sources:
+  - title: 網路色情應召詐騙再現　刑事局提供常見4項特徵
+    publisher: 中央社
+    date: '2026-06-20'
+    url: https://www.cna.com.tw/news/asoc/202606200124.aspx
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - prevalence
+  - title: 援交夢碎！純情男超商買點數　警方急攔阻：這是詐騙
+    publisher: 自由時報
+    date: '2025-03-11'
+    url: https://news.ltn.com.tw/amp/news/society/breakingnews/4976510
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - romance-investment
+  - romance-parcel-fee
+  updated: '2026-10-22'
+- id: romance-parcel-fee
+  name: 假交友：網戀後說寄包裹、禮物卡海關，要你付關稅或通關費
+  aliases:
+  - 包裹卡海關
+  - 假軍官
+  - 假軍醫
+  category: 感情交友
+  summary: 網友自稱軍官、軍醫、聯合國官員、外國將軍或富商，網戀後說要寄包裹或禮物給你，卻「卡海關」要你代墊關稅、通關費，一筆接一筆，直到被封鎖才知道受騙。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 交友軟體
+  - 其他
+  pretend_to_be:
+  - 戰地軍官
+  - 軍醫
+  - 聯合國官員
+  - 外國將軍
+  - 外籍女軍官
+  - 貿易商
+  stages:
+  - stage: 接觸
+    what_you_see: 陌生網友在社群或交友軟體加你，照片帥氣或美麗，自稱軍官、軍醫或聯合國官員。
+  - stage: 取信
+    what_you_see: 甜言蜜語培養感情，談到結婚和未來。
+  - stage: 製造情境
+    what_you_see: 說要寄包裹或禮物給你，結果包裹「卡海關」。
+  - stage: 要求行動
+    what_you_see: 要你代墊關稅、匯款協助通關，或說要一起存結婚基金、介紹你投資管道；有人甚至去借貸來付。
+  - stage: 收網後
+    what_you_see: 付了一筆又冒出下一筆費用，直到被對方封鎖才知道受騙。
+  opener_examples:
+  - 我是駐外的軍醫，很想認識你這樣善良的人。
+  - 我寄了禮物給你，但包裹卡在海關，要先付通關費。
+  red_flags:
+  - id: parcel-customs-fee
+    text: 包裹或禮物卡海關，要你付關稅、通關費
+    cues:
+    - 卡海關
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 代墊關稅
+    - 協助通關
+    - 通關
+    weight: 3
+  - id: military-un-identity
+    text: 網友自稱軍官、軍醫、將軍或聯合國官員
+    cues:
+    - 軍官
+    - 軍醫
+    - 聯合國
+    - 將軍
+    - 戰地
+    weight: 2
+  - id: never-met-asks-money
+    text: 沒見過面的網友要你代墊或匯錢
+    cues:
+    - 代墊
+    - 匯款
+    - 結婚基金
+    weight: 2
+  final_ask:
+  - 代墊關稅、通關費，或依指示匯款給對方。
+  verify:
+  - 要求開視訊確認本人身分；沒見過面的網友一開口要錢，就先停下來查證。
+  - 撥打 110、165 諮詢，或到附近派出所查證。
+  safe_lookalikes: []
+  if_already_happened:
+  - 撥打 110、165，或到附近派出所求助。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第四章　假愛情交友
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=064fe6c9-ae2c-40d2-a7df-2e5a4223091f
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 「新加坡將軍」求愛又要錢！屏東婦暈船險匯10萬　警及時喊卡
+    publisher: ETtoday
+    date: '2026-07-08'
+    url: https://www.ettoday.net/news/20260708/3197195.htm
+    level: L2
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 花蓮婦陷網戀「代墊關稅」！警耐心分析詐團話術　再匯45萬喊卡
+    publisher: ETtoday
+    date: '2026-08-03'
+    url: https://www.ettoday.net/news/20260803/3212647.htm
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+  - title: 假外籍女軍官詐財84萬　再行騙百萬遭中市警攔阻
+    publisher: 中央社
+    date: '2024-07-13'
+    url: https://www.cna.com.tw/news/asoc/202407130047.aspx
+    level: L2
+    supports:
+    - first_seen
+    - pretend_to_be
+  evidence: 🟢
+  related:
+  - romance-investment
+  - romance-sex
+  updated: '2026-10-22'
+- id: romance-marriage
+  name: 假交友：網戀談結婚，再用聘金、安家費或急用名義要錢
+  aliases:
+  - 假交友（徵婚詐財）
+  - 假結婚真詐財
+  - 假婚姻真詐財
+  - 假交友真詐財
+  category: 感情交友
+  summary: 網友在臉書或交友軟體認識你後很快談感情、談結婚，再用婚禮金飾、聘金、安家費、來台結婚的費用，或車禍、生病、周轉不靈等理由要你匯款、借錢、交現金；人始終見不到面。
+  status: active
+  first_seen: ''
+  channels:
+  - 臉書
+  - 交友軟體
+  - LINE
+  pretend_to_be:
+  - 外籍軍人或軍官
+  - 工程師
+  - 醫生
+  - 機師
+  - 即將移居台灣的港籍單親人士
+  - 外籍配偶婚姻仲介
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書或交友軟體被陌生網友搭訕，照片好看、自稱外籍軍官、機師、醫師或工程師；也有人是看到「快速媒合外籍配偶」的廣告，加了自稱仲介的好友。
+  - stage: 取信
+    what_you_see: 很快改用 LINE 聯絡，每天噓寒問暖、互稱老公老婆，認識沒多久就談結婚、生小孩、一起生活。
+  - stage: 製造情境
+    what_you_see: 說婚前要準備婚禮金飾或「安家費」、要來台灣結婚需要現金，或突然車禍骨折要請看護、家人生病、公司周轉不過來。
+  - stage: 要求行動
+    what_you_see: 要你匯款、借錢，或到銀行解定存、解保單領現金，再交給對方派來的人；仲介則要你先匯聘金和仲介費。
+  - stage: 收網後
+    what_you_see: 錢一筆接一筆要，對方始終沒辦法見面；有人還被要求代收、代領別人的錢，結果自己變成車手。
+  opener_examples:
+  - 我們都認真要結婚了，婚前先準備一筆安家費好嗎？
+  - 我出車禍腿骨折，要請看護，你能先借我錢嗎？
+  - 我想快點來台灣跟你結婚，現在只差一筆現金。
+  - 外籍配偶快速媒合、門檻低，先付聘金和仲介費就安排。
+  red_flags:
+  - id: marriage-talk-fast
+    text: 沒見過面、認識不久就急著談結婚、來台結婚、共組家庭
+    cues:
+    - re:(來台|來臺|飛來台灣|回台灣).{0,6}(結婚|娶你|嫁給你)
+    - 共組家庭
+    - re:(婚前|結婚前).{0,8}(準備|存|湊).{0,6}(一筆|錢|基金)
+    weight: 1
+  - id: wedding-money
+    text: 用結婚當理由要錢：聘金、安家費、婚禮金飾、結婚共同基金
+    cues:
+    - re:(準備|匯|付|給|拿).{0,6}安家費
+    - re:(先|要|需要|幫忙).{0,6}(匯|付|準備|出).{0,6}(聘金|仲介費|結婚基金|婚禮費用)
+    - re:(結婚|婚禮).{0,8}(金飾|首飾).{0,10}(匯|錢|款|買)
+    - re:(共同基金|結婚基金).{0,8}(匯|轉|存)
+    weight: 3
+  - id: emergency-loan
+    text: 網友突然出事急需錢：車禍、骨折、要請看護、家人生病、公司周轉
+    cues:
+    - re:(車禍|骨折|住院|開刀|生病).{0,15}(借|匯|轉).{0,6}(錢|萬|看護費|醫藥費)
+    - re:(請|聘|找).{0,2}看護.{0,12}(錢|匯|借)
+    - re:(周轉|週轉).{0,6}(不過來|困難|不靈).{0,12}(借|匯)
+    weight: 2
+  - id: cash-for-never-met
+    text: 從沒見過面，卻要你解定存、解保單、領現金，交給來拿錢的人
+    cues:
+    - re:(解約|解除|解掉|解).{0,2}(定存|保單)
+    - re:(派|請).{0,4}(人|朋友|同事|助理).{0,6}(去|來|過去).{0,4}(拿|收|取).{0,4}(錢|現金)
+    - re:(領|提).{0,4}現金.{0,10}(交給|拿給)
+    weight: 3
+  - id: matchmaking-fee
+    text: 婚姻仲介說能「快速媒合」外籍配偶，人都沒見到就要先付聘金、仲介費
+    cues:
+    - 快速媒合
+    - re:(外籍|越南|印尼|大陸).{0,4}(新娘|配偶|老婆).{0,15}(媒合|介紹)
+    - re:(先|預).{0,4}(付|匯|繳).{0,6}(聘金|仲介費)
+    weight: 3
+  final_ask:
+  - 匯款或借錢給對方，名目是婚禮金飾、聘金、安家費、來台結婚費用，或車禍、生病、周轉。
+  - 到銀行解定存、解保單後提領現金，交給對方派來的人。
+  - 先把聘金和仲介費匯給自稱婚姻仲介的人。
+  verify:
+  - 要求開視訊確認本人；沒見過面或交往時間短的網友一開口借錢，不管理由多合理都先停下來。
+  - 撥 165 反詐騙諮詢專線或 110 查證。
+  safe_lookalikes:
+  - 真正交往的對象可以視訊、見面，也不會沒見過面就要你匯大筆錢；只要是「沒見過面的網友開口要錢」，就先查證。
+  if_already_happened:
+  - 立刻撥 165 或 110，或到附近派出所報案。
+  - 不要再依對方指示提領、轉出或代收別人的錢，那可能等於幫詐團洗錢，自己反而變成車手。
+  prevalence:
+    note: 165 打詐儀錶板 2026 年 6 月：假交友（徵婚詐財）財損占 3%，排第 5；2025 全年 9,430 件、財損約 25 億元。
+    source_url: https://udn.com/news/story/124490/9639012
+  sources:
+  - title: 假交友徵婚陷阱多-詐財又騙色
+    publisher: 內政部警政署（警光雜誌社）
+    date: '2025-06-24'
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=143b98bf-bb8c-4598-96f4-4e66ff6ac82c
+    level: L1
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 假結婚真詐騙！嘉義警成功攔阻百萬「安家費」匯款
+    publisher: 內政部移民署（新住民全球新聞網）
+    date: '2024-11-10'
+    url: https://news.immigration.gov.tw/NewsSection/Detail/15EF8969-C64C-4723-B074-66F870947E61?lang=TW&topic=onetouch
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 常見詐騙手法話術解析與因應之道－第四章　假愛情交友
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=064fe6c9-ae2c-40d2-a7df-2e5a4223091f
+    level: L1
+    supports:
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 假港籍男以婚騙財　台中婦人欲匯百萬警銀聯手阻詐
+    publisher: 中央社
+    date: '2025-09-21'
+    url: https://www.cna.com.tw/news/asoc/202509210033.aspx
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+  - title: 假婚姻真詐財　台中男欲匯36萬聘金警銀即時阻詐
+    publisher: 中央社
+    date: '2025-10-07'
+    url: https://www.cna.com.tw/news/asoc/202510070177.aspx
+    level: L2
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 網戀女友稱骨折急需錢！男急匯款警拆詐團把戲險噴30萬
+    publisher: 自由時報
+    date: '2026-08-05'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5528824
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 假交友詐團話術鎖定中高齡婦人 連9旬婦也暈船
+    publisher: 自由時報
+    date: '2026-09-03'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5562016
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 近4成詐騙贓款進交易所洗錢 變虛擬貨幣平均只要6.29分鐘
+    publisher: 聯合報
+    date: '2026-07-20'
+    url: https://udn.com/news/story/124490/9639012
+    level: L2
+    supports:
+    - aliases
+    - prevalence
+  - title: 去年全國逾180萬人遭詐！這手法最多人信　高齡者成肥羊
+    publisher: TVBS
+    date: '2026-01-14'
+    url: https://news.tvbs.com.tw/local/3100279
+    level: L2
+    supports:
+    - prevalence
+  evidence: 🟢
+  related:
+  - romance-investment
+  - romance-parcel-fee
+  - romance-sex
+  updated: '2026-10-22'

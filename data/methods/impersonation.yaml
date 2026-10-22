@@ -1,0 +1,1238 @@
+- id: fake-prosecutor
+  name: 假檢警：說你涉案、要「監管帳戶」
+  aliases:
+  - 假冒機構
+  - 假冒公務員
+  - 假警察
+  - 假檢察官
+  - 監管帳戶
+  category: 冒名恐嚇
+  summary: 對方假冒警察或檢察官，說你的帳戶或證件涉及洗錢等刑案，用「偵查不公開」要你保密，最後要你交出提款卡、存摺或現金給他「監管」。
+  status: active
+  first_seen: '2011'
+  channels:
+  - 電話
+  - LINE
+  pretend_to_be:
+  - 警察
+  - 檢察官
+  - 法院人員
+  stages:
+  - stage: 接觸
+    what_you_see: 接到自稱戶政事務所、健保署、電信業者或郵局人員的電話，說你的身分被冒用，或你的帳戶涉及詐欺案。
+  - stage: 取信
+    what_you_see: 電話被「轉接」給自稱警察或檢察官的人，對方說你涉及洗錢或其他刑案。
+  - stage: 製造情境
+    what_you_see: 對方要你加 LINE 做「視訊筆錄」，傳來警察制服照、傳票、扣押條、「監管證明」等圖片，並說「偵查不公開」，不准告訴家人或銀行。
+  - stage: 要求行動
+    what_you_see: 要你把存款領出或集中、交出提款卡和密碼，或把現金、金飾整理好交給「專人監管」，有時還要你繳「公證金」。
+  - stage: 收網後
+    what_you_see: 對方要你加 LINE 定時回報、不准掛電話，甚至威脅不配合就拘提或收押。
+  opener_examples:
+  - 這裡是郵局，你的帳戶涉及一件詐欺大案，幫你轉接警察。
+  - 我是警察，你涉嫌洗錢，請加 LINE 做視訊筆錄。
+  - 本案偵查不公開，不能跟家人或銀行說。
+  red_flags:
+  - id: supervised-account
+    text: 說要「監管帳戶」或幫你「財產監管」
+    cues:
+    - 監管帳戶
+    - 帳戶監管
+    - 財產監管
+    - 監管證明
+    weight: 3
+  - id: investigation-secret
+    text: 用「偵查不公開」要你不准告訴任何人
+    cues:
+    - 偵查不公開
+    - 不得向他人透露
+    - 不能告訴家人
+    weight: 3
+  - id: statement-by-line
+    text: 要你用 LINE 或視訊做筆錄、定時回報
+    cues:
+    - 視訊筆錄
+    - 定時回報
+    - re:(LINE|視訊|線上).{0,8}筆錄
+    weight: 3
+  - id: notarization-fee
+    text: 要你繳交「公證金」
+    cues:
+    - 公證金
+    - 繳交公證
+    weight: 3
+  - id: call-transfer
+    text: 說可以幫你「轉接」警察、地檢署、法院或 165
+    cues:
+    - 轉接警察
+    - 轉接165
+    - 轉接地檢署
+    - 幫你轉接
+    weight: 3
+  - id: no-hangup-arrest-threat
+    text: 不准你掛電話，威脅要拘提或收押
+    cues:
+    - 不准掛電話
+    - 不要掛電話
+    - 拘提
+    - 收押
+    weight: 3
+  - id: hand-over-card
+    text: 要你交出提款卡、存摺或印鑑
+    cues:
+    - re:(寄|交|給|提供|放|郵寄|快遞|面交|交付|出借|出租|借|租).{0,8}(金融卡|提款卡|存摺|存簿|簿子)
+    - re:(金融卡|提款卡|存摺|存簿).{0,10}(寄|交給|給我|密碼|一起|放在|寄到)
+    - 印鑑
+    weight: 2
+  - id: court-docs-by-line
+    text: 用 LINE 或超商傳真傳來傳票、拘票、扣押條等「公文」
+    cues:
+    - 傳票
+    - 拘票
+    - 扣押條
+    - 搜索票
+    weight: 2
+  final_ask:
+  - 交出提款卡、存摺，或告訴對方密碼。
+  - 把存款領出或集中到指定帳戶，交給對方「監管」。
+  - 提領現金或整理金飾，交給上門來拿的人。
+  - 繳交「公證金」。
+  verify:
+  - 先掛掉電話，再自己撥 165 或 110 查證；對方說要「幫你轉接」，一律不要接受。
+  - 問清楚對方的單位、職稱、姓名後掛斷，自己查該機關的官方電話回撥。
+  - 記住：警察不會用電話、LINE 或視訊做筆錄；檢警真的要你說明，會寄書面通知書或傳票請你到機關。
+  safe_lookalikes:
+  - 真正的司法案件會寄通知書或傳票，請你到機關說明，不會要你交提款卡、密碼，也不會派人跟你面交現金。
+  - 收到看起來像地檢署或法院的通知，可以自己到機關官網查電話回撥確認。
+  if_already_happened:
+  - 撥 24 小時的 165 反詐騙專線，或到最近的派出所、分局報案。
+  - 發現家人疑似被騙，陪他一起打 165 或通報警方。
+  prevalence:
+    note: 114 年上半年（2025 年 1–6 月）假檢警詐騙 2,713 件，財損約 53.1 億元，平均每案近 200 萬元；最常被冒用的機構是戶政事務所（23%），交付方式以交出金融卡最多（57%）。
+    source_url: https://www.ctee.com.tw/news/20251007700882-431204
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第六章　假冒機構（公務員）
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=b7cf505d-f709-4885-b06b-d29b092ce04f
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 教你識破「假檢警、真詐財」！
+    publisher: 臺灣臺北地方檢察署
+    date: '2025-04-28'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1281204/post
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 常見問答：近來新興常見之詐騙手法（假公務機關詐騙）
+    publisher: 臺北市政府警察局刑事警察大隊
+    date: '2026-10-01'
+    url: https://cid.police.gov.taipei/News_Content.aspx?n=FDEFB49FC705A752&s=918735B357458108
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 詐騙集團手法翻新－佯稱民眾健保卡被停卡詐財
+    publisher: 衛生福利部
+    date: '2011-08-18'
+    url: https://mohw.gov.tw/cp-16-25151-1.html
+    level: L1
+    supports:
+    - stages
+    - first_seen
+  - title: 刑事局揭假檢警詐騙新態勢 165儀錶板助民眾查證防詐
+    publisher: 工商時報
+    date: '2025-10-07'
+    url: https://www.ctee.com.tw/news/20251007700882-431204
+    level: L2
+    supports:
+    - red_flags
+    - final_ask
+    - verify
+    - prevalence
+    - stages
+  - title: 「不准掛電話否則拘提！」假警視訊恐嚇6小時 彰化婦狂哭精神崩潰
+    publisher: 自由時報
+    date: '2026-09-08'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5567008
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - safe_lookalikes
+    - status
+  - title: 誤信假「郵局人員」稱普發現金遭冒領 女子沒領到1萬反被騙百萬
+    publisher: 自由時報
+    date: '2025-11-24'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5256218
+    level: L2
+    supports:
+    - red_flags
+    - final_ask
+  evidence: 🟢
+  related:
+  - fake-agency-id-misuse
+  - fake-nhi-hospital
+  - fake-telecom-call
+  - fake-gov-subsidy
+  updated: '2026-10-22'
+- id: fake-nhi-hospital
+  name: 假冒健保署或醫院：說健保卡被盜用領藥
+  aliases:
+  - 健保卡被盜用
+  - 健保卡停卡詐騙
+  - 假藥劑師
+  - 假冒醫療院所
+  category: 冒名恐嚇
+  summary: 對方自稱健保署人員或醫院藥劑師，說你的健保卡、身分證被人拿去代領藥或申請補助，再把電話轉給假警察、假檢察官，最後要你交錢「自清資金」。
+  status: active
+  first_seen: '2011'
+  channels:
+  - 電話
+  pretend_to_be:
+  - 健保署人員
+  - 醫院藥劑師
+  - 醫療院所人員
+  - 警察
+  - 檢察官
+  - 金管會專員
+  stages:
+  - stage: 接觸
+    what_you_see: 接到語音電話說健保卡使用違規異常、即將停卡，要你按 9 轉專人；或接到自稱某知名醫院藥劑師的來電。
+  - stage: 取信
+    what_you_see: 對方說得出你的個資，說有人拿你的健保卡、身分證和委託書代領藥物，或拿你的證件申請醫療補助。
+  - stage: 製造情境
+    what_you_see: 接著又有電話說你的證件被拿去申辦門號、身障補助、印鑑證明或戶籍遷移，可能涉及洗錢，主動說要幫你轉接警察或地檢署。
+  - stage: 要求行動
+    what_you_see: 假警察、假檢察官要你「自清資金」，並用「偵查不公開」要你別告訴家人、銀行。
+  opener_examples:
+  - 您的健保卡使用異常，即將停卡，詳情請按9。
+  - 這裡是醫院藥局，有人拿你的健保卡和委託書來代領藥。
+  - 你的證件可能被拿去洗錢，我幫你轉接警察處理。
+  red_flags:
+  - id: nhi-card-misuse-call
+    text: 打電話說你的健保卡被盜用、違規使用或要停卡
+    cues:
+    - 健保卡被盜用
+    - 健保卡異常
+    - 違規使用
+    - 停卡
+    - 鎖卡
+    weight: 2
+  - id: press-9-transfer
+    text: 語音要你按 9 或按鍵轉接專人
+    cues:
+    - 請按9
+    - 按9
+    - 由專人為您
+    - 轉接專人
+    weight: 3
+  - id: proxy-medicine
+    text: 說有人拿你的證件或委託書代領藥物
+    cues:
+    - 代領藥
+    - 代領藥物
+    - 委託書
+    weight: 2
+  - id: medical-transfers-police
+    text: 醫院或健保單位主動說要幫你轉接警察、檢察官或金管會
+    cues:
+    - 轉接警察
+    - 轉接地檢署
+    - 金管會專員
+    - 幫你轉接
+    weight: 3
+  - id: clear-funds
+    text: 要你「自清資金」證明清白
+    cues:
+    - 自清資金
+    - 自清
+    weight: 3
+  final_ask:
+  - 匯款、面交現金，或交出提款卡與帳戶資料「自清資金」。
+  - 把錢領出交給所謂的「監管單位」，或交出存摺、提款卡及密碼。
+  - 在電話中提供個人資料。
+  verify:
+  - 掛斷後撥健保卡背面的免付費專線 0800-030-598 或 4128-678 查證（手機撥 02-4128-678）。
+  - 自己查醫院的官方電話回撥，不要回撥對方給的號碼。
+  - 撥 165 反詐騙專線詢問。
+  safe_lookalikes:
+  - 健保署不會用電話語音、簡訊或 LINE 要你匯款、回電或點連結；健保欠費也不會讓你被鎖卡、不能看病。
+  - 健保署不會要你按鍵轉接服務人員。
+  if_already_happened:
+  - 撥 165 反詐騙專線，或撥 110 報案。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 當心假冒身份證件詐騙再現 打詐指揮中心：請民眾提高警覺 避免受害損失
+    publisher: 行政院打擊詐欺指揮中心
+    date: '2025-03-26'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/38051f0b-0605-4f25-870f-21f86873ffac
+    level: L1
+    supports:
+    - summary
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - status
+  - title: 接到「健保卡被盜用停卡」電話，小心詐騙老梗！
+    publisher: 衛生福利部（中央健康保險署）
+    date: '2022-01-30'
+    url: https://www.mohw.gov.tw/cp-5264-65923-1.html
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 詐騙集團手法翻新－佯稱民眾健保卡被停卡詐財
+    publisher: 衛生福利部
+    date: '2011-08-18'
+    url: https://mohw.gov.tw/cp-16-25151-1.html
+    level: L1
+    supports:
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - first_seen
+  - title: 常見詐騙手法話術解析與因應之道－第六章　假冒機構（公務員）
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=b7cf505d-f709-4885-b06b-d29b092ce04f
+    level: L1
+    supports:
+    - stages
+    - red_flags
+  - title: 打詐指揮中心示警 當心假冒身份證件詐騙再現
+    publisher: 工商時報
+    date: '2025-03-26'
+    url: https://www.ctee.com.tw/news/20250326701796-430104
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-prosecutor
+  - fake-telecom-call
+  - fake-agency-id-misuse
+  updated: '2026-10-22'
+- id: guess-who
+  name: 猜猜我是誰：假親友換號碼借錢
+  aliases:
+  - 假冒親友借錢
+  - 假冒親友詐騙
+  - 我換電話了
+  category: 冒名恐嚇
+  summary: 對方假裝是你的兒女、親戚或多年不見的朋友，說換了手機或 LINE，要你加新帳號，過幾天再以急用、周轉或車禍要賠錢為由借錢。
+  status: active
+  first_seen: '2021'
+  channels:
+  - 電話
+  - LINE
+  pretend_to_be:
+  - 兒女
+  - 親戚
+  - 多年不見的朋友
+  stages:
+  - stage: 接觸
+    what_you_see: 接到聲音很像家人的電話，要你猜他是誰，或直接說「我換電話了」。
+  - stage: 取信
+    what_you_see: 對方要你改加新的手機號碼或 LINE，之後都用新帳號聯絡。
+  - stage: 製造情境
+    what_you_see: 幾天後說臨時急用、生意周轉不過來，或出了交通事故要賠對方錢。
+  - stage: 要求行動
+    what_you_see: 要你匯款到他給的帳戶，或說會請「朋友」到你家拿現金。
+  - stage: 收網後
+    what_you_see: 得手後，可能用同一套說法再來借第二次。
+  opener_examples:
+  - 媽，我換手機了，加我新的 LINE，舊的先不要用。
+  - 猜猜我是誰？是我啦，好久沒聯絡了。
+  - 我生意周轉不過來，先借我一點，過幾天就還你。
+  red_flags:
+  - id: new-number
+    text: 說換了手機號碼或 LINE，要你加新的
+    cues:
+    - 換電話
+    - 換手機
+    - 換號碼
+    - 新的LINE
+    - 加我新
+    weight: 2
+  - id: guess-identity
+    text: 一開口就要你猜他是誰
+    cues:
+    - 猜猜我是誰
+    - 猜我是誰
+    weight: 2
+  - id: urgent-loan
+    text: 急著借錢周轉
+    cues:
+    - 借我
+    - 周轉
+    - 週轉
+    - 急用
+    - 先借
+    weight: 2
+  - id: accident-compensation
+    text: 說出了車禍要馬上賠錢
+    cues:
+    - 車禍
+    - 交通事故
+    - 賠償
+    - 賠對方
+    weight: 2
+  - id: friend-picks-up-cash
+    text: 說要請朋友到你家拿現金
+    cues:
+    - 朋友過去拿
+    - 朋友去拿
+    - 去拿現金
+    - 派人去拿
+    weight: 3
+  - id: account-name-mismatch
+    text: 要你匯款的帳戶，戶名不是親友本人
+    cues:
+    - 朋友的帳戶
+    - 戶名
+    - 匯到這個帳戶
+    weight: 2
+  final_ask:
+  - 匯款到對方指定的帳戶。
+  - 把現金交給對方派來的「朋友」。
+  verify:
+  - 用你原本存的舊電話打給本人確認，不要只憑聲音、LINE 大頭照、貼圖或對話判斷。
+  - 跟家人事先約好只有彼此知道的通關密語。
+  - 撥 165 反詐騙專線或 110 詢問。
+  safe_lookalikes:
+  - LINE 帳號也可能被盜用：就算是熟人原本的帳號傳來借錢或要你買點數，也要另外打電話確認是本人。
+  if_already_happened:
+  - 撥 165 或 110 報案。
+  prevalence:
+    note: 110 年 1–6 月（2021 年）50 歲以上被害人以「猜猜我是誰」占 27.70% 最多（資料較舊，尚未查到更新的分項統計）。
+    source_url: https://www.npa.gov.tw/ch/app/data/doc?module=wg057&detailNo=864291785080311808&type=s
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第五章　猜猜我是誰
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=4f04dab6-3ca5-4139-a94e-66be03b62ba3
+    level: L1
+    supports:
+    - summary
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 常見問答：近來新興常見之詐騙手法（Line訊息詐騙）
+    publisher: 臺北市政府警察局刑事警察大隊
+    date: '2026-10-01'
+    url: https://cid.police.gov.taipei/News_Content.aspx?n=FDEFB49FC705A752&s=918735B357458108
+    level: L1
+    supports:
+    - safe_lookalikes
+  - title: 警政統計通報（110 年第 28 週）110 年 1-6 月詐欺案件概況
+    publisher: 警政署統計室
+    date: '2021-07-14'
+    url: https://www.npa.gov.tw/ch/app/data/doc?module=wg057&detailNo=864291785080311808&type=s
+    level: L1
+    supports:
+    - prevalence
+    - first_seen
+  - title: 刑事局：假冒親友詐騙捲土重來 接陌生來電先查證
+    publisher: 中央社
+    date: '2025-03-23'
+    url: https://www.cna.com.tw/news/asoc/202503230146.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 「媽，我換電話了」 台中婦欲匯假兒子15萬救急被攔下
+    publisher: ETtoday新聞雲
+    date: '2026-09-20'
+    url: https://www.ettoday.net/news/20260920/3240711.htm
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+    - status
+  - title: 老翁遭「猜猜我是誰」詐55萬 詐團二度下手警逮2車手
+    publisher: 聯合報
+    date: '2026-07-19'
+    url: https://udn.com/news/story/124490/9636971
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - status
+  - title: 冒用主管帳號要下屬匯款 刑事局：近期常見詐騙手法
+    publisher: 中央社
+    date: '2026-09-19'
+    url: https://www.cna.com.tw/news/asoc/202609190134.aspx
+    level: L2
+    supports:
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - fake-kidnap
+  - fake-boss
+  updated: '2026-10-22'
+- id: fake-kidnap
+  name: 假綁架、假車禍：電話裡有哭聲，要你馬上付錢
+  aliases:
+  - 假綁架
+  - 假車禍和解
+  - AI 語音深偽詐騙
+  category: 冒名恐嚇
+  summary: 對方說你的家人欠債被押走、被打傷，或出車禍撞到人要和解，電話裡傳來哭喊或求救聲，不准你掛電話、不准報警，要你立刻匯款或領現金。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 電話
+  pretend_to_be:
+  - 綁匪
+  - 地下錢莊債主
+  - 車禍對方
+  - 家人（AI 仿聲）
+  stages:
+  - stage: 接觸
+    what_you_see: 突然接到電話，聽到像是家人的哭喊、求救或哀號聲。
+  - stage: 製造情境
+    what_you_see: 對方說家人欠地下錢莊錢被押走、被打傷，或開車撞傷人、涉案要交保，要先付錢才放人或和解。
+  - stage: 要求行動
+    what_you_see: 威脅你不准掛電話、不准報警，要你立刻到銀行臨櫃提款、ATM 匯款，或把現金交給來拿錢的人。
+  - stage: 收網後
+    what_you_see: 詐團派車手到約定地點收錢。
+  opener_examples:
+  - 你兒子欠錢被我們押走了，先拿二十萬來。
+  - 媽，我開車撞傷人了，對方要我馬上賠錢。
+  - 敢掛電話或報警，你就見不到他。
+  red_flags:
+  - id: crying-for-help
+    text: 電話裡有哭喊、求救聲，接著要你馬上付錢
+    cues:
+    - 救我
+    - 求救
+    - 哭喊
+    weight: 2
+  - id: no-hangup-no-police
+    text: 威脅不准掛電話、不准報警
+    cues:
+    - 敢掛電話
+    - 不准掛
+    - 不准報警
+    - 不要報警
+    weight: 3
+  - id: debt-hostage
+    text: 說家人欠債被押走，要付錢才放人
+    cues:
+    - 被押走
+    - 地下錢莊
+    - 贖金
+    - 欠債
+    weight: 3
+  - id: accident-settlement
+    text: 說家人撞到人、撞傷孕婦，要馬上和解賠錢
+    cues:
+    - 撞到人
+    - 撞傷
+    - 孕婦
+    - 和解
+    - 賠償
+    weight: 2
+  - id: bail-money
+    text: 說家人涉刑案，要你先付交保金
+    cues:
+    - 交保金
+    - 交保
+    weight: 2
+  final_ask:
+  - 立刻到銀行臨櫃提款、用 ATM 匯款，或把現金交給來拿錢的人。
+  verify:
+  - 先掛斷，用原本存的號碼打給家人本人，或打給他的學校、公司確認人在哪裡。
+  - 跟家人在見面時約好只有家人知道的通關密語或問答。
+  - 對方不讓你掛電話時，可以走到派出所，或請旁邊的人幫你報警。
+  - 撥 110 報案，或撥 165 反詐騙專線諮詢。
+  safe_lookalikes:
+  - 週五晚上到週日家人回訊息比較慢，一時聯絡不上不代表出事；先用其他管道找人。
+  if_already_happened:
+  - 立刻撥 110 報案或 165 反詐騙專線。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 小兒子欠債被綁架？父急找大兒子籌錢救人，真相曝光……
+    publisher: 警政署公共關係室（警光雜誌社）
+    date: '2023-07-04'
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=3573508c-d2d4-4e77-822c-8aefe9920204
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 婦人遇假綁架詐騙領79萬 警方「無聲交談」逮車手
+    publisher: 自由時報
+    date: '2022-07-17'
+    url: https://news.ltn.com.tw/news/society/breakingnews/3995306
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 兒女哭喊借錢別急匯！最新AI「複製聲音僅3秒」 77％父母分不出
+    publisher: 三立新聞網
+    date: '2026-09-05'
+    url: https://www.setn.com/news/1901875
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - status
+    - aliases
+  - title: 「我女兒被綁架」300萬才放人 父奔警所字條求救才知...在上班
+    publisher: ETtoday新聞雲
+    date: '2019-03-23'
+    url: https://www.ettoday.net/news/20190323/1406119.htm
+    level: L2
+    supports:
+    - red_flags
+    - verify
+    - first_seen
+  evidence: 🟢
+  related:
+  - guess-who
+  updated: '2026-10-22'
+- id: fake-gov-subsidy
+  name: 假冒政府發錢：普發現金、退稅
+  aliases:
+  - 普發現金詐騙
+  - 普發一萬詐騙
+  - 退稅詐騙
+  category: 冒名恐嚇
+  summary: 對方用普發現金、退稅等政府發錢的名義，傳簡訊或郵件叫你點連結填個資；或打電話說你的普發現金被冒領，再轉接假檢警，要你交出財產。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 簡訊
+  - 電子郵件
+  - 電話
+  - LINE
+  pretend_to_be:
+  - 財政部
+  - 國稅局
+  - 郵局人員
+  - 警察
+  - 檢察官
+  stages:
+  - stage: 接觸
+    what_you_see: 收到「每人普發 1 萬元」之類的簡訊、郵件，附上連結；或接到自稱郵局人員的電話。
+  - stage: 取信
+    what_you_see: 連結打開是仿冒的登記網頁，要你填個人資料；或電話說有人冒用你的身分證登記普發現金。
+  - stage: 製造情境
+    what_you_see: 電話轉接給假警察、假偵查佐，要你加 LINE，傳來假傳票、搜索票，說你的帳戶涉及洗錢、家裡的現金會被當成非法款項。
+  - stage: 要求行動
+    what_you_see: 要你把家中現金、金飾交給假檢察官「財產監管」，或交出提款卡等金融帳戶。
+  opener_examples:
+  - 每人普發一萬元，點連結登記才能領取。
+  - 我是郵局人員，有人冒用你的身分證登記普發現金。
+  - 您有一筆退稅待領取，請點連結辦理。
+  red_flags:
+  - id: gov-money-sms-link
+    text: 用簡訊、郵件或通訊軟體通知你領錢、退稅，還附連結
+    cues:
+    - re:(普發|退稅|補助).{0,40}(https?://|網址|連結)
+    - re:(https?://|連結).{0,40}(普發|退稅|補助)
+    - 登記領取
+    weight: 2
+  - id: fake-gov-domain
+    text: 網址看起來像政府網站，但不是以「.gov.tw」結尾，或 gov 前面不是一個點（例如 gov.tw 出現在網址後段）
+    cues:
+    - re:gov[-_]tw
+    - re:gov\.tw\.[a-z]{2,}
+    - re:gov\.(?!tw(?![a-z0-9]))[a-z]+
+    weight: 3
+  - id: registration-stolen
+    text: 說你的身分被冒用登記、普發現金被冒領
+    cues:
+    - 冒領
+    - 冒用你的身分
+    - 身分遭盜用
+    - 冒用登記
+    weight: 3
+  - id: register-or-lose
+    text: 催你趕快登記，不然領不到
+    cues:
+    - 未登記
+    - 尚未登記
+    - 盡快登記
+    - re:逾期.{0,8}(作廢|取消|失效|無法領取|視同放棄)
+    weight: 2
+  - id: atm-to-receive
+    text: 要你到 ATM 或網路銀行操作才能領錢
+    cues:
+    - re:(ATM|網銀|網路銀行).{0,10}(領|入帳|操作)
+    - 操作轉帳
+    - ATM操作
+    weight: 3
+  - id: cash-called-illegal
+    text: 說家裡的現金會被當成非法款項，要幫你申報或監管
+    cues:
+    - 非法款項
+    - 替你申報
+    - 財產監管
+    weight: 3
+  final_ask:
+  - 在仿冒的登記網頁填寫個人資料。
+  - 交出提款卡或其他金融帳戶資料。
+  - 把家中現金、金飾交給假檢察官「財產監管」。
+  verify:
+  - 2025 年普發現金的官方網站是 10000.gov.tw；政府網站網址結尾一定是「.gov.tw」，gov 前面一定是「.」。
+  - 有疑問撥 165 反詐騙專線，或到財政部官網查詢。
+  - 沒收到錢，向銀行、財政部等正式管道查詢，不要相信打來說你被冒領的人。
+  safe_lookalikes:
+  - 政府不會用簡訊或電子郵件通知你登記領錢，也不會打電話要你到 ATM 或網銀操作。
+  - 2025 年普發現金不登記也能到郵局臨櫃領；各銀行入帳時間不同，沒收到錢不代表被冒領。
+  - 國稅局不會透過簡訊或通訊軟體要你點連結繳稅或退稅。
+  if_already_happened:
+  - 撥 165 查證或 110 報案。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 普發現金上路 刑事局：詐騙集團已冒用籲注意
+    publisher: 中央社
+    date: '2025-11-15'
+    url: https://www.cna.com.tw/news/asoc/202511150126.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 誤信假「郵局人員」稱普發現金遭冒領 女子沒領到1萬反被騙百萬
+    publisher: 自由時報
+    date: '2025-11-24'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5256218
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 內政部解析普發現金3詐騙手法 主動過濾關鍵字阻詐
+    publisher: 中央社
+    date: '2025-09-25'
+    url: https://www.cna.com.tw/news/aipl/202509250341.aspx
+    level: L2
+    supports:
+    - summary
+    - red_flags
+    - final_ask
+  - title: 詐騙集團傳普發1萬元假簡訊 刑事局籲切記別點開
+    publisher: 中央社
+    date: '2025-07-12'
+    url: https://www.cna.com.tw/news/asoc/202507120178.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 2027普發一萬要來了！網址、防詐騙簡訊 刑事局：4不原則或撥165
+    publisher: NOWnews今日新聞
+    date: '2026-08-17'
+    url: https://www.nownews.com/news/6866674
+    level: L2
+    supports:
+    - red_flags
+    - safe_lookalikes
+    - status
+  - title: 綜所稅首批退稅7／31入帳 總金額612億元
+    publisher: 工商時報（中央社稿）
+    date: '2026-07-28'
+    url: https://www.ctee.com.tw/news/20260728700858-430104
+    level: L2
+    supports:
+    - opener_examples
+    - red_flags
+    - safe_lookalikes
+    - status
+  - title: 普發6000當心假網站 財部教辨識5特徵網址結尾沒有com
+    publisher: 中央社
+    date: '2023-03-25'
+    url: https://www.cna.com.tw/news/ahel/202303250126.aspx
+    level: L2
+    supports:
+    - first_seen
+  - title: 網址首段是「gov.tw」結尾的，才是政府專用網址！
+    publisher: 數位發展部
+    date: '2023-04-26'
+    url: https://moda.gov.tw/press/clarification/4791
+    level: L1
+    supports:
+    - red_flags
+    - verify
+  evidence: 🟢
+  related:
+  - fake-prosecutor
+  - fake-agency-id-misuse
+  updated: '2026-10-22'
+- id: fake-boss
+  name: 假老闆、假主管：拉 LINE 群組叫你匯款
+  aliases:
+  - BEC 詐騙
+  - 變臉詐騙
+  - 假冒高層
+  - 假冒主管
+  category: 冒名恐嚇
+  summary: 對方冒用老闆或主管的名字寄信、要你建 LINE 群組，或盜用主管的 LINE 帳號，以付款急迫為由，叫負責匯款的員工把公司的錢匯到指定帳戶。
+  status: active
+  first_seen: ''
+  channels:
+  - 電子郵件
+  - LINE
+  - LINE 群組
+  pretend_to_be:
+  - 老闆
+  - 主管
+  - 公司高層
+  - 國外廠商
+  stages:
+  - stage: 接觸
+    what_you_see: 收到顯示名稱是老闆、理事長或主管的電子郵件，要你馬上建立 LINE 群組並回傳 QR Code，還叮囑不要讓其他人加入。
+  - stage: 取信
+    what_you_see: 真的老闆被踢出群組，或真主管的帳號被封鎖；群組裡只剩假老闆、假廠商和你。
+  - stage: 製造情境
+    what_you_see: 假廠商說老闆已同意付款，或假老闆要你先截圖公司台幣、美金帳戶的餘額。
+  - stage: 要求行動
+    what_you_see: 要你到銀行臨櫃或用網銀，把款項匯到指定帳戶，常是國外帳戶。
+  opener_examples:
+  - 我是董事長，請馬上建一個 LINE 群組，回傳 QR Code 給我。
+  - 這個群組先不要讓其他人加入，有急事要處理。
+  - 老闆已經同意付款，請今天到銀行把貨款匯出。
+  - 把公司台幣和美金帳戶的餘額截圖給我。
+  red_flags:
+  - id: build-line-group
+    text: 主管用電子郵件要你自己建 LINE 群組、回傳 QR Code
+    cues:
+    - 建立LINE群組
+    - 建一個LINE群組
+    - re:建.{0,3}群組
+    - 回傳QR
+    - 群組QR
+    weight: 3
+  - id: keep-group-secret
+    text: 叮囑不要讓其他人加入群組
+    cues:
+    - 不要讓其他人加入
+    - 不要讓別人加入
+    - 先不要告訴
+    weight: 2
+  - id: balance-screenshot
+    text: 要你截圖公司帳戶餘額
+    cues:
+    - 餘額截圖
+    - 帳戶金額
+    - 截圖給我
+    weight: 3
+  - id: urgent-company-transfer
+    text: 以付款急迫、代匯公款為由催你匯款
+    cues:
+    - 代匯
+    - 公款
+    - 盡快匯款
+    - 今天匯出
+    weight: 2
+  - id: overseas-account
+    text: 要你匯到從沒往來過的國外帳戶
+    cues:
+    - 國外帳戶
+    - 海外帳戶
+    - 指定帳戶
+    weight: 2
+  final_ask:
+  - 把公司帳戶的錢匯到對方指定的帳戶（常是國外帳戶）。
+  - 截圖公司帳戶餘額回傳給對方。
+  verify:
+  - 用公司電話、視訊或當面直接問老闆本人；詐團就是賭你不敢打給高層確認。
+  - 大額或不尋常的付款，不要只憑通訊軟體訊息就匯款，照公司原本的覆核流程走。
+  - 不點陌生的 LINE 加入連結，不加入來路不明的公司群組。
+  safe_lookalikes:
+  - LINE 帳號可能被盜用，訊息看起來就是主管本人的帳號；「帳號是真的」不代表傳訊的人是本人。
+  if_already_happened:
+  - 錢剛匯出或還在辦理，馬上請銀行協助並報警，有機會攔下來。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 會計誤信假老闆LINE指示匯貨款險失1400萬 警銀聯手「這招」救回公司鉅款
+    publisher: 警政署公共關係室（警光雜誌社）
+    date: '2026-03-26'
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=b692242f-5173-46f5-a596-82767731d3cf
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - status
+  - title: 冒用主管帳號要下屬匯款 刑事局：近期常見詐騙手法
+    publisher: 中央社
+    date: '2026-09-19'
+    url: https://www.cna.com.tw/news/asoc/202609190134.aspx
+    level: L2
+    supports:
+    - summary
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 嘉縣某貿易公司遭BEC詐騙 會計機警保住3千多萬
+    publisher: 新頭殼 Newtalk（中央社稿）
+    date: '2026-01-29'
+    url: https://newtalk.tw/news/view/2026-01-29/1017521
+    level: L2
+    supports:
+    - aliases
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 詐團鎖定專業學會員工 假冒高層要求代匯公款百萬
+    publisher: 公視新聞網
+    date: '2026-09-28'
+    url: https://news.pts.org.tw/article/828917
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - guess-who
+  updated: '2026-10-22'
+- id: fake-telecom-call
+  name: 假冒電信或公家機關的語音電話：「按 9 轉專人」
+  aliases:
+  - 語音電話詐騙
+  - 假電信催繳
+  - 停話通知詐騙
+  category: 冒名恐嚇
+  summary: 市話或手機接到錄音語音，說電話費欠繳要停話、健保卡異常要停卡、證件被拿去辦門號等，要你按 9 轉專人，接著由假客服把你轉給假警察、假檢察官。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 電話
+  pretend_to_be:
+  - 中華電信
+  - 電信業者
+  - 健保署
+  - 公家機關客服
+  stages:
+  - stage: 接觸
+    what_you_see: 接到錄音語音，說電話費逾期未繳將停話，或你的證件、健保卡有異常。
+  - stage: 取信
+    what_you_see: 語音要你按 9 轉專人，接著出現自稱客服的人，說你的身分被冒用申辦門號或補助。
+  - stage: 製造情境
+    what_you_see: 客服主動說要幫你轉接警察機關做筆錄，接下來就變成假檢警的劇本。
+  - stage: 要求行動
+    what_you_see: 最後要你提供個資、銀行帳戶，或配合「監管帳戶」。
+  opener_examples:
+  - 您的市話費逾期未繳，即將停話，有疑問請按9。
+  - 您的證件被用來申辦門號，將暫停服務，轉專人請按9。
+  - 您的健保卡使用異常，請按9由專人為您說明。
+  red_flags:
+  - id: press-key-to-agent
+    text: 錄音語音要你按 9 或按鍵轉專人
+    cues:
+    - 請按9
+    - 按9
+    - 由專人服務
+    - 由專人為您
+    - 轉接專人
+    weight: 3
+  - id: suspension-threat
+    text: 說你的電話要停話、證件或卡片要停用
+    cues:
+    - 停話
+    - 停用
+    - 停卡
+    - 暫停服務
+    weight: 2
+  - id: id-used-for-number
+    text: 說有人用你的證件申辦門號
+    cues:
+    - 申辦門號
+    - 冒辦門號
+    - 門號申請
+    - 身分遭冒用
+    weight: 2
+  - id: agent-transfers-police
+    text: 客服說要幫你轉接警察或 165
+    cues:
+    - 轉接警察
+    - 轉接165
+    - 幫你轉接
+    - 轉接警局
+    weight: 3
+  final_ask:
+  - 照語音按鍵後，在電話中提供個資或銀行帳戶。
+  - 被轉接給假檢警後，配合「監管帳戶」。
+  verify:
+  - 直接掛斷，自己撥電信公司官方客服（中華電信 123）或 165 查證。
+  - 自己查該機關官網上的電話回撥，不要讓對方轉接。
+  safe_lookalikes:
+  - 中華電信的語音催繳只會播一段錄音，告訴你號碼和欠費月份，不會要你跟著語音操作。
+  - 健保署不會用電話語音通知違規或停卡，也不會要你按鍵轉接服務人員。
+  if_already_happened:
+  - 只按了 9 不會增加話費；但不要再照指示提供帳戶或個資，有疑慮撥 165。
+  prevalence:
+    note: 2019 年 7 月第 1 週，冒充中華電信語音催繳的詐騙電話在 165 全民防騙網排行第 2（資料較舊，尚未查到近年數字）。
+    source_url: https://news.ltn.com.tw/news/Nantou/breakingnews/2852269
+  sources:
+  - title: 詐騙電話按9中計怎辦？ 中華電信教你這樣做...
+    publisher: 自由時報
+    date: '2019-07-14'
+    url: https://news.ltn.com.tw/news/Nantou/breakingnews/2852269
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+    - prevalence
+    - first_seen
+  - title: 常見詐騙手法話術解析與因應之道－第六章　假冒機構（公務員）
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=b7cf505d-f709-4885-b06b-d29b092ce04f
+    level: L1
+    supports:
+    - summary
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - status
+  - title: 接到「健保卡被盜用停卡」電話，小心詐騙老梗！
+    publisher: 衛生福利部（中央健康保險署）
+    date: '2022-01-30'
+    url: https://www.mohw.gov.tw/cp-5264-65923-1.html
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - safe_lookalikes
+  - title: 詐騙集團手法翻新－佯稱民眾健保卡被停卡詐財
+    publisher: 衛生福利部
+    date: '2011-08-18'
+    url: https://mohw.gov.tw/cp-16-25151-1.html
+    level: L1
+    supports:
+    - red_flags
+    - safe_lookalikes
+  - title: 當心假冒身份證件詐騙再現 打詐指揮中心：請民眾提高警覺 避免受害損失
+    publisher: 行政院打擊詐欺指揮中心
+    date: '2025-03-26'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/38051f0b-0605-4f25-870f-21f86873ffac
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+  - title: 刑事局揭假檢警詐騙新態勢 165儀錶板助民眾查證防詐
+    publisher: 工商時報
+    date: '2025-10-07'
+    url: https://www.ctee.com.tw/news/20251007700882-431204
+    level: L2
+    supports:
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-nhi-hospital
+  - fake-prosecutor
+  - fake-agency-id-misuse
+  updated: '2026-10-22'
+- id: fake-agency-id-misuse
+  name: 假冒戶政、郵局：說你的證件或帳戶被冒用
+  aliases:
+  - 證件遭冒用
+  - 身分遭冒用
+  - 假郵局人員
+  - 假戶政人員
+  category: 冒名恐嚇
+  summary: 對方自稱戶政事務所、郵局等單位的人員，說你的身分證、委託書被人冒用去辦事，或你的帳戶涉及詐欺案，再主動把電話轉給假警察、假檢察官。
+  status: active
+  first_seen: ''
+  channels:
+  - 電話
+  - LINE
+  pretend_to_be:
+  - 戶政事務所人員
+  - 郵局人員
+  - 電信業者
+  stages:
+  - stage: 接觸
+    what_you_see: 接到自稱戶政事務所或郵局人員的電話，說有人拿你的證件或委託書申請印鑑證明、戶籍遷移，或你的帳戶涉及詐欺大案。
+  - stage: 製造情境
+    what_you_see: 對方說這可能涉及洗錢，主動要幫你轉接警察或 165。
+  - stage: 要求行動
+    what_you_see: 接下來就是假檢警：要你加 LINE 做視訊筆錄、配合監管帳戶、交出提款卡或現金。
+  opener_examples:
+  - 這裡是戶政事務所，有人拿你的委託書來申請印鑑證明。
+  - 我是郵局人員，你的帳戶涉及詐欺案，幫你轉接警察。
+  - 有人冒用你的證件辦戶籍遷移，要幫你轉接報案嗎？
+  red_flags:
+  - id: id-misused
+    text: 說你的身分證、委託書被人冒用
+    cues:
+    - 證件遭冒用
+    - 身分遭冒用
+    - 證件被盜用
+    - 冒用你的身分
+    - 委託書
+    weight: 2
+  - id: agency-transfers-police
+    text: 公家單位或郵局主動說要幫你轉接警察、165
+    cues:
+    - 轉接警察
+    - 轉接165
+    - 幫你轉接
+    - 轉接警局
+    weight: 3
+  - id: account-in-case
+    text: 說你的帳戶涉及詐欺、洗錢案
+    cues:
+    - 涉及洗錢
+    - 涉嫌洗錢
+    - 詐欺大案
+    - 帳戶涉案
+    weight: 2
+  final_ask:
+  - 被轉接後，照假檢警的指示交出提款卡、現金，或配合「監管帳戶」。
+  verify:
+  - 掛掉電話，自己查戶政事務所或郵局的官方電話回撥。
+  - 撥 165 或 110 查證，不要讓對方幫你轉接。
+  safe_lookalikes:
+  - 檢警處理司法案件會用通知書請你到案說明，不會在電話裡製作筆錄，也不會由其他機關替你轉接。
+  if_already_happened:
+  - 撥 165 或 110，或到最近的派出所報案。
+  prevalence:
+    note: 114 年上半年（2025 年 1–6 月）假檢警詐騙中，最常被冒用的機構是戶政事務所，占 23%。
+    source_url: https://www.ctee.com.tw/news/20251007700882-431204
+  sources:
+  - title: 刑事局揭假檢警詐騙新態勢 165儀錶板助民眾查證防詐
+    publisher: 工商時報
+    date: '2025-10-07'
+    url: https://www.ctee.com.tw/news/20251007700882-431204
+    level: L2
+    supports:
+    - red_flags
+    - verify
+    - prevalence
+    - status
+  - title: 教你識破「假檢警、真詐財」！
+    publisher: 臺灣臺北地方檢察署
+    date: '2025-04-28'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1281204/post
+    level: L1
+    supports:
+    - stages
+    - if_already_happened
+  - title: 當心假冒身份證件詐騙再現 打詐指揮中心：請民眾提高警覺 避免受害損失
+    publisher: 行政院打擊詐欺指揮中心
+    date: '2025-03-26'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/38051f0b-0605-4f25-870f-21f86873ffac
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+  - title: 常見詐騙手法話術解析與因應之道－第六章　假冒機構（公務員）
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=b7cf505d-f709-4885-b06b-d29b092ce04f
+    level: L1
+    supports:
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 「不准掛電話否則拘提！」假警視訊恐嚇6小時 彰化婦狂哭精神崩潰
+    publisher: 自由時報
+    date: '2026-09-08'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5567008
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - status
+  - title: 普發現金上路 刑事局：詐騙集團已冒用籲注意
+    publisher: 中央社
+    date: '2025-11-15'
+    url: https://www.cna.com.tw/news/asoc/202511150126.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  evidence: 🟢
+  related:
+  - fake-prosecutor
+  - fake-nhi-hospital
+  - fake-gov-subsidy
+  - fake-telecom-call
+  updated: '2026-10-22'

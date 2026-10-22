@@ -1,0 +1,506 @@
+- id: atm-operation
+  text: 要你到 ATM 操作「解除設定」「解除分期」「認證」或「退費」
+  cues:
+  - re:(到|去|前往|找|最近的).{0,6}(atm|提款機)
+  - re:(atm|提款機).{0,10}(操作|解除|設定|認證|退費|退款|按|輸入)
+  - 解除分期
+  - 解除設定
+  - re:解除.{0,4}(設定|分期|扣款)
+  - 重複扣款
+  - re:到(ATM|提款機).{0,8}(操作|認證|退費)
+  weight: 3
+  why: ATM 只能提款、轉帳，沒有解除設定、退稅或退費的功能；政府也不會用電話要你到 ATM 或網銀操作轉帳。
+  sources:
+  - title: 165全民防詐騙-詐欺預防寶典(一)
+    publisher: 新北市政府警察局中和分局
+    date: '2016-07-01'
+    url: https://www.zhonghe.police.ntpc.gov.tw/cp-2445-29111-13.html
+    level: L1
+    supports:
+    - text
+    - why
+  - title: 普發6000當心假網站 財部教辨識5特徵網址結尾沒有com
+    publisher: 中央社（轉述財政部）
+    date: '2023-03-25'
+    url: https://www.cna.com.tw/news/ahel/202303250126.aspx
+    level: L2
+    supports:
+    - why
+  - title: 假檢警稱普發1萬遭冒名盜領 上班族急交現金「監管財產」被騙百萬
+    publisher: 聯合報（轉述刑事局）
+    date: '2025-11-24'
+    url: https://udn.com/news/story/124490/9159249
+    level: L2
+    supports:
+    - why
+- id: online-banking-verify
+  text: 自稱客服或物流，要你登入網路銀行做「驗證」「實名認證」「金流確認」
+  cues:
+  - 網銀驗證
+  - 實名認證
+  - 金流確認
+  - 認證帳戶
+  - re:(網銀|網路銀行).{0,6}(驗證|認證)(?!碼)
+  - 未完成實名
+  weight: 3
+  why: 刑事局提醒，只要客服要你操作網銀做驗證，就該立刻停下來，打 165 查證；網購詐騙常用「假客服實名認證」「金流確認」把錢轉走。
+  sources:
+  - title: 參選人鐵粉注意！索競選小物40分鐘遭盜34萬　刑事局揭4大詐術
+    publisher: ETtoday新聞雲（轉述刑事局）
+    date: '2026-10-18'
+    url: https://ettoday.net/news/20261018/3256775.htm
+    level: L2
+    supports:
+    - text
+    - why
+  - title: 雅方千金林暄穎投身反詐 受邀刑事局提醒慎防網購詐騙陷阱
+    publisher: 自由時報（轉述刑事局）
+    date: '2026-05-14'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5436538
+    level: L2
+    supports:
+    - text
+- id: otp-request
+  text: 要你提供簡訊驗證碼、一次性密碼（OTP）或登入密碼
+  cues:
+  - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+  - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+  - re:(簡訊|手機).{0,4}(驗證碼|認證碼)
+  - 把收到的碼
+  weight: 3
+  why: 驗證碼就是你本人同意的最後一道關卡。刑事局曾示警，詐團用投票、抽獎連結騙人輸入電話、驗證碼和密碼，再盜走 LINE 帳號。朋友傳連結要你登入或給驗證碼時，要先用別的方式（例如打電話）跟朋友本人確認。
+  sources:
+  - title: 過去曾有詐騙集團假借幫忙寵物投票名義，誘騙民眾輸入帳號密碼及驗證碼…刑事局示警（搜尋摘要）
+    publisher: 台灣英文新聞中文版（轉述刑事局）
+    date: ''
+    url: https://www.taiwannews.com.tw/zh/news/6061089
+    level: L2
+    supports:
+    - text
+    - why
+  - title: 詐騙新招暴增300%！張懷秋現身刑事局　驚曝「差點中招」店員1句話救他
+    publisher: 三立新聞網（轉述刑事局）
+    date: '2026-09-15'
+    url: https://www.setn.com/news/1907256
+    level: L2
+    supports:
+    - why
+- id: keep-secret
+  text: 要你保密，不能告訴家人、行員或警察（例如說「偵查不公開」）
+  cues:
+  - 偵查不公開
+  - re:(要|請|必須|務必).{0,4}保密.{0,10}(家人|行員|任何人|警察|不得|偵查)
+  - re:不(要|能|可以)告訴.{0,6}(家人|家裡|行員|銀行|警察|朋友|小孩|子女|老公|老婆|先生|太太)
+  - 不能告訴家人
+  - re:不(要|能|可以).{0,4}(告訴|說).{0,6}(家人|行員|任何人)
+  weight: 3
+  why: 刑事局說明，「偵查不公開」是規範辦案人員的，不是要民眾對家人保密；詐團用這句話切斷你跟家人、行員的聯繫。
+  sources:
+  - title: 刑事局新聞資料（偵查不公開話術；搜尋摘要，未開全文）
+    publisher: 內政部警政署刑事警察局（行政院網站附件）
+    date: ''
+    url: https://www.ey.gov.tw/File/A6BAFE8129AD37E6
+    level: L1
+    supports:
+    - text
+    - why
+- id: lie-to-teller
+  text: 教你對行員、保險業務或警察說謊，例如說領錢是要「裝潢」「買醫療器材」
+  cues:
+  - re:(行員|櫃台|銀行|業務).{0,10}問.{0,10}(裝潢|裝修|買車|買房|醫療|給家人)
+  - re:(就說|就講|回答).{0,6}(裝潢|裝修|買車|買房|醫療器材|給家人|投資)
+  - 跟行員說
+  - re:(行員|櫃台|業務).{0,6}問.{0,6}(就說|你就說)
+  - 不要說是
+  weight: 3
+  why: 台北市警方指出，只要聽到領錢是要裝修房子，幾乎都是詐團教被害人的說詞，用來躲過行員的關懷提問。
+  sources:
+  - title: 詐團設警局背板、派出所劇場 警強調不會視訊做筆錄
+    publisher: 公視新聞網（轉述台北市警方）
+    date: '2025-06-17'
+    url: https://news.pts.org.tw/article/756518
+    level: L2
+    supports:
+    - text
+    - why
+- id: gov-via-line-video
+  text: 自稱檢警或法院，用 LINE 傳公文、拘票，或要視訊做筆錄
+  cues:
+  - 視訊筆錄
+  - re:(視訊|電話|線上|line).{0,6}筆錄
+  - 拘票
+  - re:(line|賴|簡訊|email).{0,10}(公文|拘票|傳票|通緝)
+  - re:(LINE|賴).{0,8}(公文|拘票|傳票|筆錄)
+  - re:(檢察官|警察|法院).{0,10}(LINE|視訊)
+  weight: 3
+  why: 刑事局表示，檢警和司法機關不會用 LINE 傳公文，也不會用視訊跟民眾做筆錄。
+  sources:
+  - title: 假檢警稱普發1萬遭冒名盜領 上班族急交現金「監管財產」被騙百萬
+    publisher: 聯合報（轉述刑事局）
+    date: '2025-11-24'
+    url: https://udn.com/news/story/124490/9159249
+    level: L2
+    supports:
+    - why
+  - title: 詐團設警局背板、派出所劇場 警強調不會視訊做筆錄
+    publisher: 公視新聞網（轉述刑事局）
+    date: '2025-06-17'
+    url: https://news.pts.org.tw/article/756518
+    level: L2
+    supports:
+    - text
+    - why
+- id: call-transfer-to-police
+  text: 電話中說要幫你「轉接」警察局、地檢署或法院，或在電話裡傳喚、做筆錄
+  cues:
+  - re:轉接.{0,6}(警察|警局|地檢|法院|檢察官|刑事局|健保署|165)
+  - re:(地檢署|檢察官|法院|警察局|刑事局).{0,15}(監管|凍結|公證|收押|拘提|羈押|保密|偵查不公開|轉接|涉嫌|涉案|洗錢)
+  - re:轉接.{0,6}(警察|警局|地檢|法院)
+  - 電話筆錄
+  weight: 3
+  why: 新北市警察局宣導「機關四不會」：檢警不會在電話中通知、傳喚、做筆錄；警察機關不會把電話轉接到地檢署或法院。
+  sources:
+  - title: Recognize the Fraud, and Defend It Calmly（識破詐騙，冷靜防禦）
+    publisher: 新北市政府警察局
+    date: '2021-03-30'
+    url: https://www.police.ntpc.gov.tw/cp-2884-79049-2.html
+    level: L1
+    supports:
+    - text
+    - why
+- id: supervised-account
+  text: 要你把錢轉到「監管帳戶」「安全帳戶」「信託帳戶」，或交給專人「監管財產」
+  cues:
+  - 監管帳戶
+  - 安全帳戶
+  - 信託帳戶
+  - 監管財產
+  - 資金清查
+  - re:(監管|保管|清查).{0,4}(帳戶|資金|財產)
+  weight: 3
+  why: 檢警、法院不會要求匯款、轉帳或監管帳戶；「帳戶被凍結、要轉到信託帳戶」是冒充金融機構或主管機關的固定話術。
+  sources:
+  - title: Recognize the Fraud, and Defend It Calmly（識破詐騙，冷靜防禦）
+    publisher: 新北市政府警察局
+    date: '2021-03-30'
+    url: https://www.police.ntpc.gov.tw/cp-2884-79049-2.html
+    level: L1
+    supports:
+    - why
+  - title: 165全民防詐騙-詐欺預防寶典(一)
+    publisher: 新北市政府警察局中和分局
+    date: '2016-07-01'
+    url: https://www.zhonghe.police.ntpc.gov.tw/cp-2445-29111-13.html
+    level: L1
+    supports:
+    - text
+    - why
+- id: hand-over-card-or-cash
+  text: 要你面交現金、寄出或交出提款卡、存摺、密碼
+  cues:
+  - re:面交.{0,8}(現金|存摺|提款卡|金融卡|款項)
+  - re:(現金|存摺|提款卡|金融卡).{0,8}面交
+  - re:(派|請).{0,6}(專員|人員|同事).{0,6}(收|拿|取)
+  - 交付現金
+  - re:(寄|交|給|提供|放|郵寄|快遞|面交|交付|出借|出租|借|租).{0,8}(金融卡|提款卡|存摺|存簿|簿子)
+  - re:(金融卡|提款卡|存摺|存簿).{0,10}(寄|交給|給我|密碼|一起|放在|寄到)
+  - 寄卡
+  - re:(寄|交|放).{0,6}(提款卡|金融卡|存摺)
+  weight: 3
+  why: 刑事局統計 2025 年上半年假檢警詐騙，交付方式以「交出金融卡」最常見（占 57%）；檢警、法院不會向你收錢或收卡。
+  sources:
+  - title: 刑事局揭假檢警詐騙新態勢 165儀錶板助民眾查證防詐
+    publisher: 工商時報（轉述刑事局）
+    date: '2025-10-07'
+    url: https://www.ctee.com.tw/news/20251007700882-431204
+    level: L2
+    supports:
+    - text
+    - why
+  - title: Recognize the Fraud, and Defend It Calmly（識破詐騙，冷靜防禦）
+    publisher: 新北市政府警察局
+    date: '2021-03-30'
+    url: https://www.police.ntpc.gov.tw/cp-2884-79049-2.html
+    level: L1
+    supports:
+    - why
+- id: game-points-payment
+  text: 要你買遊戲點數、禮物卡付款，或說要「回沖」交易
+  cues:
+  - 遊戲點數
+  - 點數卡
+  - MyCard
+  - GASH
+  - 禮物卡
+  - 回沖
+  - re:(買|購買).{0,6}點數
+  weight: 3
+  why: 警方宣導：陌生人來電要求操作提款機、匯款或購買遊戲點數，都絕對是詐騙。點數一旦給出序號就追不回來。
+  sources:
+  - title: 165全民防詐騙-詐欺預防寶典(一)
+    publisher: 新北市政府警察局中和分局
+    date: '2016-07-01'
+    url: https://www.zhonghe.police.ntpc.gov.tw/cp-2445-29111-13.html
+    level: L1
+    supports:
+    - text
+    - why
+- id: time-pressure
+  text: 限時完成、立刻處理，不然帳戶會被凍結、被列警示或被起訴
+  cues:
+  - 限時
+  - 立刻
+  - 馬上
+  - 今天內
+  - re:\d+\s*(分鐘|小時)內
+  - 否則
+  - 將被凍結
+  - 列為警示
+  weight: 1
+  why: 詐團用時間壓力讓你沒空查證；警方指出「帳戶將列為警示、限時轉入信託帳戶」是固定施壓手法。
+  sources:
+  - title: 165全民防詐騙-詐欺預防寶典(一)
+    publisher: 新北市政府警察局中和分局
+    date: '2016-07-01'
+    url: https://www.zhonghe.police.ntpc.gov.tw/cp-2445-29111-13.html
+    level: L1
+    supports:
+    - text
+    - why
+- id: guaranteed-return
+  text: 保證獲利、穩賺不賠，先讓你小賺再叫你加碼
+  cues:
+  - 保證獲利
+  - 穩賺
+  - 穩賺不賠
+  - re:(零|無)風險
+  - re:高報酬.{0,6}(低風險|零風險|無風險|保證|穩)
+  weight: 3
+  why: 警方整理 165 數據指出，標榜「保證獲利」「穩賺不賠」的多半是詐騙；假投資的固定套路是先給小額獲利，再慫恿加碼。
+  sources:
+  - title: 「165打詐儀錶板」公布前五名的詐騙手法
+    publisher: 桃園市政府警察局
+    date: '2024-12-23'
+    url: https://www.typd.gov.tw/index.php?catid=18&cid=1&id=128647&action=view&pg=1
+    level: L1
+    supports:
+    - text
+    - why
+- id: pay-to-withdraw
+  text: 要領錢、出金或領獎前，先叫你繳稅金、保證金、手續費或「解凍金」
+  cues:
+  - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+  - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+  - 解凍金
+  - 預繳稅
+  - re:(先|預).{0,4}(繳|付).{0,6}(稅|保證金|手續費)
+  - re:才能(領|提領|出金)
+  - re:(繳付|繳納|支付).{0,6}後.{0,15}(提領|領取|出金)
+  weight: 3
+  why: 真的獲利可以直接提領，不需要先付錢。詐團曾偽造金管會公文，說「依規定要補稅 30% 才能領錢」，讓退休公務員匯出 800 萬元。
+  sources:
+  - title: 詐團偽造「金管會官印」騙被害人繳稅 退休公務員多年老本被騙光
+    publisher: 聯合報
+    date: '2026-03-26'
+    url: https://udn.com/news/story/124490/9404376
+    level: L2
+    supports:
+    - text
+    - why
+- id: install-unknown-app
+  text: 要你下載不明 App、指定的投資 App，或照指示安裝程式、開權限
+  cues:
+  - re:下載.{0,6}(app|apk).{0,10}(加入|投資|入金|驗證|認證|客服|註冊)
+  - re:(下載|安裝).{0,8}(apk|不明|指定|專用|遠端)
+  - APK
+  - re:(點|按).{0,6}(下載|安裝)
+  - 開啟權限
+  - 無障礙
+  weight: 3
+  why: 刑事局曾揭露，假客服誘騙民眾下載藏木馬的 App，取得手機權限後遠端操控、轉走網銀存款，手機畫面還會變黑、斷訊；警方也提醒，來路不明的投資 App 要小心，別隨便下載。
+  sources:
+  - title: 新加坡面冊詐騙 手機App藏木馬程式侵口座
+    publisher: 公視新聞網（轉述刑事局）
+    date: '2024-06-14'
+    url: https://news.pts.org.tw/article/700190
+    level: L2
+    supports:
+    - text
+    - why
+  - title: 「165打詐儀錶板」公布前五名的詐騙手法
+    publisher: 桃園市政府警察局
+    date: '2024-12-23'
+    url: https://www.typd.gov.tw/index.php?catid=18&cid=1&id=128647&action=view&pg=1
+    level: L1
+    supports:
+    - why
+- id: share-bank-credentials
+  text: 要你交出網路銀行帳號密碼，讓「老師」「專員」幫你代操、代管
+  cues:
+  - 網銀帳號
+  - 網銀密碼
+  - 代操
+  - 代管
+  - re:(網銀|網路銀行).{0,6}(帳號|密碼)
+  weight: 3
+  why: 警方整理的假投資話術包括「索取並代管網銀帳號與密碼」；不要把網路銀行帳號密碼給任何陌生人。
+  sources:
+  - title: 「165打詐儀錶板」公布前五名的詐騙手法
+    publisher: 桃園市政府警察局
+    date: '2024-12-23'
+    url: https://www.typd.gov.tw/index.php?catid=18&cid=1&id=128647&action=view&pg=1
+    level: L1
+    supports:
+    - text
+    - why
+- id: fake-gov-domain
+  text: 自稱政府的網站，網址不是以「.gov.tw」結尾，或 gov 前面不是一個點（例如 gov.tw 出現在網址後段）
+  cues:
+  - re:gov[-_0-9a-z]
+  - re:\.gov\.(com|net|cc|top|xyz)
+  - re:gov-?tw\.(com|net)
+  weight: 3
+  why: 政府官網網址都以「.gov.tw」結尾，「gov」前面一定是「.」，不會夾雜英文字母、數字或符號；結尾是 com 的就不是政府網站。
+  sources:
+  - title: 普發6000當心假網站 財部教辨識5特徵網址結尾沒有com
+    publisher: 中央社（轉述財政部）
+    date: '2023-03-25'
+    url: https://www.cna.com.tw/news/ahel/202303250126.aspx
+    level: L2
+    supports:
+    - text
+    - why
+  - title: 假檢警稱普發1萬遭冒名盜領 上班族急交現金「監管財產」被騙百萬
+    publisher: 聯合報（轉述刑事局）
+    date: '2025-11-24'
+    url: https://udn.com/news/story/124490/9159249
+    level: L2
+    supports:
+    - why
+  - title: 網址首段是「gov.tw」結尾的，才是政府專用網址！
+    publisher: 數位發展部
+    date: '2023-04-26'
+    url: https://moda.gov.tw/press/clarification/4791
+    level: L1
+    supports:
+    - red_flags
+    - verify
+  - title: 民眾檢舉偽冒「全民＋1 政府相挺」普發現金網站 財政部：截至11月26日，財政部已停止解析共11個偽冒普發現金網站
+    publisher: 財政部
+    date: '2025-11-28'
+    url: https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=a035dc5a95074390a0c4cd052de7e286
+    level: L1
+    supports:
+    - red_flags
+    - verify
+- id: gov-sms-asks-login
+  text: 自稱政府的簡訊或電子郵件，給你連結要你填個資、領錢或補資料
+  cues:
+  - re:(普發|退稅|補助|津貼).{0,10}(登錄|領取|點擊)
+  - re:(簡訊|email|電子郵件).{0,10}(登錄|填寫).{0,6}(資料|個資)
+  weight: 3
+  why: 刑事局與財政部都說，政府不會用簡訊或電子郵件通知領錢，也不會要民眾點連結填寫個人資料。
+  sources:
+  - title: 假檢警稱普發1萬遭冒名盜領 上班族急交現金「監管財產」被騙百萬
+    publisher: 聯合報（轉述刑事局）
+    date: '2025-11-24'
+    url: https://udn.com/news/story/124490/9159249
+    level: L2
+    supports:
+    - text
+    - why
+  - title: 普發6000當心假網站 財部教辨識5特徵網址結尾沒有com
+    publisher: 中央社（轉述財政部）
+    date: '2023-03-25'
+    url: https://www.cna.com.tw/news/ahel/202303250126.aspx
+    level: L2
+    supports:
+    - why
+- id: gov-sms-not-111
+  text: 自稱政府機關的簡訊，發送號碼不是「111」，或開頭沒有你手機末三碼和機關名稱
+  cues:
+  - re:(政府|監理|稅務|國稅|健保|戶政).{0,10}(通知|罰單|欠費)
+  weight: 1
+  why: 政府簡訊統一用「111」發送；2025 年 6 月起，111 簡訊開頭還會加上收件人手機末三碼與機關名稱。詐團曾用 2G 偽基地台冒用 111，但只能發罐頭訊息，無法寫出你的手機末三碼。
+  sources:
+  - title: 111防詐簡訊沒被破解 新增手機末3碼強化辨識
+    publisher: 自由時報（轉述數位發展部）
+    date: '2025-06-17'
+    url: https://ec.ltn.com.tw/article/breakingnews/5077912
+    level: L2
+    supports:
+    - text
+    - why
+- id: link-in-message
+  text: 訊息或廣告裡的連結叫你登入、付款、確認「訂單異常」或領「發票中獎」
+  cues:
+  - 訂單異常
+  - 點擊連結
+  - re:https?://
+  - re:(登入|付款|確認).{0,6}(連結|網址)
+  - '[連結]'
+  - re:[a-z0-9-]+\.(com|net|cc|top|xyz|info|vip|shop|site|me|io|app|tw|cn|link)(/|$|[^a-z0-9.-])
+  weight: 1
+  why: 刑事局統計 2026 年 8 月釣魚連結詐騙受理 505 件，較去年同期增加 99.6%；提醒不要直接點訊息或廣告裡的連結，改從官方 App、官網或客服管道查證。
+  sources:
+  - title: 詐騙新招暴增300%！張懷秋現身刑事局　驚曝「差點中招」店員1句話救他
+    publisher: 三立新聞網（轉述刑事局）
+    date: '2026-09-15'
+    url: https://www.setn.com/news/1907256
+    level: L2
+    supports:
+    - text
+    - why
+- id: friend-asks-money
+  text: 熟人、名人或政治人物的帳號突然傳訊息借錢、代付或要你匯款
+  cues:
+  - 借我
+  - 先借
+  - 幫我付
+  - 代付
+  - re:(借|轉).{0,4}(錢|萬|千)
+  - 換新號碼
+  weight: 2
+  why: 刑事局提醒「好友借錢先查證」：就算是很熟的親友傳訊息來，只要跟錢有關，都要先用別的方式跟本人確認。選舉期間也有人冒用政治人物的私人帳號借錢。
+  sources:
+  - title: 詐騙新招暴增300%！張懷秋現身刑事局　驚曝「差點中招」店員1句話救他
+    publisher: 三立新聞網（轉述刑事局）
+    date: '2026-09-15'
+    url: https://www.setn.com/news/1907256
+    level: L2
+    supports:
+    - why
+  - title: 刑事局新聞資料（115年8月統計，「不明連結不點、好友借錢先查證」；搜尋摘要，未開全文）
+    publisher: 內政部警政署刑事警察局（行政院網站附件）
+    date: 2026-09
+    url: https://www.ey.gov.tw/File/4EEAAF328240A1C2
+    level: L1
+    supports:
+    - why
+  - title: 參選人鐵粉注意！索競選小物40分鐘遭盜34萬　刑事局揭4大詐術
+    publisher: ETtoday新聞雲（轉述刑事局）
+    date: '2026-10-18'
+    url: https://ettoday.net/news/20261018/3256775.htm
+    level: L2
+    supports:
+    - text
+- id: move-off-platform
+  text: 要你離開購物平台，改加 LINE 或私訊交易，再匯到個人帳戶
+  cues:
+  - re:私訊.{0,8}(交易|下單|匯款|付款|line|賴)
+  - 加LINE
+  - 加賴
+  - 私下交易
+  - re:(加|私).{0,4}(LINE|賴|IG).{0,6}(交易|聊|下單)
+  - 個人帳戶
+  weight: 2
+  why: 刑事局指出，詐團常在臉書、LINE、IG、Threads 張貼假販售貼文，引導私訊交易；「三方詐騙」更會讓買賣雙方都受害，賣家帳戶還可能被列警示。
+  sources:
+  - title: 雅方千金林暄穎投身反詐 受邀刑事局提醒慎防網購詐騙陷阱
+    publisher: 自由時報（轉述刑事局）
+    date: '2026-05-14'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5436538
+    level: L2
+    supports:
+    - text
+    - why

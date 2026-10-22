@@ -1,0 +1,637 @@
+- id: fake-loan
+  name: 假借貸、代辦貸款
+  aliases:
+  - 假貸款
+  - 代辦貸款
+  - 美化帳戶
+  - 包裝金流
+  - 刷流水
+  - 貸款保證金
+  category: 借貸金融
+  summary: 對方打著保證核貸、信用不良可辦的廣告，要你先付手續費或保證金，或交出網銀帳密、金融卡、存摺做「美化帳戶」；最後錢沒借到，帳戶還可能變成人頭帳戶。
+  status: active
+  first_seen: ''
+  channels:
+  - 臉書廣告
+  - IG
+  - LINE
+  pretend_to_be:
+  - 貸款專員
+  - 理財專員
+  - 資產管理公司客服
+  - 銀行或融資公司員工
+  - 代辦業者
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、IG 看到「保證核貸、信用不良可辦」「低利率、快速核貸」的貸款廣告，點進去被導到 LINE。
+  - stage: 取信
+    what_you_see: 對方自稱貸款專員或資產管理公司，說有專業團隊能幫你向銀行申貸。
+  - stage: 製造情境
+    what_you_see: 說你的財力證明不夠、現金流不足，要先「美化帳戶」「包裝金流」或「配合刷流水」，還說這很常見。
+  - stage: 要求行動
+    what_you_see: 要你先匯手續費、保證金或帳戶驗證費，或交出網銀帳號密碼、金融卡、存摺、驗證碼。
+  - stage: 收網後
+    what_you_see: 付了錢就失聯、不讀不回；帳戶出現不明大額進出，被列為警示帳戶，日常金融往來幾乎停擺。
+  opener_examples:
+  - 信用不好也能貸，保證核貸，加 LINE 免費諮詢。
+  - 您的財力證明不足，要先幫您把帳戶美化一下。
+  - 撥款前要先繳一筆保證金，確認帳戶後就放款。
+  red_flags:
+  - id: guaranteed-approval
+    text: 保證核貸、保證過件、信用不良也能貸
+    cues:
+    - 保證核貸
+    - 保證過件
+    - 信用不良可辦
+    - 不看信用
+    - 快速核貸
+    - 免擔保
+    weight: 2
+  - id: upfront-fee
+    text: 放款前要你先付手續費、保證金、代辦費或驗證費
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 驗證費
+    - 先匯款
+    weight: 3
+  - id: account-beautify
+    text: 說要幫你美化帳戶、包裝金流、刷流水
+    cues:
+    - 美化帳戶
+    - 包裝金流
+    - 刷流水
+    - 財力證明
+    weight: 3
+  - id: hand-over-credentials
+    text: 要你交出網銀帳密、金融卡、存摺或驗證碼，或「暫借帳戶」
+    cues:
+    - 網銀帳密
+    - re:(寄|交|給|提供|放|郵寄|快遞|面交|交付|出借|出租|借|租).{0,8}(金融卡|提款卡|存摺|存簿|簿子)
+    - re:(金融卡|提款卡|存摺|存簿).{0,10}(寄|交給|給我|密碼|一起|放在|寄到)
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    - 暫借帳戶
+    weight: 3
+  final_ask:
+  - 先匯手續費、保證金或代辦費給對方。
+  - 交出網銀帳號密碼、金融卡、存摺或驗證碼，讓對方「操作金流」。
+  verify:
+  - 貸款找政府核准的合法金融機構，自己從官方網站或公開管道查聯絡方式。
+  - 撥 165 反詐騙諮詢專線或 110 查證；也可以在 165 打詐儀錶板問 AI 防詐客服，輸入對方的話術或網址。
+  safe_lookalikes:
+  - 合法貸款機構通常不會在放款前收取不明費用，也不會要你提供帳戶密碼或借用你的帳戶。
+  - 銀行審核貸款會請你提供身分與財力文件，但不會要你交出網銀密碼、驗證碼或金融卡。
+  if_already_happened:
+  - 已交出網銀帳密或金融卡，立刻打給銀行凍結帳戶，到警察局報案並說明自己是受害者，保留對話與匯款紀錄。
+  - 撥 165 或 110 求助。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 網路找貸款？我來幫你「美化帳戶」缺錢調頭寸反被當成洗錢人頭戶
+    publisher: 刑事警察局
+    date: '2026-08-08'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1812d90c-16f4-407c-acc2-047ef1514f2d
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 貸款詐欺之樣態、危害與防範
+    publisher: 臺灣臺北地方檢察署
+    date: '2026-01-13'
+    url: https://www.tpc.moj.gov.tw/292885/976681/661783/1362145/post
+    level: L1
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 帳戶被騙出借或交付他人之民刑事責任問題
+    publisher: 臺灣高等檢察署
+    date: '2026-08-04'
+    url: https://www.tph.moj.gov.tw/4421/4475/632364/1425669/post
+    level: L1
+    supports:
+    - if_already_happened
+  - title: 貸款要先繳保證金台東男險被騙 關山警保他辛苦錢
+    publisher: ETtoday新聞雲
+    date: '2026-05-30'
+    url: https://www.ettoday.net/news/20260530/3174874.htm
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  evidence: 🟢
+  related:
+  - account-rental
+  updated: '2026-10-22'
+- id: installment-cancel
+  name: 解除分期付款（假客服＋假銀行）
+  aliases:
+  - ATM 解除分期
+  - 解除分期付款詐騙
+  - 誤設分期
+  - 重複扣款
+  - 升級 VIP
+  - 假客服
+  category: 借貸金融
+  summary: 對方假冒你買過東西的商家客服，說系統誤設成分期或重複扣款，再由假銀行人員要你操作 ATM、網銀、掃 QR Code 或買點數「解除設定」，錢就被轉走。
+  status: active
+  first_seen: ''
+  channels:
+  - 電話
+  - LINE
+  pretend_to_be:
+  - 電商或商家客服
+  - 基金會人員
+  - 銀行客服
+  - 金融機構金流人員
+  stages:
+  - stage: 接觸
+    what_you_see: 接到自稱商家、電商或基金會客服的電話，常是境外來電（顯示 + 開頭），對方說得出你的購買紀錄。
+  - stage: 製造情境
+    what_you_see: 說工作人員操作錯誤，把你的訂單誤設成分期付款、重複扣款或升級 VIP 會員，不處理會一直扣款。
+  - stage: 取信
+    what_you_see: 接著有人自稱銀行人員或金流人員打來，或要你加「客服」LINE 協助解除。
+  - stage: 要求行動
+    what_you_see: 要你到 ATM 或用網路銀行照指示操作、掃對方給的 QR Code，或去超商買遊戲點數；也有改說個資外洩，要你寄出提款卡和存摺。
+  - stage: 收網後
+    what_you_see: 帳戶餘額變少才發現錢被轉走；寄出提款卡的人，帳戶還可能被拿去當人頭帳戶。
+  opener_examples:
+  - 您好，這裡是購物網站客服，您上次的訂單被誤設成分期。
+  - 系統出錯會每月重複扣款，需要您配合銀行解除設定。
+  - 我是銀行金流人員，請到 ATM 照我的指示取消扣款。
+  red_flags:
+  - id: wrong-installment-setting
+    text: 說你的訂單被誤設分期、重複扣款或升級 VIP
+    cues:
+    - 誤設
+    - 重複扣款
+    - 升級VIP
+    - 取消設定
+    - re:(誤設|設定成|設定為|變成|升級).{0,8}(分期|vip|會員|批發商)
+    weight: 3
+  - id: atm-or-netbank-operation
+    text: 要你到 ATM 或用網路銀行「解除設定」
+    cues:
+    - re:(到|去|前往|找|最近的).{0,6}(atm|提款機)
+    - re:(atm|提款機).{0,10}(操作|解除|設定|認證|退費|退款|按|輸入)
+    - re:(網路銀行|網銀).{0,10}(操作|設定|轉帳|驗證(?!碼)|認證(?!碼)|帳號|密碼|帳密)
+    - re:(登入|打開).{0,6}(網路銀行|網銀).{0,10}(驗證(?!碼)|認證(?!碼)|按|操作)
+    - 解除設定
+    - 解除扣款
+    weight: 3
+  - id: qr-code-verification
+    text: 用「金流驗證」名義要你掃 QR Code
+    cues:
+    - 金流驗證
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    weight: 3
+  - id: game-points
+    text: 要你去超商買遊戲點數來解除設定
+    cues:
+    - 遊戲點數
+    - 買點數
+    weight: 3
+  - id: mail-bank-cards
+    text: 要你寄出提款卡、存簿或先改提款卡密碼
+    cues:
+    - 寄送提款卡
+    - 寄送存簿
+    - 變更提款卡密碼
+    weight: 3
+  - id: overseas-caller
+    text: 來電顯示「+」開頭的境外號碼
+    cues:
+    - '+886'
+    - '+02'
+    - 境外來電
+    weight: 1
+  - id: data-breach-card-theft
+    text: 說業者個資外洩或訂單設定錯誤，你的卡會被盜刷或重複扣款
+    cues:
+    - re:個資外洩.{0,15}(盜刷|扣款|分期|重複)
+    - re:(訂單|帳戶|會員).{0,6}(設定錯誤|誤設|異常).{0,10}(扣款|分期)
+    weight: 3
+  final_ask:
+  - 到 ATM 或用網路銀行照對方指示「解除設定」，實際上是把錢轉出去。
+  - 去超商買遊戲點數「解除設定」。
+  - 寄出提款卡、存簿，或先改提款卡密碼。
+  verify:
+  - 掛斷電話，自己查官方客服電話打回去確認；不要因為對方說得出交易明細就相信。
+  - 撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - ATM 只有提款和轉帳功能，不能解除分期付款或退款；遊戲點數也只能儲值遊戲，不能解除任何設定。
+  - 對訂單有疑問，直接到官方網站或 App 查；正規企業與銀行客服不會要你掃 QR Code 匯款或驗證。
+  if_already_happened:
+  - 立刻撥 165 或到派出所報案，並聯絡銀行。
+  - 已寄出提款卡或存摺：盡快打給銀行凍結帳戶，報案時說明自己是受害者，保留對話紀錄。
+  prevalence:
+    note: 內政部公布 112 年詐騙案件發生數前三名依序為假投資、假網路拍賣、解除分期付款。
+    source_url: https://www.cna.com.tw/news/asoc/202401300023.aspx
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第三章 ATM解除分期付款詐騙
+    publisher: 刑事警察局
+    date: '2026-10-22'
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=a61af506-a4ac-49eb-9c79-ef75ddc6f237
+    level: L1
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 解除分期詐騙新手法，提醒消費者慎防詐騙
+    publisher: 刑事警察局
+    date: '2021-09-12'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=19d0bb9c-908d-40fb-81fc-11a8e6522d57
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - if_already_happened
+  - title: 帳戶被騙出借或交付他人之民刑事責任問題
+    publisher: 臺灣高等檢察署
+    date: '2026-08-04'
+    url: https://www.tph.moj.gov.tw/4421/4475/632364/1425669/post
+    level: L1
+    supports:
+    - if_already_happened
+  - title: 訂單重複取消扣款？假客服詐騙手法升級 警政署提醒：掃QR Code全是騙
+    publisher: 聯合新聞網
+    date: '2026-08-31'
+    url: https://udn.com/news/story/124490/9724838
+    level: L2
+    supports:
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - safe_lookalikes
+  - title: 假投資連3年居詐騙件數金額第1 常冒用名人身分傳飆股訊息
+    publisher: 中央社
+    date: '2024-01-30'
+    url: https://www.cna.com.tw/news/asoc/202401300023.aspx
+    level: L2
+    supports:
+    - stages
+    - verify
+    - prevalence
+  evidence: 🟢
+  related:
+  - fake-bank-service
+  - account-rental
+  updated: '2026-10-22'
+- id: fake-bank-service
+  name: 假冒銀行客服、帳戶異常
+  aliases:
+  - 假冒銀行簡訊
+  - 網銀釣魚簡訊
+  - 帳戶異常詐騙
+  - 假網銀
+  category: 借貸金融
+  summary: 對方假冒銀行發簡訊、郵件或來電，說你的帳戶異常、即將凍結或網銀要更新，引你到假網銀輸入帳密和驗證碼，再登入真網銀把錢轉走。
+  status: active
+  first_seen: ''
+  channels:
+  - 簡訊
+  - 電子郵件
+  - 電話
+  pretend_to_be:
+  - 銀行
+  - 銀行客服
+  - 金融機構金流人員
+  stages:
+  - stage: 接觸
+    what_you_see: 收到掛著銀行名稱的簡訊或 email，說帳戶顯示異常、網銀更新失敗、系統升級或要綁定資料；也可能直接接到自稱銀行人員的電話。
+  - stage: 製造情境
+    what_you_see: 用「否則帳戶將凍結」「卡片暫停使用」施壓，要你立刻處理。
+  - stage: 要求行動
+    what_you_see: 點連結進到很像銀行官網的假網站，輸入網銀帳號、密碼、身分證字號；接著再收到訊息要你輸入簡訊驗證碼。電話版則要你照指示操作 ATM 或網銀。
+  - stage: 收網後
+    what_you_see: 歹徒拿你的帳密登入真網銀轉帳，往往收到轉帳通知才發現。
+  opener_examples:
+  - 【某銀行】您的帳戶顯示異常，請立即登入驗證，逾時凍結。
+  - 您的網銀帳戶更新失敗，請輸入驗證碼完成更新。
+  - 網銀系統升級，您的卡片暫停使用，請點連結驗證恢復。
+  red_flags:
+  - id: account-abnormal-freeze
+    text: 說帳戶異常、即將凍結或卡片暫停使用
+    cues:
+    - 帳戶異常
+    - 顯示異常
+    - 凍結
+    - 暫停使用
+    weight: 2
+  - id: update-or-bind-request
+    text: 要你更新、綁定或升級網銀資料
+    cues:
+    - 更新失敗
+    - 綁定
+    - 版本更新
+    - 升級
+    - 立即登入
+    weight: 2
+  - id: login-link-in-sms
+    text: 簡訊或郵件附連結要你登入網銀
+    cues:
+    - 點擊連結
+    - 登入網銀
+    - re:(登入|登錄|輸入|驗證|認證|更新|繳費|繳納|付款|支付|領取|解除|綁定|填寫|確認|補件|查看帳單).{0,25}(https?://|\[連結\]|網址|連結)
+    weight: 2
+  - id: otp-request
+    text: 要你輸入或回傳簡訊驗證碼
+    cues:
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    weight: 3
+  final_ask:
+  - 在假網銀輸入帳號、密碼、身分證字號。
+  - 輸入或回傳簡訊驗證碼。
+  - 如果對方是打電話來：照指示操作 ATM 或網路銀行。
+  verify:
+  - 不要點簡訊連結、不要撥簡訊上的電話，改打銀行官網上的客服專線。
+  - 從銀行官方網站或官方 App 登入，看有沒有同樣的通知。
+  - 接到自稱銀行的電話先掛斷，自己查銀行電話回撥確認。
+  - 可疑網址到 TWCERT/CC「Phishing Check 釣魚網站通報」回報；有疑問撥 165。
+  safe_lookalikes:
+  - 金融機構不會用簡訊請你點連結並輸入帳號、密碼或簡訊認證碼；銀行真有公告，官方 App 或官網也查得到。
+  - 銀行確實會傳一次性密碼（OTP）做交易確認；輸入前要核對幣別、金額和用途是否跟你正在做的交易相符。
+  if_already_happened:
+  - 已在可疑網站輸入帳密：立刻用官網電話聯絡銀行處理、改密碼，並撥 165。
+  - 沒綁卡卻收到綁定通知或發現異常交易，立刻聯繫發卡機構。
+  prevalence:
+    note: 165 打詐儀錶板 2026 年 3 月受理件數前五名包含「釣魚連結詐騙」（未單獨統計假冒銀行）。
+    source_url: https://www.cna.com.tw/news/asoc/202604090091.aspx
+  sources:
+  - title: 金管會提醒民眾小心釣魚簡訊，千萬「別上鈎」
+    publisher: 金融監督管理委員會
+    date: '2021-02-09'
+    url: https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0%2C2&mcustomize=news_view.jsp&dataserno=202102090004&dtable=News
+    level: L1
+    supports:
+    - stages
+    - verify
+    - if_already_happened
+  - title: 提防假冒銀行之網路釣魚詐騙
+    publisher: TWCERT/CC
+    date: '2021-02-20'
+    url: https://www.twcert.org.tw/tw/cp-14-4416-d7da3-1.html
+    level: L1
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 金管會提醒民眾注意金融詐騙風險，亦勿將銀行帳戶提供他人使用
+    publisher: 金融監督管理委員會
+    date: '2023-09-19'
+    url: https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0%2C2&mcustomize=news_view.jsp&dataserno=202309190001&dtable=News
+    level: L1
+    supports:
+    - red_flags
+    - safe_lookalikes
+  - title: 金管會提醒民眾防範信用卡遭詐騙盜刷
+    publisher: 金融監督管理委員會
+    date: '2026-05-19'
+    url: https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0%2C2&mcustomize=news_view.jsp&dataserno=202605190002&dtable=News
+    level: L1
+    supports:
+    - red_flags
+    - safe_lookalikes
+    - if_already_happened
+  - title: 網銀釣魚簡訊詐騙頻傳 警籲牢記2不2要
+    publisher: 中央社
+    date: '2021-02-04'
+    url: https://www.cna.com.tw/news/asoc/202102040054.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  - title: 假冒網路銀行詐騙簡訊再起 警方籲民眾注意
+    publisher: 中央社
+    date: '2021-02-06'
+    url: https://www.cna.com.tw/news/asoc/202102060124.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 最新詐騙手法！銀行簡訊不要亂點 填個資被盜刷
+    publisher: ETtoday新聞雲
+    date: '2024-05-10'
+    url: https://www.ettoday.net/news/20240510/2735944.htm
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 訂單重複取消扣款？假客服詐騙手法升級 警政署提醒：掃QR Code全是騙
+    publisher: 聯合新聞網
+    date: '2026-08-31'
+    url: https://udn.com/news/story/124490/9724838
+    level: L2
+    supports:
+    - pretend_to_be
+    - stages
+    - final_ask
+  - title: 假投資連3年居詐騙件數金額第1 常冒用名人身分傳飆股訊息
+    publisher: 中央社
+    date: '2024-01-30'
+    url: https://www.cna.com.tw/news/asoc/202401300023.aspx
+    level: L2
+    supports:
+    - verify
+  - title: 網購詐騙受理件數最多 刑事局提供防詐關鍵字
+    publisher: 中央社
+    date: '2026-04-09'
+    url: https://www.cna.com.tw/news/asoc/202604090091.aspx
+    level: L2
+    supports:
+    - red_flags
+    - prevalence
+  evidence: 🟢
+  related:
+  - installment-cancel
+  updated: '2026-10-22'
+- id: account-rental
+  name: 人頭帳戶招募：出租或出借帳戶
+  aliases:
+  - 出租帳戶
+  - 出借帳戶
+  - 租借帳戶
+  - 人頭帳戶
+  - 人頭戶
+  - 代收款
+  category: 借貸金融
+  summary: 對方用月租金、代收款手續費、工作、投資或感情為理由，要你交出存摺、提款卡、密碼或網銀帳密；帳戶被拿去收贓款後，你可能被列警示帳戶、被判刑，還要賠償被害人。
+  status: active
+  first_seen: ''
+  channels:
+  - LINE
+  - 交友軟體
+  - 其他
+  pretend_to_be:
+  - 雇主或公司經理
+  - 網友或戀人
+  - 朋友
+  - 投資業者
+  - 貸款代辦
+  stages:
+  - stage: 接觸
+    what_you_see: 有人說要「租」你的帳戶、按月給租金，或以工作、朋友、網戀、投資名義請你幫忙；對方身分模糊，常只用 LINE 聯絡。
+  - stage: 製造情境
+    what_you_see: 說公司帳戶因做帳問題暫時不能用，要你先代收貨款；或說「幫我收一下款」給你手續費；也有說「為了愛」要開共同帳戶。
+  - stage: 要求行動
+    what_you_see: 要你交出存摺、提款卡和密碼，或網銀帳號密碼，或開一個新帳戶給對方操作。
+  - stage: 收網後
+    what_you_see: 帳戶被拿去收詐騙贓款，被銀行凍結、列為警示帳戶；可能被依洗錢防制法、幫助詐欺追訴，還要連帶賠償被害人。
+  opener_examples:
+  - 帳戶閒著也是閒著，租給我們每月固定給租金。
+  - 公司帳戶暫時不能用，先借你的帳戶收一下貨款。
+  - 幫我代收一筆款，給你兩千元手續費。
+  red_flags:
+  - id: rent-account
+    text: 說要租或借你的帳戶，還按月給錢
+    cues:
+    - 出租帳戶
+    - 租借帳戶
+    - 借用帳戶
+    - 帳戶出租
+    - 月租
+    weight: 3
+  - id: collect-money-for-fee
+    text: 請你用自己的帳戶代收款，再給你手續費
+    cues:
+    - 收一下款
+    - 幫我收款
+    - re:(幫|替).{0,4}代收.{0,10}(款|錢|匯款)
+    - re:(幫我|幫忙).{0,4}(收款|收一下款|收錢|轉帳|領錢).{0,12}(給你|報酬|酬勞|手續費|抽成)
+    weight: 2
+  - id: hand-over-card-password
+    text: 要你交出提款卡、存摺、密碼或網銀帳密
+    cues:
+    - re:(寄|交|給|提供|放|郵寄|快遞|面交|交付|出借|出租|借|租).{0,8}(金融卡|提款卡|存摺|存簿|簿子)
+    - re:(金融卡|提款卡|存摺|存簿).{0,10}(寄|交給|給我|密碼|一起|放在|寄到)
+    - re:(提供|告訴|給|傳|寫下|報).{0,6}(密碼|帳密)
+    - re:(密碼|帳密).{0,6}(給我|告訴我|傳給|寫給|一起寄)
+    - 網銀帳密
+    weight: 3
+  - id: mail-bank-cards
+    text: 要你把提款卡、存簿寄出去
+    cues:
+    - 寄送提款卡
+    - 寄送存簿
+    - 寄提款卡
+    weight: 3
+  - id: open-new-account
+    text: 要你為對方開新帳戶或共同帳戶
+    cues:
+    - 開新帳戶
+    - 共同帳戶
+    weight: 2
+  final_ask:
+  - 交出存摺、提款卡和密碼，或網銀帳號密碼。
+  - 用自己的帳戶幫對方收款，再轉出或領出。
+  verify:
+  - 面試或工作要你交出提款卡、存摺正本，幾乎可以確定是詐騙。
+  - 遇到可疑狀況，先撥 165 反詐騙諮詢專線確認。
+  safe_lookalikes:
+  - 公司要你提供本人帳號收薪水是常見做法；但要你交出提款卡、存摺正本或密碼，就是詐騙。
+  - 把帳戶借給信任的親友，或照一般商業習慣正當使用，法律上有例外；但如果對方要「帳戶＋密碼＋提款卡」一整套、給的錢高得不合理、又只用 LINE 聯絡，法院可能認定你是故意的。
+  if_already_happened:
+  - 盡快打給銀行凍結帳戶，到警察局報案並說明自己是受害者，保留對話與匯款紀錄。
+  - 了解法律風險：第一次違反洗錢防制法第 22 條，會被警察機關告誡（裁處告誡）；如果有拿好處（收取對價）、交出三個以上帳戶，或被告誡後五年內再犯，可處三年以下有期徒刑、拘役，或併科罰金（另外再罰錢）。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 帳戶被騙出借或交付他人之民刑事責任問題
+    publisher: 臺灣高等檢察署
+    date: '2026-08-04'
+    url: https://www.tph.moj.gov.tw/4421/4475/632364/1425669/post
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 金管會提醒民眾注意金融詐騙風險，亦勿將銀行帳戶提供他人使用
+    publisher: 金融監督管理委員會
+    date: '2023-09-19'
+    url: https://www.fsc.gov.tw/ch/home.jsp?id=96&parentpath=0%2C2&mcustomize=news_view.jsp&dataserno=202309190001&dtable=News
+    level: L1
+    supports:
+    - red_flags
+    - if_already_happened
+  - title: 解除分期詐騙新手法，提醒消費者慎防詐騙
+    publisher: 刑事警察局
+    date: '2021-09-12'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=19d0bb9c-908d-40fb-81fc-11a8e6522d57
+    level: L1
+    supports:
+    - red_flags
+    - stages
+  - title: 大學生被騙2大地雷曝！ 出租帳戶+假租屋陷阱 恐變詐團幫兇
+    publisher: ETtoday新聞雲
+    date: '2025-09-15'
+    url: https://www.ettoday.net/news/20250915/3033657.htm
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - verify
+  - title: 出租帳戶月收2萬！男子淪詐團幫兇 判刑4月還要賠340萬
+    publisher: 自由時報
+    date: '2025-11-04'
+    url: https://news.ltn.com.tw/news/society/breakingnews/5233383
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  evidence: 🟢
+  related:
+  - fake-loan
+  - installment-cancel
+  - recovery-scam
+  updated: '2026-10-22'

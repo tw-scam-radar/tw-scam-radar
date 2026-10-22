@@ -1,0 +1,12 @@
+# 只留在本機、不公開
+private/
+work/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+data/official/raw/
+node_modules/
+.wrangler/
+.dev.vars
+dist/

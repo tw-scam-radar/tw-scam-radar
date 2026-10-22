@@ -1,0 +1,1429 @@
+- id: fake-buyer
+  name: 假買家：要你開賣貨便、簽金流協議
+  aliases:
+  - 假買家詐騙
+  - 賣貨便詐騙
+  - 金流驗證詐騙
+  - 實名認證詐騙
+  category: 網購交易
+  summary: 對方假裝想買你東西，要你開超商賣貨便等交易連結，再說訂單被凍結、丟假客服連結，最後要你操作網銀，或交出 OTP、網銀轉帳 QR Code。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 臉書
+  - IG
+  - Threads
+  - LINE
+  - 二手平台
+  pretend_to_be:
+  - 買家
+  - 7-11 賣貨便客服
+  - 全家好賣+客服
+  - 銀行專員
+  stages:
+  - stage: 接觸
+    what_you_see: 你在臉書、IG、Threads 或拍賣平台賣東西，有人私訊說想買，接著要你改加 LINE 聊。
+  - stage: 取信
+    what_you_see: 對方說為了「交易保障」，要你在 7-11 賣貨便或全家好賣+開一個賣場連結給他下單。
+  - stage: 製造情境
+    what_you_see: 你給了連結，對方說「無法下單」「訂單遭凍結」，傳來客服連結或 QR Code；「客服」說你「尚未完成身份驗證」「未簽署金流協議」。
+  - stage: 要求行動
+    what_you_see: 假客服或自稱銀行「簽署專員」的人，要你打開網銀照指示輸入數字，或提供網銀轉帳 QR Code、信用卡 OTP，或去做無卡提款。
+  - stage: 收網後
+    what_you_see: 假買家一直催，說他的帳戶也被凍結，甚至搬出孩子要開刀；你照做後才發現那些「驗證」其實都是轉帳。
+  opener_examples:
+  - 請問還有貨嗎？用賣貨便下單比較有保障，開個賣場給我。
+  - 我這邊顯示無法下單，你是不是還沒做實名認證？
+  - 客服說你要先簽署金流協議，訂單才能解凍。
+  red_flags:
+  - id: unable-to-order-cs-link
+    text: 買家說「無法下單」「訂單凍結」，丟客服連結或 QR Code 要你處理
+    cues:
+    - 無法下單
+    - 訂單遭凍結
+    - 訂單凍結
+    - 客服連結
+    - 聯繫客服
+    weight: 2
+  - id: sign-cashflow-agreement
+    text: 要你「簽署金流協議」、做「實名認證」或「升級賣場」才能交易
+    cues:
+    - 金流協議
+    - 金流簽署
+    - 簽署金流
+    - 實名認證
+    - 實名驗證
+    - 賣場升級
+    weight: 3
+  - id: otp-qr-request
+    text: 要你提供 OTP 驗證碼、網銀轉帳 QR Code 或付款碼
+    cues:
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    - 付款碼
+    weight: 3
+  - id: bank-officer-guided-transfer
+    text: 自稱「銀行專員」「簽署專員」的人，要你開網銀或去無卡提款照指示操作
+    cues:
+    - 銀行專員
+    - 簽署專員
+    - re:(網路銀行|網銀).{0,10}(操作|設定|轉帳|驗證(?!碼)|認證(?!碼)|帳號|密碼|帳密)
+    - re:(登入|打開).{0,6}(網路銀行|網銀).{0,10}(驗證(?!碼)|認證(?!碼)|按|操作)
+    - 無卡提款
+    weight: 3
+  - id: cs-adds-line-or-video
+    text: 「客服」要你加 LINE 好友，或要跟你開視訊
+    cues:
+    - 加LINE
+    - LINE客服
+    - 官方LINE
+    - re:(客服|專員|檢察官|警察|法官).{0,10}視訊
+    - re:視訊.{0,6}(筆錄|認證|驗證|驗資)
+    weight: 2
+  - id: emotional-pressure
+    text: 買家說你害他帳戶被凍結，或搬出孩子手術費、家暴來催你
+    cues:
+    - 帳戶被凍結
+    - 帳戶遭凍結
+    - 手術費
+    - 家暴
+    weight: 2
+  - id: financial-institution-certify
+    weight: 3
+    text: 說要「全權委託金融機構」幫你認證、簽署交易安全協議
+    cues:
+    - 全權委託金融機構
+    - 交易安全協議
+    - 認證簽署
+    - 三大保障
+    - re:金融機構.{0,10}(認證|簽署|授權|致電)
+  final_ask:
+  - 照假客服或假專員指示操作網路銀行，把金額欄填成對方說的「驗證碼」，實際上是轉帳。
+  - 提供網銀轉帳 QR Code、信用卡 OTP 驗證碼、存摺照片或帳戶資料。
+  - 到 ATM 做無卡提款，或把錢匯到對方說的「指定帳戶」。
+  verify:
+  - 賣貨便不需要實名認證，也沒有「金流簽署」；訂單有問題，自己打開官方 App 或網站查，不點對方給的連結。
+  - 真的客服不會加 LINE，更不會開視訊。
+  - 撥 165 反詐騙諮詢專線，或上 165 打詐儀錶板詢問。
+  safe_lookalikes:
+  - 真買家也會問「可以用賣貨便嗎」，但他會自己在賣場下單付款，不會叫你去找客服、簽協議或驗證帳戶。
+  - 賣貨便首次登入確實會寄認證信，要你輸入驗證碼確認電子郵件；這在官方網站內完成，不需要轉帳或給銀行驗證碼。
+  if_already_happened:
+  - 撥 165 反詐騙諮詢專線，或上 165 打詐儀錶板諮詢。
+  - 帶著對話紀錄、轉帳紀錄等證據，到附近警察機關報案。
+  prevalence:
+    note: 2026 年 1–2 月網路購物詐騙報案 6,735 件；民眾指出遭冒用平台的 3,577 件裡，冒用 7-11 賣貨便的有 2,656 件。
+    source_url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=ee5bec9e-7635-45d9-9573-359b98293796
+  sources:
+  - title: 超商寄貨竟成詐騙溫床 假買家詐騙劇本全公開
+    publisher: 刑事警察局
+    date: '2026-03-17'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=ee5bec9e-7635-45d9-9573-359b98293796
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+  - title: 賣貨便需要實名認證？！千萬別信假客服
+    publisher: 刑事警察局
+    date: '2026-05-17'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1ff19028-1e0e-4b6e-908d-32a28051caa2
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 詐團稱無法下單傳假連結詐賣家 警授防詐五不
+    publisher: 中央社
+    date: '2023-12-24'
+    url: https://www.cna.com.tw/news/asoc/202312240114.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - first_seen
+  - title: 刑事局公布第3季高風險賣場 7-11賣貨便居冠
+    publisher: 中央社
+    date: '2023-11-13'
+    url: https://www.cna.com.tw/news/asoc/202311130156.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - first_seen
+  - title: 獨／轟政府打詐踢皮球！工程師當賣家也被騙、戶頭存款一鍵全沒
+    publisher: NOWnews今日新聞
+    date: '2023-12-24'
+    url: https://www.nownews.com/news/6327780
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+  - title: 幫助中心 - 交貨便
+    publisher: 7-ELEVEN 賣貨便
+    date: ''
+    url: https://myship.7-11.com.tw/Home/HelpCenter
+    level: L1
+    supports:
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - secondhand-platform
+  - fake-seller
+  - triangle-scam
+  updated: '2026-10-22'
+- id: fake-seller
+  name: 假網拍賣家：一頁式廣告、超低價商品
+  aliases:
+  - 假網拍
+  - 一頁式廣告詐騙
+  - 一頁式詐騙
+  - 低價出清詐騙
+  category: 網購交易
+  summary: 對方假裝成網路商家，用一頁式廣告或社群貼文賣超低價商品；付款後不出貨、寄來劣質品，或丟假賣貨便連結騙你操作網銀。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 臉書廣告
+  - 臉書
+  - IG
+  - Threads
+  - LINE
+  - 簡訊
+  - 網站彈窗
+  pretend_to_be:
+  - 網路商家
+  - 粉絲專頁賣家
+  - 結束營業出清的店家
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、IG、Threads 看到超低價商品廣告或貼文，常寫「限時特價」「倒數」，或說景氣不好、結束營業要出清。
+  - stage: 取信
+    what_you_see: 頁面標榜免運費、7 天鑑賞期、可拆箱驗貨、貨到付款，底下留言全是好評。
+  - stage: 製造情境
+    what_you_see: 頁面沒有公司地址和客服電話，只留 email 或要你加 LINE 私下下單；貼文還寫「限量」「最後幾台」催你。
+  - stage: 要求行動
+    what_you_see: 要你先匯款，或選貨到付款到超商取貨；也有賣家丟來假賣貨便連結，跳出「實名認證失敗」，再叫你加 LINE 客服。
+  - stage: 收網後
+    what_you_see: 付款後不出貨、聯絡不到人；或開箱才發現是劣質品、跟你下單的東西不一樣。
+  opener_examples:
+  - 店面結束營業，品牌商品超低價出清，剩最後幾台。
+  - 限時特價倒數中，免運、貨到付款、七天鑑賞期。
+  - 有興趣私訊加 LINE，直接跟我下單比較快。
+  red_flags:
+  - id: price-far-below-market
+    text: 價格明顯低於市價，或說結束營業低價出清
+    cues:
+    - 超低價
+    - 低於市價
+    - 低價出清
+    - 結束營業
+    weight: 2
+  - id: countdown-limited
+    text: 用「限時」「倒數」「最後幾台」催你馬上下單
+    cues:
+    - 限時特價
+    - 限時特惠
+    - 倒數
+    - 限量
+    - 最後幾台
+    - 剩最後
+    weight: 1
+  - id: no-company-info
+    text: 查不到公司地址和電話，只留電子郵件、LINE 或海外聯絡方式
+    cues:
+    - 加LINE
+    - LINE ID
+    - 私訊下單
+    - 海外
+    weight: 2
+  - id: cod-plus-7days
+    text: 只能貨到付款或刷卡，再拿「7 天鑑賞期」當誘因
+    cues:
+    - 貨到付款
+    - 7天鑑賞期
+    - 七天鑑賞期
+    - 可拆箱驗貨
+    - 不滿意包退
+    weight: 1
+  - id: fake-myship-link-warning
+    text: 賣家給的交易網頁跳出「實名認證失敗」「訂單異常」「解除分期」
+    cues:
+    - 實名認證失敗
+    - 訂單異常
+    - 重新下單
+    - 解除分期
+    - 解除金流限制
+    weight: 3
+  - id: otp-qr-request
+    text: 「客服」要你提供 OTP、網銀轉帳 QR Code 或操作網銀
+    cues:
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    - re:(網路銀行|網銀).{0,10}(操作|設定|轉帳|驗證(?!碼)|認證(?!碼)|帳號|密碼|帳密)
+    - re:(登入|打開).{0,6}(網路銀行|網銀).{0,10}(驗證(?!碼)|認證(?!碼)|按|操作)
+    weight: 3
+  final_ask:
+  - 先把錢匯給賣家，或在超商用貨到付款取貨。
+  - 加 LINE「客服」後，提供網銀轉帳 QR Code、信用卡 OTP，或照指示操作網銀轉帳。
+  verify:
+  - 到經濟部網站查公司名稱、地址等基本資料，確認商家真的存在。
+  - 選口碑好、付款會經過平台（第三方支付）、不直接匯給賣家的購物平台，能面交就面交。
+  - 看粉專或帳號成立多久、粉絲數和留言是否正常；剛成立、互動很少的要小心。
+  - 付款取貨前，再確認一次訂單明細、金額和寄件人資訊。
+  - 拿不定就撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 正規電商也會辦限時特價、提供貨到付款和七天鑑賞期；分辨重點是查不查得到公司資料、客服電話，付款是不是留在平台內。
+  - 真的賣貨便或電商平台，不會跟你要 OTP、信用卡驗證碼或網銀 QR Code。
+  if_already_happened:
+  - 貨到付款買到劣質品，盡快找代收貨款的貨運或超商協助退貨退款，並保留溝通紀錄。
+  - 在超商取貨的，取貨後 7 天內提出申訴，保留完整外箱、繳費憑證和包裹單據。
+  - 業者沒處理好、又是國內交易，可到「行政院消費者保護會線上申訴系統」申訴；如果是跟國外買的，看消保會網站公告的跨境消費爭議申訴管道。
+  - 已經匯款或帳戶被盜領，撥 165 並到警察機關報案。
+  prevalence:
+    note: 2025 年第 4 季到 2026 年 1 月，假網拍仍是詐騙手法第一名。
+    source_url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第一章　假網拍詐騙
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=7e614f6f-df9b-4ae2-8293-ed384fb1a470
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 近年來「一頁式廣告」詐騙業者遍及臉書、入口網站或社群媒體
+    publisher: 臺中港務警察總隊
+    date: '2022-10-12'
+    url: https://www.tchpd.npa.gov.tw/ch/app/data/view?module=publicizearea&id=2287&serno=5635c2b4-f206-40f3-84a2-1220a97aec5c
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+  - title: 收貨可以，受騙不行 刑事局呼籲警覺「超商包裹詐騙」陷阱（新聞資料）
+    publisher: 刑事警察局
+    date: 2025-10
+    url: https://www.ey.gov.tw/File/D59ECD63187B0F44
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 網購慎防一頁式詐騙 消保處：可請貨運或超商退貨款
+    publisher: 工商時報（中央社）
+    date: '2025-01-31'
+    url: https://www.ctee.com.tw/news/20250131700050-430104
+    level: L2
+    supports:
+    - red_flags
+    - if_already_happened
+  - title: 小心「低價出清」公路車詐騙！假賣貨便網站恐讓帳戶遭盜領｜現場直擊
+    publisher: 數位發展部數位產業署
+    date: '2026-05-25'
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/19760
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    publisher: 刑事警察局
+    date: '2026-02-15'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    level: L1
+    supports:
+    - prevalence
+  - title: 買遊戲點數換優惠手機落空 銀行帳戶還遭冒用
+    publisher: 中央社
+    date: '2019-12-05'
+    url: https://www.cna.com.tw/news/asoc/201912050240.aspx
+    level: L2
+    supports:
+    - first_seen
+  - title: 行政院消費者保護會線上申訴系統
+    publisher: 行政院消費者保護會
+    date: '2026-10-22'
+    url: https://appeal.cpc.ey.gov.tw/
+    level: L1
+    supports: &id001
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - ghost-parcel
+  - secondhand-platform
+  - fake-group-buy
+  updated: '2026-10-22'
+- id: fake-ticket
+  name: 假門票：演唱會讓票、黃牛票、假售票網站
+  aliases:
+  - 演唱會門票詐騙
+  - 讓票詐騙
+  - 黃牛票詐騙
+  - 購票詐騙
+  category: 網購交易
+  summary: 對方假裝成要轉讓門票的粉絲或代購，要你先匯款「保留」票，或丟假售票網站、假客服要你驗證金流，收了錢就封鎖。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 臉書
+  - Threads
+  - LINE
+  pretend_to_be:
+  - 粉絲
+  - 代購
+  - 售票平台客服
+  - 官方售票網站
+  stages:
+  - stage: 接觸
+    what_you_see: 熱門演唱會開賣後，在臉書「求票、讓票、換票、代購」社團或 Threads 看到有人用原價或「佛心」價讓票。
+  - stage: 取信
+    what_you_see: 對方主動傳身分證、交易截圖給你看，強調「誠信」。
+  - stage: 製造情境
+    what_you_see: 說要先匯款才能「保留優先購票權」；或說你「無法下單」要找客服，客服再說「金流驗證沒辦法通過」、要做身分證簽署。
+  - stage: 要求行動
+    what_you_see: 催你快付錢，不然就買不到；或要你在假售票網站登入網銀，提供 OTP 驗證碼、QR Code 付款碼。
+  - stage: 收網後
+    what_you_see: 匯款後對方封鎖、刪帳號；或拿到的是複製別人 QR Code 的假票，到場才發現票已經被用過。
+  opener_examples:
+  - 臨時不能去，原價讓票，先匯款幫你保留。
+  - 你那邊無法下單的話，要聯絡客服做金流驗證。
+  - 我可以先給你看身分證，交易講誠信。
+  red_flags:
+  - id: pay-to-hold-ticket
+    text: 要你先匯款才能「保留」票或「優先購票權」
+    cues:
+    - 保留優先購票權
+    - 先匯款
+    - 保留票
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    weight: 2
+  - id: private-resale
+    text: 在社團或私訊讓票、代購，不走官方授權平台
+    cues:
+    - 讓票
+    - 轉讓
+    - 代購
+    - 原價讓
+    - 佛心
+    weight: 1
+  - id: cashflow-verification
+    text: 說你「無法下單」，要你找客服做金流驗證或身分證簽署
+    cues:
+    - 金流驗證
+    - 身分證簽署
+    - 無法下單
+    - 聯絡客服
+    weight: 3
+  - id: otp-qr-request
+    text: 要你提供 OTP 驗證碼或 QR Code 付款碼
+    cues:
+    - re:(提供|告訴|給|傳|回傳|回覆|輸入|唸|念|報|截圖).{0,8}(驗證碼|認證碼|otp|一次性密碼|簡訊碼)
+    - re:(驗證碼|認證碼|otp|簡訊碼).{0,8}(給我|傳給|回傳|告訴我|截圖|唸給|報給|回覆)
+    - 付款碼
+    - QR-Code
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    weight: 3
+  - id: id-card-as-proof
+    text: 主動傳身分證、交易截圖來取信
+    cues:
+    - re:(拍|上傳|傳|提供|寄|拍照).{0,6}(身分證|證件)
+    - re:(身分證|證件).{0,6}(正反面|拍給|傳給)
+    - 交易截圖
+    - 誠信
+    weight: 1
+  - id: qr-photo-ticket
+    text: 賣家只給票券照片或 QR Code，條碼可能是從別人打卡照複製的
+    cues:
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    - 票券照片
+    - 電子票
+    weight: 1
+  final_ask:
+  - 先把票款匯到對方個人帳戶。
+  - 在假售票網站輸入帳號、網銀資料，或交出 OTP 驗證碼、QR Code 付款碼。
+  verify:
+  - 優先在官方授權的售票平台買票，或面交當場確認。
+  - 對照售票平台公告的取票日期；票明明還不能取，賣家卻要你先付錢，就要警覺。
+  - 撥 165 反詐騙諮詢專線查證；黃牛加價轉售可到文化部或運動部的黃牛檢舉專區檢舉。
+  safe_lookalikes:
+  - 在官方授權售票平台買票，付款都在平台內完成；要你轉去私人客服或 LINE 做「金流驗證」的，不是官方流程。
+  - 朋友間原價轉讓很常見；能面交、當場確認票券再付款，風險低很多。
+  if_already_happened:
+  - 保留交易過程、對話紀錄和匯款資料，撥 165 或到警察機關報案。
+  - 消費爭議可打消費者服務專線 1950，或上「行政院消費者保護會線上申訴系統」申訴。
+  prevalence:
+    note: 台北市 2024 年截至 8 月，受理演唱會購票相關詐騙報案 376 件。
+    source_url: https://www.taiwannews.com.tw/zh/news/5943878
+  sources:
+  - title: 打擊黃牛加價轉售與購票詐騙　行政院籲民眾掌握「三不原則」安心應援
+    publisher: 行政院
+    date: '2026-06-01'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/b2096cbc-186d-482b-bef1-199e227656fa
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 周董阿妹接力開唱大巨蛋 歹徒「佛心」轉讓門票 假二手真詐騙
+    publisher: 台灣英文新聞
+    date: '2024-09-29'
+    url: https://www.taiwannews.com.tw/zh/news/5943878
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - prevalence
+    - first_seen
+  - title: 第三方詐騙橫行　無辜賣家成金流工具、帳戶遭凍結
+    publisher: TVBS新聞網
+    date: '2026-02-16'
+    url: https://news.tvbs.com.tw/life/3075354
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 捲黃牛爭議竟是QR Code惹的禍？專家：更嚴重恐遭車手「秒刷空」
+    publisher: 自由時報
+    date: '2026-06-26'
+    url: https://ec.ltn.com.tw/article/breakingnews/5485341
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  - title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    publisher: 刑事警察局
+    date: '2026-02-15'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    level: L1
+    supports:
+    - channels
+    - stages
+  - title: 行政院消費者保護會線上申訴系統
+    publisher: 行政院消費者保護會
+    date: '2026-10-22'
+    url: https://appeal.cpc.ey.gov.tw/
+    level: L1
+    supports: *id001
+  evidence: 🟢
+  related:
+  - fake-seller
+  - fake-group-buy
+  updated: '2026-10-22'
+- id: fake-rental
+  name: 假租屋：先付訂金才能看房
+  aliases:
+  - 租屋詐騙
+  - 假房東
+  - 看房費詐騙
+  category: 網購交易
+  summary: 對方假裝成房東，用低於行情的漂亮房子吸引你，要你先付訂金或押金才能看房，或說要寄鑰匙讓你自己看，再用假物流網頁騙你操作網銀、買遊戲點數。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 臉書
+  - Threads
+  - LINE
+  pretend_to_be:
+  - 房東
+  - 屋主
+  - 超商物流客服
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、Threads 看到租金低於行情、裝潢漂亮的出租貼文，有的還寫附車位、可申請租補。
+  - stage: 取信
+    what_you_see: 「房東」說人在外地不方便帶看，要用超商物流寄鑰匙給你自己去看。
+  - stage: 製造情境
+    what_you_see: 說要先付訂金才能看房或保留房子；或傳來仿冒超商物流的連結，填完資料跳出「未實名認證」，再叫你找客服。
+  - stage: 要求行動
+    what_you_see: 要你轉帳付訂金、押金，或為了「解除驗證」去匯款、買遊戲點數。
+  - stage: 收網後
+    what_you_see: 轉帳後對方各種推託，接著刪掉通訊軟體帳號；你連他的真名、地址都不知道。
+  opener_examples:
+  - 我人在外地不方便帶看，鑰匙用超商寄給你自己看。
+  - 想看房要先付訂金保留，不然很快就租出去了。
+  - 全新裝潢、附車位，租金比行情便宜，可申請租補。
+  red_flags:
+  - id: deposit-before-viewing
+    text: 還沒看到房子，就要你付訂金、看房費或保留費
+    cues:
+    - 先付訂金
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 看房費
+    - 保留費
+    - 押金
+    weight: 3
+  - id: landlord-away-mail-key
+    text: 房東說人在外地，用寄鑰匙代替帶看
+    cues:
+    - 人在外地
+    - 寄鑰匙
+    - 不方便帶看
+    - 自己看房
+    weight: 2
+  - id: fake-logistics-verification
+    text: 寄鑰匙的物流連結跳出「未實名認證」，要你找客服處理
+    cues:
+    - 未實名認證
+    - 實名認證
+    - 解除驗證
+    - 帳戶認證
+    weight: 3
+  - id: game-points-for-verification
+    text: 要你買遊戲點數來做認證
+    cues:
+    - 遊戲點數
+    - re:(買|購買|儲值|超商).{0,6}點數.{0,12}(驗證|認證|擔保|保證|解鎖|序號|卡號)
+    - re:點數.{0,6}(序號|卡號|密碼).{0,6}(給|傳|拍)
+    - 序號
+    weight: 3
+  - id: below-market-rent
+    text: 租金比行情低兩三成、照片漂亮得不像真的
+    cues:
+    - 低於行情
+    - 附車位
+    - 可申請租補
+    - 全新裝潢
+    weight: 1
+  final_ask:
+  - 轉帳付訂金、押金或預付兩個月租金。
+  - 照假客服指示操作網銀匯款，或買遊戲點數「解除驗證」。
+  verify:
+  - 沒親眼看到房子前不付任何錢；簽約前，不把錢交給自稱房東的網友。
+  - 確認對方是房屋所有權人：核對房屋稅單、權狀和屋主身分證；代理人要有授權書，二房東要有出租人同意轉租的書面文件。
+  - 找合法租賃住宅服務業者或仲介，可到地政機關的租賃住宅服務查詢系統查登記證。
+  - 撥 165 反詐騙諮詢專線查證，或直接報警。
+  safe_lookalikes:
+  - 正常房東也會收訂金，但會在你看過房、核對過身分後收，開收據，並匯到屋主本人帳戶。
+  if_already_happened:
+  - 撥 165 反詐騙諮詢專線，或直接報警。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 刑事局：租屋被要求先付訂金才能看房 恐是詐騙
+    publisher: 中央社
+    date: '2024-06-29'
+    url: https://www.cna.com.tw/news/asoc/202406290176.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+    - first_seen
+  - title: 獨家／大學生開學錢就被騙光！租屋夢幻低價房是詐術　專家教你破解5招
+    publisher: 三立新聞網
+    date: '2026-09-10'
+    url: https://www.setn.com/news/1904675
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - secondhand-platform
+  updated: '2026-10-22'
+- id: fake-group-buy
+  name: 假代購、假團購、假預購
+  aliases:
+  - 代購詐騙
+  - 團購詐騙
+  - 預購詐騙
+  category: 網購交易
+  summary: 對方假裝成代購或團購主，用低價商品吸引你，前幾次真的出貨取信，再要你先付全額，收款後用缺貨、物流延遲拖延，最後失聯。
+  status: active
+  first_seen: '2017'
+  channels:
+  - 臉書
+  - LINE 群組
+  - LINE
+  - 網購平台
+  - 其他
+  pretend_to_be:
+  - 代購
+  - 團購主
+  - 粉絲專頁賣家
+  stages:
+  - stage: 接觸
+    what_you_see: 在粉絲專頁、社團或拍賣網站看到低價代購或團購，價格比市價低很多，接著被拉進 LINE 群組。
+  - stage: 取信
+    what_you_see: 前幾次真的有出貨，讓你覺得可以信任。
+  - stage: 製造情境
+    what_you_see: 群組一直貼低價商品，接著要你一次付全額、先匯款才出貨。
+  - stage: 要求行動
+    what_you_see: 透過 LINE 要你先把錢匯過去。
+  - stage: 收網後
+    what_you_see: 收款後一直說物流比較慢、缺貨、上游廠商捲款；你要求退款，對方就斷聯。
+  opener_examples:
+  - 日本家電代購，價格比市價便宜很多，私訊下單。
+  - 群組今天開團，全額匯款後統一出貨。
+  - 這批貨物運送延遲，再等幾天就到。
+  red_flags:
+  - id: full-prepay
+    text: 要你先付全額才出貨
+    cues:
+    - 先匯款
+    - 全額
+    - 先付款
+    - 匯款後出貨
+    weight: 2
+  - id: delay-excuses
+    text: 收款後一再用運送延遲、缺貨、廠商出包等理由拖延
+    cues:
+    - 運送延遲
+    - 缺貨
+    - 物流較慢
+    - 檔期
+    - 廠商捲款
+    weight: 2
+  - id: far-below-market
+    text: 價格遠低於市價
+    cues:
+    - 低於市價
+    - 超低價
+    - 代購價
+    weight: 1
+  - id: dm-or-group-purchase
+    text: 在社團、私訊或 LINE 群組代購、揪團，不走有交易保障的平台
+    cues:
+    - 代購
+    - 團購
+    - re:私訊.{0,8}(交易|下單|匯款|付款|line|賴)
+    - LINE群組
+    weight: 1
+  final_ask:
+  - 先把全額貨款匯到對方帳戶。
+  verify:
+  - 用可信賴的第三方支付平台交易（錢先經過平台），不直接匯款給個人。
+  - 選口碑好、合法授權的賣場平台；價格便宜得不正常，就先停下來查證。
+  - 撥 165 反詐騙諮詢專線，或上 165 全民防騙網查。
+  safe_lookalikes:
+  - 正常的團購、代購若透過有第三方支付的平台付款，出貨延遲還有平台可申訴；只收個人匯款的就少了這層保障。
+  if_already_happened:
+  - 撥 165 反詐騙諮詢專線諮詢或報案。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 網售低價品詐騙30人財損逾千萬元 警逮女嫌送辦
+    publisher: 中央社
+    date: '2023-03-31'
+    url: https://www.cna.com.tw/news/asoc/202303310263.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 【科技詐騙頻傳】網路代購藏詐騙陷阱　露天拍賣、PTT網友中招
+    publisher: 鏡週刊
+    date: '2017-04-16'
+    url: https://www.mirrormedia.mg/story/amp/20170416soc004
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - first_seen
+  - title: 打擊黃牛加價轉售與購票詐騙　行政院籲民眾掌握「三不原則」安心應援
+    publisher: 行政院
+    date: '2026-06-01'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/b2096cbc-186d-482b-bef1-199e227656fa
+    level: L1
+    supports:
+    - red_flags
+    - status
+  evidence: 🟢
+  related:
+  - fake-seller
+  - fake-ticket
+  updated: '2026-10-22'
+- id: secondhand-platform
+  name: 二手社團與平台：免費送物、只付運費、假物流連結
+  aliases:
+  - 免費贈送詐騙
+  - 送物詐騙
+  - 二手社團詐騙
+  - 旋轉拍賣詐騙
+  - 臉書市集詐騙
+  category: 網購交易
+  summary: 對方在二手社團、Threads 或二手平台假裝要送閒置物、結緣品，說只要付小額運費或用指定賣場寄送，再傳假物流網頁，跳出「需實名驗證」後由假客服騙你操作網銀。
+  status: active
+  first_seen: '2023'
+  channels:
+  - 臉書
+  - Threads
+  - IG
+  - 二手平台
+  - LINE
+  pretend_to_be:
+  - 送物的網友
+  - 倒閉店家
+  - 二手賣家
+  - 物流平台客服
+  - 銀行專員
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、Threads、IG 看到有人要送 iPhone、筆電、媽祖結緣品，或說店家倒閉、多出閒置物品要送，接著轉到 LINE 聯絡。
+  - stage: 取信
+    what_you_see: 對方說東西免費，只要負擔一點運費，或要你用他指定的賣場寄送。
+  - stage: 製造情境
+    what_you_see: 對方傳來假的 7-11、全家、嘉里大榮、順豐等物流或賣場網頁，填完資料跳出「系統異常，需實名驗證」「未完成金流簽署」。
+  - stage: 要求行動
+    what_you_see: 引導你加「官方 LINE 客服」「銀行專員」，說只是驗證程序、不會扣款，要你操作網銀、ATM、無卡提款，或翻拍 QR Code 付款碼。
+  - stage: 收網後
+    what_you_see: 對方用訊息轟炸，說你操作錯誤害他帳戶凍結，甚至搬出孩子手術費、家暴，逼你繼續轉帳。
+  opener_examples:
+  - 家裡多出來的吹風機免費送，只要付一點運費。
+  - 店面收掉了，庫存免費送，留言加 LINE 登記。
+  - 系統顯示你要先完成實名驗證，才能寄出贈品。
+  red_flags:
+  - id: free-gift-pay-shipping
+    text: 說東西免費送，只要你付小額運費
+    cues:
+    - 免費贈送
+    - re:(免費送|免費贈送|閒置).{0,20}(運費|郵資|保證金|手續費|物流費)
+    - 負擔運費
+    - 小額運費
+    - 結緣品
+    weight: 2
+  - id: fake-logistics-warning
+    text: 物流或賣場網頁跳出「需實名驗證」「未開通金流服務」「未完成金流簽署」
+    cues:
+    - 需實名驗證
+    - 未開通金流服務
+    - 未完成金流簽署
+    - 實名制認證
+    - 系統異常
+    weight: 3
+  - id: verify-no-charge
+    text: 說「只是驗證程序、不會扣款」，或要做「餘額驗證」
+    cues:
+    - 不會扣款
+    - 驗證程序
+    - 餘額驗證
+    - 扣款出錯
+    weight: 3
+  - id: fake-official-line
+    text: 要你加「官方 LINE 客服」或「銀行專員」的 LINE
+    cues:
+    - 官方LINE客服
+    - LINE客服
+    - 銀行專員
+    - 加LINE
+    weight: 2
+  - id: account-frozen-guilt
+    text: 說你害他帳戶凍結，或搬出手術費、家暴施壓
+    cues:
+    - 帳戶違規遭凍結
+    - 帳戶凍結
+    - 手術費
+    - 家暴
+    weight: 2
+  - id: qr-or-cardless
+    text: 要你翻拍 QR Code 付款碼，或去做無卡提款
+    cues:
+    - 無卡提款
+    - 付款碼
+    - re:(掃|掃描|拍).{0,6}(qr|條碼).{0,12}(驗證|認證|收款|轉帳|領取|解除|登入|加好友)
+    - re:(提供|傳|拍).{0,6}(qr|條碼)
+    - 翻拍
+    weight: 3
+  final_ask:
+  - 照假客服指示操作網銀、ATM 或無卡提款，把錢轉進指定帳戶。
+  - 翻拍 QR Code 付款碼傳給對方，或提供帳戶資料。
+  verify:
+  - 不點陌生網址；自己打開 7-11 賣貨便、全家好賣+的官方網站或 App，確認交易網頁是真的。
+  - 賣貨便不需要實名認證、金流簽署；真客服不會加 LINE，也不會開視訊。
+  - 撥 165 反詐騙諮詢專線查證。
+  safe_lookalikes:
+  - 真心送東西的人不會要你在網頁上做「實名驗證」或「開通金流」；一出現這類要求就該停。
+  - 賣貨便首次登入只會寄認證信確認電子郵件，在官方網站內完成，不需要轉帳。
+  if_already_happened:
+  - 停止轉帳，帶著對話紀錄和轉帳資料到附近警察機關報案。
+  - 撥 165 反詐騙諮詢專線。
+  prevalence:
+    note: 2023 年第 3 季刑事局統計的高風險賣場中，旋轉拍賣 720 件排第 2，臉書 Marketplace 168 件排第 4。
+    source_url: https://www.cna.com.tw/news/asoc/202311130156.aspx
+  sources:
+  - title: 賣貨便需要實名認證？！千萬別信假客服
+    publisher: 刑事警察局
+    date: '2026-05-17'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=1ff19028-1e0e-4b6e-908d-32a28051caa2
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 網購遇「實名驗證」、「開通金流服務」必有詐！慎防AI偽冒名人報牌投資！
+    publisher: 刑事警察局
+    date: '2026-02-15'
+    url: https://www.cib.npa.gov.tw/ch/app/news/view?module=news&id=1887&serno=2ada7b37-da8a-44cf-851e-f0e8efa8240e
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: Threads假網拍暴增…刑事局揭免費贈送陷阱 籲釣魚連結別點
+    publisher: 聯合新聞網
+    date: '2026-02-15'
+    url: https://udn.com/news/story/124490/9331735
+    level: L2
+    supports:
+    - stages
+    - red_flags
+  - title: 小心「低價出清」公路車詐騙！假賣貨便網站恐讓帳戶遭盜領｜現場直擊
+    publisher: 數位發展部數位產業署
+    date: '2026-05-25'
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/19760
+    level: L1
+    supports:
+    - red_flags
+    - verify
+  - title: 刑事局公布第3季高風險賣場 7-11賣貨便居冠
+    publisher: 中央社
+    date: '2023-11-13'
+    url: https://www.cna.com.tw/news/asoc/202311130156.aspx
+    level: L2
+    supports:
+    - prevalence
+    - first_seen
+  - title: 幫助中心 - 交貨便
+    publisher: 7-ELEVEN 賣貨便
+    date: ''
+    url: https://myship.7-11.com.tw/Home/HelpCenter
+    level: L1
+    supports:
+    - safe_lookalikes
+  evidence: 🟢
+  related:
+  - fake-buyer
+  - fake-seller
+  updated: '2026-10-22'
+- id: game-trade
+  name: 遊戲交易：虛寶、帳號、遊戲點數
+  aliases:
+  - 遊戲帳號詐騙
+  - 虛寶詐騙
+  - 遊戲點數詐騙
+  - 假遊戲交易平台
+  category: 網購交易
+  summary: 對方假裝成要買或賣遊戲帳號、虛寶的玩家，把你帶到假交易網站，再由假客服說帳號凍結要付保證金，或要你先用遊戲點數付款，拿到就失聯。
+  status: active
+  first_seen: '2020'
+  channels:
+  - 臉書
+  - LINE
+  - 其他
+  pretend_to_be:
+  - 玩家
+  - 遊戲交易平台客服
+  - 遊戲官方客服
+  stages:
+  - stage: 接觸
+    what_you_see: 在遊戲裡、遊戲社團或私訊遇到有人高價收購你的帳號或寶物，或看到貼文便宜出售高階帳號、虛寶。
+  - stage: 取信
+    what_you_see: 對方要你改用 LINE 聯絡，推薦一個「交易網站」，或自稱官方的客服中心。
+  - stage: 製造情境
+    what_you_see: 在那個網站交易時，「客服」說你操作錯誤、帳號被凍結，要先付保證金或儲值才能解鎖。
+  - stage: 要求行動
+    what_you_see: 要你匯款，或買遊戲點數卡、拍照傳序號給他。
+  - stage: 收網後
+    what_you_see: 付了一次又要你再付保證金；或拿到點數序號後立刻失聯。
+  opener_examples:
+  - 你的帳號我出高價收，到交易網站上交易比較安全。
+  - 便宜出售高階帳號，先用遊戲點數付款當保證。
+  - 客服說你的遊戲帳號已遭凍結，要先儲值才能解鎖。
+  red_flags:
+  - id: unknown-trade-site
+    text: 對方指定你到某個「交易網站」或「客服中心」交易
+    cues:
+    - 交易網站
+    - 交易平台
+    - re:(加|聯繫|聯絡|私訊).{0,6}(客服|專員|助理).{0,6}(line|賴|telegram|whatsapp)
+    - re:(line|賴).{0,4}(客服|專員)
+    weight: 2
+  - id: frozen-pay-deposit
+    text: 說帳號凍結，要付保證金、儲值才能解鎖
+    cues:
+    - 凍結
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 儲值解鎖
+    - 解凍
+    - 解鎖
+    weight: 3
+  - id: points-as-payment
+    text: 要你用遊戲點數付款、當保證，或拍點數序號給他
+    cues:
+    - 遊戲點數
+    - 點數卡
+    - 序號
+    - 先用點數
+    weight: 3
+  - id: high-price-buyout
+    text: 主動高價收購帳號、寶物，或保證「官方買回」賺差價
+    cues:
+    - 高價收購
+    - 官方買回
+    - 收購帳號
+    - 賺差價
+    weight: 2
+  - id: cheap-account
+    text: 便宜出售高階帳號或虛寶
+    cues:
+    - 便宜出售
+    - 高階帳號
+    - 低價出售
+    - 虛寶
+    weight: 1
+  final_ask:
+  - 匯款，或買遊戲點數卡、把序號傳給對方。
+  - 為了「解凍」一次又一次付保證金。
+  verify:
+  - 遊戲點數只能用來儲值遊戲；要你用點數付款、「解鎖」或「驗證」的都是詐騙。
+  - 不私下買賣帳號和虛寶；官方不處理私下交易的糾紛。
+  - 對方推薦的交易平台，把網址丟進搜尋引擎查；只有零星結果的，很可能是假網站。
+  - 有疑問先問遊戲官方客服，或撥 165 反詐騙諮詢專線。
+  safe_lookalikes:
+  - 遊戲內建的交易功能或官方公告的交易方式是正常的；以遊戲官網或遊戲內公告為準，不信社群或私訊裡的連結。
+  if_already_happened:
+  - 遊戲點數交易無法取消，馬上停止再付款，撥 165 反詐騙諮詢專線。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 【可疑網站別相信 勿落入遊戲交易陷阱】｜現場直擊
+    publisher: 數位發展部數位產業署
+    date: '2025-09-07'
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/17344
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+  - title: 【遊戲點數先付款 詐騙風險馬上來】｜現場直擊
+    publisher: 數位發展部數位產業署
+    date: '2026-02-11'
+    url: https://moda.gov.tw/ADI/antifraud/af-third-case/18886
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 虛擬遊戲詐騙手法大公開
+    publisher: 保安警察第三總隊
+    date: '2022-12-06'
+    url: https://www.3spc.npa.gov.tw/ch/app/data/view?module=govinfo&id=18710&serno=dee464de-47bd-425e-b049-7a3a04f23887
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 假冒《傳說對決》官網遊戲角色交易平台　桃園2男5天騙845萬
+    publisher: ETtoday新聞雲
+    date: '2020-04-09'
+    url: https://www.ettoday.net/news/20200409/1687497.htm
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - first_seen
+  evidence: 🟢
+  related:
+  - secondhand-platform
+  updated: '2026-10-22'
+- id: fake-charity
+  name: 假募款：假慈善、假災難捐款
+  aliases:
+  - 假募款
+  - 假捐款
+  - 賑災詐騙
+  - 假冒公益團體
+  category: 網購交易
+  summary: 對方假冒政府或慈善團體，在災後用簡訊、假網站、社群貼文要你捐款，或要你先做「網路身分認證」，最後騙你交出帳號密碼、操作網銀或 ATM。
+  status: active
+  first_seen: '2022'
+  channels:
+  - 簡訊
+  - 臉書
+  - LINE
+  - IG
+  - Threads
+  - 電子郵件
+  - 電話
+  pretend_to_be:
+  - 政府單位
+  - 慈善團體
+  - 公益團體
+  - 捐款客服
+  stages:
+  - stage: 接觸
+    what_you_see: 重大災害後，收到附連結的募款簡訊，或在臉書、LINE、IG、Threads 看到募款貼文、影片。
+  - stage: 取信
+    what_you_see: 對方用政府或慈善團體的名義，或沿用過去災害的募款名稱。
+  - stage: 製造情境
+    what_you_see: 說捐款前要先做「網路身分認證」「網路金流認證」；或打電話說你以前的捐款「預設扣款設定錯誤」。
+  - stage: 要求行動
+    what_you_see: 要你匯到不是官方指定的帳戶，或提供個資、銀行帳號密碼，再由「客服」指示你操作網銀或 ATM。
+  - stage: 收網後
+    what_you_see: 錢被轉走，對方聯絡不上。
+  opener_examples:
+  - 災區急需物資，點連結就能線上捐款。
+  - 捐款前請先完成網路身分認證。
+  - 您之前的捐款扣款設定有誤，需要到 ATM 解除。
+  red_flags:
+  - id: verification-before-donation
+    text: 捐款前要你先做「網路身分認證」或「網路金流認證」
+    cues:
+    - 網路身分認證
+    - 網路金流認證
+    - 身分認證
+    - 金流認證
+    weight: 3
+  - id: donation-setting-error
+    text: 打電話說捐款扣款設定錯誤，要你去 ATM 處理
+    cues:
+    - 扣款設定錯誤
+    - 設定錯誤
+    - 解除分期
+    - re:(到|去|前往|找|最近的).{0,6}(atm|提款機)
+    - re:(atm|提款機).{0,10}(操作|解除|設定|認證|退費|退款|按|輸入)
+    weight: 3
+  - id: non-official-account
+    text: 要你匯到不是官方公布的法人或個人帳戶
+    cues:
+    - 個人帳戶
+    - 私人帳戶
+    - 指定帳戶
+    weight: 2
+  - id: asks-bank-password
+    text: 要你提供個資、銀行帳號和密碼
+    cues:
+    - re:(提供|告訴|給|傳|寫下|報).{0,6}(密碼|帳密)
+    - re:(密碼|帳密).{0,6}(給我|告訴我|傳給|寫給|一起寄)
+    - 帳號密碼
+    - re:(網路銀行|網銀).{0,10}(操作|設定|轉帳|驗證(?!碼)|認證(?!碼)|帳號|密碼|帳密)
+    - re:(登入|打開).{0,6}(網路銀行|網銀).{0,10}(驗證(?!碼)|認證(?!碼)|按|操作)
+    weight: 3
+  - id: link-donation-message
+    text: 簡訊或貼文附連結叫你捐款
+    cues:
+    - 捐款
+    - 募款
+    - 賑災
+    - 愛心
+    weight: 1
+  final_ask:
+  - 匯款到不是官方指定的帳戶。
+  - 提供個資、銀行帳號和密碼，或照「客服」指示操作網銀、ATM。
+  verify:
+  - 捐款認明官方公布的管道；不確定就主動問衛福部、縣市政府、鄉鎮市區公所或社福機構。
+  - 到衛福部公益勸募管理系統，查募款團體有沒有取得許可、勸募期間是否還有效。
+  - 收到可疑簡訊或捐款帳號，撥 165 求證，或上數位發展部的網路詐騙通報查詢網查詢。
+  safe_lookalikes:
+  - 政府真的會公布賑災專戶，提供匯款、LINE Pay、超商機台等管道；以官方網站公告為準，不要只照一則簡訊行動。
+  if_already_happened:
+  - 撥 165 反詐騙諮詢專線說明狀況。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 花蓮賑災防詐騙 行政院：捐款認明官方管道，慎防假網站、假簡訊
+    publisher: 行政院
+    date: '2025-09-25'
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/c3d0e406-02a4-4d6c-b02e-1540e4039603
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+  - title: 花蓮堰塞湖溢流造成重大傷亡 刑事局提醒民眾捐款時提高警覺當心被騙
+    publisher: 經濟日報
+    date: '2025-09-25'
+    url: https://money.udn.com/money/story/7307/9029836
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 114年公益勸募突破123億元　衛福部：資訊更透明、捐款更安心
+    publisher: 衛生福利部
+    date: '2026-03-30'
+    url: https://mohw.gov.tw/cp-16-85969-1.html
+    level: L1
+    supports:
+    - verify
+  - title: 冒名45個公益團體詐捐款人 刑事局逮50嫌法辦
+    publisher: 中央社
+    date: '2022-07-27'
+    url: https://www.cna.com.tw/news/asoc/202207270238.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - first_seen
+  evidence: 🟢
+  related: []
+  updated: '2026-10-22'
+- id: ghost-parcel
+  name: 幽靈包裹：沒訂的東西叫你貨到付款
+  aliases:
+  - 幽靈包裹
+  - 超商包裹詐騙
+  - 貨到付款包裹詐騙
+  category: 網購交易
+  summary: 你根本沒下單，詐團卻把包裹寄到超商，再傳簡訊通知取貨付款，讓你以為是家人代訂，付錢領走劣質品。
+  status: active
+  first_seen: '2024'
+  channels:
+  - 簡訊
+  - 實體
+  pretend_to_be:
+  - 網路賣家
+  - 超商取貨通知
+  stages:
+  - stage: 接觸
+    what_you_see: 收到簡訊說網購商品已送達超商，要你去取貨付款。
+  - stage: 製造情境
+    what_you_see: 你一時不確定有沒有買，以為是家人或朋友幫忙訂的。
+  - stage: 要求行動
+    what_you_see: 到超商付一千多元把包裹領走。
+  - stage: 收網後
+    what_you_see: 打開才發現是防曬霜、不明化妝品之類，問遍家人朋友都沒人買。
+  opener_examples:
+  - 您的網購商品已送達超商，請攜帶款項取貨。
+  red_flags:
+  - id: pickup-sms-not-ordered
+    text: 收到取貨付款通知，但你想不起來自己有下單
+    cues:
+    - 已送達超商
+    - 取貨付款
+    - 貨到付款
+    - 到店取貨
+    weight: 1
+  final_ask:
+  - 到超商付款取貨。
+  verify:
+  - 取貨前先查自己的購物紀錄、問家人有沒有代訂；沒訂就拒收。
+  - 看包裹上的寄件人資料，查查看是不是真的。
+  - 分不出真假，可用警政服務 App 的「可疑訊息分析」，或撥 165。
+  safe_lookalikes:
+  - 自己或家人真的網購時，也會收到幾乎一樣的到店取貨簡訊；差別是查得到訂單紀錄。
+  if_already_happened:
+  - 取貨後 7 天內，透過超商線上申訴平台或客服中心申請退款、退貨。
+  - 保留完整外箱、繳費憑證和包裹單據，方便超商和貨運追寄件人。
+  - 撥 165 反詐騙諮詢專線求助。
+  prevalence:
+    note: 2025 年 9 月網路購物詐騙報案 3,625 件，居各類詐騙之首；刑事局把超商包裹詐騙分成一頁式廣告和幽靈包裹兩類。
+    source_url: https://www.ey.gov.tw/File/D59ECD63187B0F44
+  sources:
+  - title: 收貨可以，受騙不行 刑事局呼籲警覺「超商包裹詐騙」陷阱（新聞資料）
+    publisher: 刑事警察局
+    date: 2025-10
+    url: https://www.ey.gov.tw/File/D59ECD63187B0F44
+    level: L1
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+    - prevalence
+  - title: 超商包裹詐騙猖獗 刑事局提供3種因應方法
+    publisher: 聯合新聞網（中央社）
+    date: '2025-10-18'
+    url: https://udn.com/news/story/124490/9078804
+    level: L2
+    supports:
+    - stages
+    - verify
+  - title: 南投市長遇幽靈包裹遭詐 超商付款損失千元補救追回
+    publisher: 中央社
+    date: '2024-05-27'
+    url: https://www.cna.com.tw/news/asoc/202405270149.aspx
+    level: L2
+    supports:
+    - stages
+    - red_flags
+    - verify
+    - if_already_happened
+    - first_seen
+  evidence: 🟢
+  related:
+  - fake-seller
+  updated: '2026-10-22'
+- id: triangle-scam
+  name: 三方詐騙：你的帳戶被拿去收別人的錢
+  aliases:
+  - 三方詐騙
+  - 第三方詐騙
+  category: 網購交易
+  summary: 詐團同時假冒買家和賣家，讓另一位被害人把錢匯進你的帳戶；你以為是買家付款就出貨或退款，結果東西被騙走，帳戶還被列為警示帳戶。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 臉書
+  - LINE
+  pretend_to_be:
+  - 買家
+  - 賣家
+  stages:
+  - stage: 接觸
+    what_you_see: 有人向你下單買東西（例如手機），要你給帳戶收款。
+  - stage: 取信
+    what_you_see: 很快有一筆錢匯進你的帳戶，你以為是買家付的。
+  - stage: 製造情境
+    what_you_see: 其實那筆錢是另一位被害人在詐團的假粉專買東西時，被給了你的帳戶去匯款。
+  - stage: 要求行動
+    what_you_see: 你照常出貨；也有人說系統出錯，要你提供帳戶「退款」。
+  - stage: 收網後
+    what_you_see: 被害人收不到貨去報案，你的帳戶被列警示、凍結，已出的貨也追不回來。
+  opener_examples:
+  - 東西我要了，給我帳號，錢馬上匯給你。
+  - 剛剛系統出錯沒扣到，給我你的帳號，我退錢給你。
+  red_flags:
+  - id: asks-account-in-dm
+    text: 在私訊交易，對方直接要你的銀行帳號收款
+    cues:
+    - 給我帳號
+    - 銀行帳號
+    - 匯款帳號
+    - 你的帳戶
+    weight: 1
+  - id: refund-to-your-account
+    text: 說系統出錯要退款給你，跟你要帳號
+    cues:
+    - 退款
+    - 退錢
+    - 系統錯誤
+    - 系統出錯
+    weight: 2
+  - id: unknown-payer
+    text: 匯進來的錢查不出是不是你的買家付的
+    cues:
+    - 已匯款
+    - 轉帳截圖
+    - 匯款人
+    weight: 1
+  final_ask:
+  - 提供你的銀行帳號收款，收到錢後出貨或把錢轉出去。
+  verify:
+  - 避免在社群私訊交易，不輕易把個人帳號給別人。
+  - 收下別人的匯款前，先確認款項來源，確定匯款的人就是跟你交易的人。
+  - 買賣盡量走官方購物管道或面交。
+  safe_lookalikes:
+  - 正常買家也會轉帳給你；確認匯款人跟你交易的人對得上，再出貨。
+  if_already_happened:
+  - 帳戶被列警示時，保留交易過程、對話紀錄和相關資料，向警方說明你也是被害人。
+  - 如果是三方詐騙這類特殊情況，可以準備好司法文書、對話紀錄、交易資料，到負責你這個案子的警察分局（管轄分局）申請解除警示帳戶。
+  - 能和其他被害人共同簽和解書，也有助加快解除警示。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 第三方詐騙橫行　無辜賣家成金流工具、帳戶遭凍結
+    publisher: TVBS新聞網
+    date: '2026-02-16'
+    url: https://news.tvbs.com.tw/life/3075354
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 詐團三方詐騙、盜用帳戶！無辜民眾慘變警示戶 刑事局：可申請解除
+    publisher: 聯合新聞網
+    date: '2026-05-27'
+    url: https://udn.com/news/story/124490/9528985
+    level: L2
+    supports:
+    - stages
+    - if_already_happened
+  - title: 買遊戲點數換優惠手機落空 銀行帳戶還遭冒用
+    publisher: 中央社
+    date: '2019-12-05'
+    url: https://www.cna.com.tw/news/asoc/201912050240.aspx
+    level: L2
+    supports:
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - safe_lookalikes
+    - first_seen
+  evidence: 🟢
+  related:
+  - fake-buyer
+  - fake-seller
+  updated: '2026-10-22'

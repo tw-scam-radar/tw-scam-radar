@@ -1,0 +1,8 @@
+{
+  "name": "tw-scam-radar",
+  "displayName": "台灣詐騙雷達",
+  "description": "貼上可疑的簡訊、LINE 訊息或網址，依 52 類台灣詐騙手法與 165 官方涉詐網址名單判讀，說出像哪一種詐騙、紅旗在哪、該怎麼做。",
+  "author": { "name": "tw-scam-radar" },
+  "license": "MIT",
+  "keywords": ["scam", "fraud", "taiwan", "165", "anti-fraud", "防詐", "詐騙"]
+}

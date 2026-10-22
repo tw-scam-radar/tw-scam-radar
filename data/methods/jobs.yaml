@@ -1,0 +1,372 @@
+- id: job-overseas
+  name: 假求職：海外高薪輕鬆工作，實際送往詐騙園區
+  aliases:
+  - 海外求職詐騙
+  - 海外求職陷阱
+  - 出國高薪打工
+  category: 求職打工
+  summary: 陌生人甚至朋友以高薪、免經驗、免費旅遊為由，邀你出國工作、幫忙賣貨或做直播；面試時被要求開戶、交出帳戶，到了當地行動被控制，甚至遭人口販運。
+  status: active
+  first_seen: ''
+  channels:
+  - 交友軟體
+  - 其他
+  pretend_to_be:
+  - 海外公司招募者
+  - 朋友
+  stages:
+  - stage: 接觸
+    what_you_see: 在社群網站或交友軟體看到「出國高薪打工」廣告，或有朋友邀你出國工作、帶貨、做直播。
+  - stage: 製造情境
+    what_you_see: 對方強調薪水高、免經驗，還能免費旅遊。
+  - stage: 要求行動
+    what_you_see: 面試時被帶去銀行開戶、設定約定轉帳和網路銀行，或要你簽約出借帳戶、領每日報酬。
+  - stage: 收網後
+    what_you_see: 被控制人身自由、拘禁在民宅或旅館，或到了海外被迫從事不法工作、遭人口販運。
+  opener_examples:
+  - 海外缺人，薪水高、免經驗，還能順便免費旅遊。
+  - 出國做直播帶貨，輕鬆就有高收入，朋友都去了。
+  red_flags:
+  - id: overseas-high-pay
+    text: 出國工作卻主打高薪、免經驗
+    cues:
+    - 出國高薪
+    - 海外工作
+    - re:高薪.{0,10}(免經驗|輕鬆|日領|出國|海外|在家)
+    - re:免經驗.{0,10}(高薪|日領|月入|輕鬆)
+    weight: 2
+  - id: free-travel-lure
+    text: 說工作還附免費旅遊
+    cues:
+    - 免費旅遊
+    - 免費出國
+    weight: 2
+  - id: overseas-livestream-selling
+    text: 邀你出國幫忙賣貨或做直播
+    cues:
+    - re:(出國|海外|柬埔寨|緬甸|泰國|杜拜).{0,10}(直播|帶貨)
+    - 海外直播
+    weight: 2
+  - id: bank-setup-at-interview
+    text: 面試就要你開戶、設定約定轉帳、網路銀行，或簽約出借帳戶
+    cues:
+    - 約定轉帳
+    - re:(網路銀行|網銀).{0,10}(操作|設定|轉帳|驗證(?!碼)|認證(?!碼)|帳號|密碼|帳密)
+    - re:(登入|打開).{0,6}(網路銀行|網銀).{0,10}(驗證(?!碼)|認證(?!碼)|按|操作)
+    - re:(帶你|陪你|幫你|去|要你|請你).{0,6}開戶
+    - re:開戶.{0,10}(交給|給我|寄|提供)
+    - 出借帳戶
+    - 每日報酬
+    weight: 3
+  final_ask:
+  - 跟著對方出國工作，或在面試時申辦、交出銀行帳戶與網路銀行帳密。
+  verify:
+  - 出國工作前，先看外交部網站「海外求職陷阱宣導專區」。
+  - 對網路上徵才的公司多查、多問、多存疑，可以打電話過去確認是不是真的；面試前先跟家人朋友說你要去哪裡，覺得有問題的契約不要簽。
+  - 出國前完成「出國登錄」，並下載「旅外安全指南」App。
+  safe_lookalikes:
+  - 合法公司徵才不會只靠網路訊息貼文，更不會用私人帳號發訊息找你。
+  if_already_happened:
+  - 人在海外受困，向我國駐外館處（大使館、代表處或辦事處）求助；國內親友可先向警察局報案，再撥外交部緊急聯絡中心免付費專線 0800-085-095。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第七章　假求職
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=87a85079-c42f-48cb-9506-14e08c912a39
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+    - if_already_happened
+  - title: 【海外求職要注意　高薪徵才不可信】外交部加強防詐宣導，提醒國人慎防海外求職詐騙
+    publisher: 外交部領事事務局
+    date: '2025-03-06'
+    url: https://www.boca.gov.tw/cp-56-7771-0dbec-1.html
+    level: L1
+    supports:
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - verify
+    - if_already_happened
+  - title: 外交部主任秘書○○○主持「防制海外求職詐騙宣導活動」
+    publisher: 外交部領事事務局
+    date: '2025-12-12'
+    url: https://www.boca.gov.tw/cp-56-8031-95010-1.html
+    level: L1
+    supports:
+    - aliases
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - verify
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - job-account
+  updated: '2026-10-22'
+- id: job-task
+  name: 假求職：刷單、按讚、做任務賺佣金，後來要你先墊錢
+  aliases:
+  - 假兼職
+  - 按讚賺錢詐騙
+  - 代購賺價差
+  category: 求職打工
+  summary: 標榜在家按讚、代購商品就能賺佣金的兼職，先發一點小錢讓你相信，再要你墊錢代購或付會員費升級，等你想領錢時就拖延，甚至 App 下架、群組關閉。
+  status: active
+  first_seen: '2020'
+  channels:
+  - 臉書
+  - Threads
+  - LINE
+  - LINE 群組
+  pretend_to_be:
+  - 兼職招募者
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、Threads 或打工社團看到「在家按讚賺佣金」「代購商品賺價差」的兼職廣告，對方要你私下加 LINE。
+  - stage: 取信
+    what_you_see: 一開始真的發給你一點小額佣金，讓你相信是真的工作。
+  - stage: 要求行動
+    what_you_see: 接著要你投入資金「代購商品」，或付會員費、開通更高等級會員來提高回饋。
+  - stage: 收網後
+    what_you_see: 想出金時對方用各種理由拖延，或 App 無預警關閉下架、群組被關掉。
+  opener_examples:
+  - 在家用手機按讚就能賺佣金，免經驗、時間自由。
+  - 幫忙代購商品就能賺價差，高薪、遠端、免經驗。
+  red_flags:
+  - id: likes-for-money
+    text: 按讚、關注就能賺錢
+    cues:
+    - 按讚賺佣金
+    - 按讚可賺錢
+    - 按讚賺錢
+    - 賺佣金
+    weight: 2
+  - id: pay-before-working
+    text: 要你先墊款、代購商品，或付會員費、升級會員才能領更多
+    cues:
+    - 先墊款
+    - 墊付
+    - 代購商品
+    - 會員費
+    - 升級會員
+    weight: 3
+  - id: easy-high-pay-remote
+    text: 主打高薪、零門檻、輕鬆遠端
+    cues:
+    - re:高薪.{0,10}(免經驗|輕鬆|日領|出國|海外|在家)
+    - re:免經驗.{0,10}(高薪|日領|月入|輕鬆)
+    - 輕鬆遠端
+    - 在家賺錢
+    - 零門檻
+    weight: 1
+  - id: order-task-job
+    weight: 2
+    text: 在家「點單、處理訂單、做任務」，有督導員教你、按單計酬
+    cues:
+    - 點單
+    - 督導員
+    - 線上門市訂單
+    - 計算對應的稿費
+    - re:(訂單|點單).{0,10}(處理|時段|單量)
+  final_ask:
+  - 先墊錢代購商品、付會員費或升級會員，才能繼續領佣金。
+  verify:
+  - 不要相信宣稱高薪、零門檻的工作；要先墊款或先投資才能開始的職缺一律拒絕。
+  - 求職時先查清楚公司和職缺資訊是不是真的。
+  - 有疑問撥打 165 反詐騙專線諮詢。
+  safe_lookalikes:
+  - 正常的兼職不會要求你先墊款或先投資才能開始工作。
+  if_already_happened:
+  - 撥 110 報案，或撥 165 專線諮詢。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 暑假打工注意！「在家按讚賺佣金」全是假　警政署揭詐騙3步驟
+    publisher: 聯合新聞網
+    date: '2026-07-19'
+    url: https://udn.com/news/story/124490/9637050
+    level: L2
+    supports:
+    - aliases
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 假投資真詐騙！抖音點讚賺錢 app「友點讚」百餘人受害
+    publisher: 中央社（INSIDE 授權轉載）
+    date: '2020-08-07'
+    url: https://www.inside.com.tw/article/20608-taiwan-internet-fraud-tiktok
+    level: L2
+    supports:
+    - aliases
+    - first_seen
+    - channels
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+  - title: 暑假打工防詐騙　刑事局籲留心在家賺錢、繳金融卡等關鍵字
+    publisher: 中央社
+    date: '2024-07-06'
+    url: https://www.cna.com.tw/news/asoc/202407060128.aspx
+    level: L2
+    supports:
+    - channels
+    - stages
+    - red_flags
+    - verify
+    - if_already_happened
+  evidence: 🟢
+  related:
+  - job-account
+  updated: '2026-10-22'
+- id: job-account
+  name: 假求職：要你交出存摺、提款卡、網銀帳密，或先付保證金、訓練費
+  aliases:
+  - 假求職
+  - 求職詐騙
+  - 人頭帳戶
+  - 收簿手
+  category: 求職打工
+  summary: 假冒人力公司或知名企業刊登高薪輕鬆職缺，以「薪資轉帳」為由要你交出存摺、提款卡和密碼，或先收保證金、訓練費、制服費；帳戶會被拿去收詐騙款，你也可能變成人頭戶而觸法。
+  status: active
+  first_seen: '2019'
+  channels:
+  - 臉書
+  - LINE
+  - 求職網站
+  pretend_to_be:
+  - 人力資源公司
+  - 知名企業
+  - 獵人頭公司
+  stages:
+  - stage: 接觸
+    what_you_see: 在臉書、LINE 或求職網站看到「高薪日領、免經驗、在家工作」之類的職缺。
+  - stage: 取信
+    what_you_see: 對方自稱人力公司、知名企業或獵人頭，要你私下加 LINE 聯絡，或約你「面試」。
+  - stage: 要求行動
+    what_you_see: 說要設定薪資轉帳，要你交出或用超商寄出存摺、提款卡和密碼，或先付制服費、保證金、訓練費、系統操作費。
+  - stage: 收網後
+    what_you_see: 帳戶被拿去收詐騙款、變成警示帳戶；也有人被叫去 ATM 領錢或到超商收件，淪為車手、收簿手而觸法。
+  opener_examples:
+  - 高薪日領、免經驗，在家就能做，有興趣加 LINE 詳談。
+  - 錄取後要設定薪資轉帳，請先把提款卡和密碼寄來。
+  red_flags:
+  - id: hand-over-bank-card
+    text: 要你交出或寄出存摺、提款卡、提款密碼
+    cues:
+    - re:(寄|交|給|提供|放|郵寄|快遞|面交|交付|出借|出租|借|租).{0,8}(金融卡|提款卡|存摺|存簿|簿子)
+    - re:(金融卡|提款卡|存摺|存簿).{0,10}(寄|交給|給我|密碼|一起|放在|寄到)
+    - 提款密碼
+    weight: 3
+  - id: fee-before-job
+    text: 還沒上班就要先付保證金、訓練費、制服費
+    cues:
+    - re:(先|需|要|須|必須|得|請|再)(繳|付|支付|匯|交|儲值|補).{0,10}(保證金|手續費|稅金|稅|驗證金|解凍金|訂金|保險金|代辦費|稅費|佣金|服務費|運費|關稅)
+    - re:(保證金|手續費|稅金|驗證金|解凍金|稅費|關稅).{0,12}(才能|才可|方可|後才|就能|即可)(出金|提領|領取|撥款|解凍|放款|領獎|提現|入帳|取貨|出貨)
+    - 訓練費
+    - 制服費
+    - 治裝費
+    - 系統操作費
+    weight: 3
+  - id: netbank-credentials
+    text: 要你給網路銀行帳密，或照指示申辦約定轉帳
+    cues:
+    - 網銀帳密
+    - 網路銀行密碼
+    - 約定轉帳
+    - 約定帳戶
+    weight: 3
+  - id: high-pay-daily
+    text: 主打高薪日領、免經驗、在家工作
+    cues:
+    - 高薪日領
+    - 日領
+    - re:免經驗.{0,10}(高薪|日領|月入|輕鬆)
+    - 在家工作
+    weight: 1
+  final_ask:
+  - 交出或寄送存摺、提款卡與密碼、網路銀行帳密。
+  - 先繳保證金、訓練費、制服費或治裝費。
+  verify:
+  - 查證職缺來源是否合法，跟親友討論是否真有這份工作。
+  - 對徵才公司多查、多問，可以打電話過去確認是不是真的；覺得有問題的契約不要簽。
+  - 到台灣就業通查詢打工資訊與求職防騙技巧。
+  safe_lookalikes:
+  - 合法公司徵才不會只靠網路訊息貼文，更不會用私人帳號發訊息找你。
+  if_already_happened:
+  - 面試時發現不對勁，立刻離開現場或藉故脫身。
+  - 立即撥打 165 反詐騙專線，或到附近派出所求助。
+  prevalence:
+    note: ''
+    source_url: ''
+  sources:
+  - title: 常見詐騙手法話術解析與因應之道－第七章　假求職
+    publisher: 刑事警察局
+    date: ''
+    url: https://www.cib.npa.gov.tw/ch/app/data/view?module=wg116&id=1909&serno=87a85079-c42f-48cb-9506-14e08c912a39
+    level: L1
+    supports:
+    - stages
+    - red_flags
+    - final_ask
+    - verify
+    - safe_lookalikes
+  - title: 警惕假求職陷阱，小心誤入詐騙集團圈套
+    publisher: 警政署
+    date: '2025-07-24'
+    url: https://police.npa.gov.tw/ch/app/data/view?module=wg081&id=1835&serno=8a72e874-4e26-4954-a71a-c540e7e33899
+    level: L1
+    supports:
+    - aliases
+    - channels
+    - pretend_to_be
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+    - verify
+    - if_already_happened
+  - title: 青年畢業夯－求職攻略報恁知
+    publisher: 勞動部
+    date: '2019-06-18'
+    url: https://www.mol.gov.tw/1607/1632/1640/44489/
+    level: L1
+    supports:
+    - aliases
+    - first_seen
+    - channels
+    - stages
+    - verify
+    - if_already_happened
+  - title: 暑假打工防詐騙　刑事局籲留心在家賺錢、繳金融卡等關鍵字
+    publisher: 中央社
+    date: '2024-07-06'
+    url: https://www.cna.com.tw/news/asoc/202407060128.aspx
+    level: L2
+    supports:
+    - channels
+    - stages
+    - opener_examples
+    - red_flags
+    - final_ask
+  evidence: 🟢
+  related:
+  - job-overseas
+  - job-task
+  updated: '2026-10-22'
