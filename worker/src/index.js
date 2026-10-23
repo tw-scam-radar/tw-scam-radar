@@ -2,6 +2,7 @@
 // 網頁版規則判不出來時，把訊息轉給 Claude 判讀。
 // - 全站每日上限（DAILY_LIMIT）＋每個來源每日上限（PER_CLIENT_LIMIT），用 KV 計數（KV 有延遲，極短時間內可能超出幾次）
 // - 有設定 TURNSTILE_SECRET 時，先驗證人機驗證（防機器人灌額度）
+// - PUBLIC_AI 不是 "1" 時不對外開放，只有帶對 OWNER_KEY（X-Radar-Key 標頭）的人能用
 // - 不保存、不記錄訊息內容；來源只存雜湊後的代碼，而且每天換鹽
 import Anthropic from "@anthropic-ai/sdk";
 import { PROMPT_VERSION, SYSTEM_PROMPT } from "./prompt.js";
@@ -35,7 +36,7 @@ function corsHeaders(origin, env) {
   return {
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "content-type",
+    "Access-Control-Allow-Headers": "content-type, x-radar-key",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
@@ -43,6 +44,15 @@ function corsHeaders(origin, env) {
 
 const json = (body, status, headers) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json; charset=utf-8", ...headers } });
+
+// 維護者自己用的通行碼：比對雜湊，避免逐字比對洩漏時間差
+async function isOwner(request, env) {
+  const key = request.headers.get("X-Radar-Key") || "";
+  if (!env.OWNER_KEY || !key) return false;
+  const h = async (s) => new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)));
+  const [a, b] = await Promise.all([h(key), h(env.OWNER_KEY)]);
+  return a.every((v, i) => v === b[i]);
+}
 
 async function verifyTurnstile(token, ip, env, fetchImpl) {
   if (!env.TURNSTILE_SECRET) return true; // 沒設定就不驗（只建議在測試時這樣）
@@ -95,7 +105,10 @@ export async function handle(request, env, deps = {}) {
   if ([...text].length > MAX_CHARS) return json({ message: `訊息太長，請只貼 ${MAX_CHARS} 字以內` }, 400, cors);
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-  if (!(await verifyTurnstile(body.turnstileToken, ip, env, fetchImpl))) {
+  // 沒有設定 PUBLIC_AI=1 時，只有帶對通行碼的人能用 AI；帶對通行碼就不用人機驗證
+  const owner = await isOwner(request, env);
+  if (!owner && env.PUBLIC_AI !== "1") return json({ message: "AI 判讀目前不對外開放" }, 403, cors);
+  if (!owner && !(await verifyTurnstile(body.turnstileToken, ip, env, fetchImpl))) {
     return json({ message: "人機驗證沒有通過，請重新整理頁面再試" }, 403, cors);
   }
 

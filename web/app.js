@@ -10,6 +10,14 @@ if (location.hostname === "localhost") {
   if (ai && /^http:\/\/localhost:\d+$/.test(ai)) cfg.aiEndpoint = ai;
   if (ts && /^[\w-]+$/.test(ts)) cfg.turnstileSiteKey = ts;
 }
+// 維護者自己用：打開「網址#key=通行碼」一次，通行碼存在這台裝置的瀏覽器裡（# 後面不會送到網頁伺服器）
+let ownerKey = "";
+try {
+  const m = location.hash.match(/^#key=([\w-]{16,})$/);
+  if (m) { localStorage.setItem("radarKey", m[1]); history.replaceState(null, "", location.pathname + location.search); }
+  ownerKey = localStorage.getItem("radarKey") || "";
+} catch { /* 瀏覽器不給存就當沒有 */ }
+const aiOpen = Boolean(cfg.aiEndpoint && (cfg.publicAi || ownerKey));
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const list = (items) => `<ul>${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
 
@@ -72,7 +80,7 @@ function renderAiOffer(r) {
   // 規則看到一點紅旗但判不準 → 主要按鈕；完全沒紅旗或已判出紅旗 → 次要按鈕（省下每日名額）
   const label = clean ? "還是不放心？請 AI 判讀" : unsure ? "自動比對判不出來，請 AI 判讀" : "我覺得不是詐騙，請 AI 再看一次";
   const primary = unsure && !clean;
-  if (!cfg.aiEndpoint) {
+  if (!aiOpen) {
     box.innerHTML = unsure
       ? `<div class="card"><p><b>還是不放心？</b>AI 判讀還在測試，暫時沒有開放；不確定的話請直接打 165。</p></div>`
       : "";
@@ -91,7 +99,7 @@ function renderAiOffer(r) {
 // 容器 id 不能叫 turnstile：有 id 的元素會變成同名的 window 屬性，蓋掉 window.turnstile
 let tsLoading = null;
 function renderTurnstile() {
-  if (!cfg.turnstileSiteKey) return;
+  if (!cfg.turnstileSiteKey || ownerKey) return; // 帶通行碼的人不用人機驗證
   const btn = $("askAi");
   btn.disabled = true; // 拿到驗證 token 才能送
   window.turnstileToken = "";
@@ -120,7 +128,7 @@ async function askAi() {
   $("aiOut").innerHTML = `<p class="note">AI 判讀中……</p>`;
   try {
     const res = await fetch(cfg.aiEndpoint.replace(/\/$/, "") + "/check", {
-      method: "POST", headers: { "content-type": "application/json" },
+      method: "POST", headers: { "content-type": "application/json", ...(ownerKey ? { "x-radar-key": ownerKey } : {}) },
       body: JSON.stringify({ text: $("msg").value, turnstileToken: window.turnstileToken || "" }),
     });
     let data = null;

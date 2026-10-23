@@ -4,7 +4,7 @@
 
 注意：Cloudflare 會用註冊 email 自動產生 workers.dev 子網域，這個子網域會出現在公開的 AI 網址裡。部署前先到 Workers & Pages → Account details → Subdomain 改成中性名字。
 
-目前的正式版：網頁放 GitHub Pages（`https://tw-scam-radar.github.io/tw-scam-radar/`，由發布流程推 `web/` 到公開專案的 `gh-pages` 分支），AI 中繼放 Cloudflare Workers（`https://radar-ai.tw-scam-radar.workers.dev`）。下面第 4 節的 Cloudflare Pages 是另一種放法。
+目前沒有公開提供網站。中繼程式有兩種模式：`PUBLIC_AI = "1"` 時對外開放（要人機驗證、有每日上限）；不設定時只有帶對通行碼的人能用（用 `wrangler secret put OWNER_KEY` 設定，網頁用「網址#key=通行碼」打開一次就會記住）。網頁可以放任何靜態網站服務，`ALLOWED_ORIGINS` 要填網頁的網址。
 
 ## 1. 帳號（維護者本人）
 

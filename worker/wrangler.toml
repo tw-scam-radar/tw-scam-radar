@@ -6,9 +6,9 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 MODEL = "claude-sonnet-5-5"
-DAILY_LIMIT = "300"        # 全站每天最多幾次 AI 判讀
-PER_CLIENT_LIMIT = "5"     # 每個來源每天最多幾次
-ALLOWED_ORIGINS = "https://tw-scam-radar.github.io"   # 網頁版網址（多個用逗號分開）
+DAILY_LIMIT = "30"         # 全站每天最多幾次 AI 判讀（2026-10-23 起網頁版不公開宣傳，只給維護者自己用）
+PER_CLIENT_LIMIT = "30"    # 每個來源每天最多幾次
+# ALLOWED_ORIGINS（網頁的網址，多個用逗號分開）用 npx wrangler secret put ALLOWED_ORIGINS 設定，不寫在這裡
 
 # 建立 KV 後把 id 填進來：npx wrangler kv namespace create RADAR_KV
 [[kv_namespaces]]
