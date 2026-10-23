@@ -79,7 +79,7 @@ function renderAiOffer(r) {
     box.hidden = !unsure;
     return;
   }
-  box.innerHTML = `<div class="card"><p class="note">按下後，這則訊息會送到 AI 服務判讀（不會被保存）。每天名額有限。送出前請先把姓名、電話、帳號刪掉，或改成○○。</p>
+  box.innerHTML = `<div class="card"><p class="note">按下後，這則訊息會送到 AI 服務判讀（我們不保存訊息內容）。每天名額有限。送出前請先把姓名、電話、帳號刪掉，或改成○○。</p>
     <div id="tsBox"></div>
     <button id="askAi" class="${primary ? "primary" : "ghost"}">${label}</button><div id="aiOut"></div></div>`;
   box.hidden = false;
