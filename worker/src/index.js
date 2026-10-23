@@ -60,7 +60,7 @@ async function verifyTurnstile(token, ip, env, fetchImpl) {
 export async function callModel(text, env, fetchImpl) {
   const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, ...(fetchImpl ? { fetch: fetchImpl } : {}) });
   const response = await client.messages.create({
-    model: env.MODEL || "claude-haiku-5-5",
+    model: env.MODEL || "claude-sonnet-5-5",
     max_tokens: 2048,
     system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
     messages: [{ role: "user", content: `<message>\n${text}\n</message>` }],

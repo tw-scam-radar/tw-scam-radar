@@ -9,7 +9,7 @@ if (!process.env.ANTHROPIC_API_KEY) { console.error("缺少 ANTHROPIC_API_KEY");
 const items = JSON.parse(readFileSync(inPath, "utf8"));
 const done = existsSync(outPath) ? JSON.parse(readFileSync(outPath, "utf8")) : [];
 const seen = new Set(done.map((d) => d.id));
-const env = { ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY, MODEL: process.env.MODEL || "claude-haiku-5-5" };
+const env = { ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY, MODEL: process.env.MODEL || "claude-sonnet-5-5" };
 
 for (const it of items) {
   if (seen.has(it.id)) continue; // 中斷後可以接著跑

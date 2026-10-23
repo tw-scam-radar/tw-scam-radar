@@ -48,7 +48,7 @@ npx wrangler deploy      # 部署，會印出網址，例如 https://radar-ai.<�
 npx wrangler pages deploy web --project-name tw-scam-radar
 ```
 
-## 5. 上線前用正式寫法量一次分數（會花錢，Haiku 5.5 約不到 1 美元）
+## 5. 上線前用正式寫法量一次分數（會花錢；345 題用 Haiku 5.5 約不到 1 美元，Sonnet 5.5 大約貴 20 倍）
 
 ```bash
 python tools/blind_to_json.py            # 把盲測考卷轉成 JSON
