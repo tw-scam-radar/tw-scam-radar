@@ -13,7 +13,7 @@ ALLOWED_ORIGINS = "https://tw-scam-radar.github.io"   # 網頁版網址（多個
 # 建立 KV 後把 id 填進來：npx wrangler kv namespace create RADAR_KV
 [[kv_namespaces]]
 binding = "RADAR_KV"
-id = "填入建立後的 KV id"
+id = "d190091732f441e78fb32e37653c44d7"
 
 # 機密值不要寫在這裡，用指令設定：
 #   npx wrangler secret put ANTHROPIC_API_KEY

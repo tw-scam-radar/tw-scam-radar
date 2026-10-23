@@ -2,6 +2,10 @@
 
 全部用專案專用 email 註冊，名稱用 `tw-scam-radar` 之類的中性名字。註冊帳號、付款、同意條款都要維護者本人操作。
 
+注意：Cloudflare 會用註冊 email 自動產生 workers.dev 子網域，這個子網域會出現在公開的 AI 網址裡。部署前先到 Workers & Pages → Account details → Subdomain 改成中性名字。
+
+目前的正式版：網頁放 GitHub Pages（`https://tw-scam-radar.github.io/tw-scam-radar/`，由發布流程推 `web/` 到公開專案的 `gh-pages` 分支），AI 中繼放 Cloudflare Workers（`https://radar-ai.tw-scam-radar.workers.dev`）。下面第 4 節的 Cloudflare Pages 是另一種放法。
+
 ## 1. 帳號（維護者本人）
 
 | 服務 | 用途 | 費用 |
