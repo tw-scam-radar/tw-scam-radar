@@ -3,9 +3,12 @@ import { Engine } from "./radar.js";
 const $ = (id) => document.getElementById(id);
 const cfg = { ...(window.RADAR_CONFIG || {}) };
 // 本機開發：http://localhost:8766/?ai=http://localhost:8787 可以接上本機的中繼程式
+// 加 &ts=1x00000000000000000000AA 換成 Cloudflare 的測試用 site key（正式的 key 只認正式網域）
 if (location.hostname === "localhost") {
-  const ai = new URLSearchParams(location.search).get("ai");
+  const q = new URLSearchParams(location.search);
+  const ai = q.get("ai"), ts = q.get("ts");
   if (ai && /^http:\/\/localhost:\d+$/.test(ai)) cfg.aiEndpoint = ai;
+  if (ts && /^[\w-]+$/.test(ts)) cfg.turnstileSiteKey = ts;
 }
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const list = (items) => `<ul>${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
@@ -77,7 +80,7 @@ function renderAiOffer(r) {
     return;
   }
   box.innerHTML = `<div class="card"><p class="note">按下後，這則訊息會送到 AI 服務判讀（不會被保存）。每天名額有限。送出前請先把姓名、電話、帳號刪掉，或改成○○。</p>
-    <div id="turnstile"></div>
+    <div id="tsBox"></div>
     <button id="askAi" class="${primary ? "primary" : "ghost"}">${label}</button><div id="aiOut"></div></div>`;
   box.hidden = false;
   $("askAi").onclick = askAi;
@@ -85,17 +88,30 @@ function renderAiOffer(r) {
 }
 
 // Cloudflare Turnstile 人機驗證（有設定 site key 才顯示）
+// 容器 id 不能叫 turnstile：有 id 的元素會變成同名的 window 屬性，蓋掉 window.turnstile
+let tsLoading = null;
 function renderTurnstile() {
   if (!cfg.turnstileSiteKey) return;
-  const draw = () => window.turnstile.render("#turnstile", {
-    sitekey: cfg.turnstileSiteKey, language: "zh-tw",
-    callback: (token) => { window.turnstileToken = token; },
-  });
-  if (window.turnstile) return draw();
-  const s = document.createElement("script");
-  s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-  s.onload = draw;
-  document.head.appendChild(s);
+  const btn = $("askAi");
+  btn.disabled = true; // 拿到驗證 token 才能送
+  window.turnstileToken = "";
+  const draw = () => {
+    window.tsWidget = window.turnstile.render("#tsBox", {
+      sitekey: cfg.turnstileSiteKey, language: "zh-tw",
+      callback: (token) => { window.turnstileToken = token; btn.disabled = false; },
+      "expired-callback": () => { window.turnstileToken = ""; btn.disabled = true; },
+    });
+  };
+  if (typeof window.turnstile?.render === "function") return draw();
+  if (!tsLoading) {
+    tsLoading = new Promise((ok) => {
+      const s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      s.onload = ok;
+      document.head.appendChild(s);
+    });
+  }
+  tsLoading.then(draw);
 }
 
 async function askAi() {
@@ -121,7 +137,9 @@ async function askAi() {
   } catch (e) {
     const msg = e.fromServer ? e.message : "AI 判讀暫時連不上"; // 連不上網路時瀏覽器給的是英文，不顯示給使用者
     $("aiOut").innerHTML = `<p class="note">${esc(msg)}。請直接打 165 問。</p>`;
-    btn.disabled = false;
+    // 驗證 token 只能用一次：換一個新的，拿到後按鈕會自己恢復
+    if (cfg.turnstileSiteKey && window.turnstile?.reset) { window.turnstileToken = ""; window.turnstile.reset(window.tsWidget); }
+    else btn.disabled = false;
   }
 }
 
